@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Compass, X, Shield, FileText, HelpCircle, HeartHandshake, Phone, Mail, Eye } from 'lucide-react';
+import { X, Shield, FileText, HelpCircle, HeartHandshake, Mail, Eye } from 'lucide-react';
 
 interface FooterProps {
   onScrollToSupport?: () => void;
@@ -13,59 +13,36 @@ export function Footer({
   onOpenCalculator
 }: FooterProps) {
   const [activeModal, setActiveModal] = useState<'about' | 'privacy' | 'terms' | 'accessibility' | 'contact' | 'help' | null>(null);
-  const [selectedLang, setSelectedLang] = useState<'English' | '中文' | 'Melayu' | 'தமிழ்'>('English');
-
-  const languages: Array<'English' | '中文' | 'Melayu' | 'தமிழ்'> = ['English', '中文', 'Melayu', 'தமிழ்'];
 
   return (
     <>
-      <footer className="bg-white border-t border-gray-200 text-xs text-gray-600 py-12 mt-16 text-left">
+      <footer className="bg-white border-t border-gray-200 text-xs text-gray-600 py-12 text-left">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Main Footer Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-gray-100">
+          <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-gray-200">
             
-            {/* Brand Column */}
+            {/* SupportGoWhere Brand Column */}
             <div className="md:col-span-4">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-8 h-8 rounded-xl bg-blue-700 text-white flex items-center justify-center">
-                  <Compass className="w-5 h-5 stroke-[2.2]" />
+              <div className="flex items-center gap-2.5 mb-3">
+                <div className="relative w-8 h-8 flex items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-rose-500 to-red-500 shadow-xs shadow-red-200">
+                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
+                  </svg>
                 </div>
-                <div>
-                  <span className="font-bold text-base text-gray-900 tracking-tight block">
-                    HelpCompass SG
+                <div className="leading-none text-left">
+                  <span className="block text-lg font-bold tracking-tight text-gray-900 font-sans">
+                    SupportGoWhere
                   </span>
-                  <span className="text-[11px] text-gray-500 font-medium">
-                    Public Support Directory
+                  <span className="block text-[10px] font-bold text-gray-400 tracking-wider uppercase">
+                    Singapore Public Support
                   </span>
                 </div>
               </div>
 
               <p className="text-xs text-gray-500 leading-relaxed max-w-sm mt-3">
-                An independent public-support navigator helping residents discover, understand, and plan household assistance with clarity and calm.
+                An official Singapore Government initiative helping residents discover and access support schemes, subsidies, and community assistance.
               </p>
-
-              {/* Language Selector */}
-              <div className="mt-5 pt-4 border-t border-gray-100 flex items-center gap-2 text-xs">
-                <span className="text-gray-400 font-medium">Language:</span>
-                <div className="flex items-center gap-1.5 font-medium">
-                  {languages.map((lang, index) => (
-                    <React.Fragment key={lang}>
-                      <button
-                        onClick={() => setSelectedLang(lang)}
-                        className={`transition-colors cursor-pointer ${
-                          selectedLang === lang ? 'text-blue-700 font-bold' : 'text-gray-600 hover:text-gray-900'
-                        }`}
-                      >
-                        {lang}
-                      </button>
-                      {index < languages.length - 1 && (
-                        <span className="text-gray-300 select-none">|</span>
-                      )}
-                    </React.Fragment>
-                  ))}
-                </div>
-              </div>
             </div>
 
             {/* Navigation Column */}
@@ -78,18 +55,15 @@ export function Footer({
                   <li>
                     <button
                       onClick={onScrollToSupport}
-                      className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                     >
                       Support
                     </button>
                   </li>
                   <li>
                     <button
-                      onClick={() => {
-                        const el = document.getElementById('resources-and-tools');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }}
-                      className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                      onClick={onScrollToResources}
+                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                     >
                       Resources & Tools
                     </button>
@@ -97,7 +71,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={onOpenCalculator}
-                      className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                     >
                       Support Calculator
                     </button>
@@ -113,7 +87,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('about')}
-                      className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                     >
                       About
                     </button>
@@ -121,7 +95,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('contact')}
-                      className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                     >
                       Contact
                     </button>
@@ -129,7 +103,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('help')}
-                      className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                     >
                       Help
                     </button>
@@ -138,7 +112,7 @@ export function Footer({
               </div>
             </div>
 
-            {/* Standards & Transparency Column */}
+            {/* Standards & Policies Column */}
             <div className="md:col-span-4">
               <h4 className="font-bold text-xs uppercase tracking-wider text-gray-900 mb-3">
                 Standards & Policies
@@ -147,7 +121,7 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('accessibility')}
-                    className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                   >
                     Accessibility
                   </button>
@@ -155,7 +129,7 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('privacy')}
-                    className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                   >
                     Privacy
                   </button>
@@ -163,26 +137,26 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('terms')}
-                    className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
                   >
                     Terms
                   </button>
                 </li>
               </ul>
               <p className="text-[11px] text-gray-400 leading-relaxed">
-                Free public resource. No sensitive personal data, NRIC numbers, or confidential financial credentials are required or saved.
+                GovTech Singapore · In collaboration with Ministry of Social and Family Development (MSF).
               </p>
             </div>
 
           </div>
 
-          {/* Bottom Row */}
-          <div className="pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[11px] text-gray-400">
+          {/* Bottom Copyright Row */}
+          <div className="pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[11px] text-gray-500">
             <div>
-              © 2026 HelpCompass SG. Independent community assistance guide for Singapore residents.
+              © 2026 Government of Singapore. All rights reserved.
             </div>
             <div>
-              Public benefits discovery service. Calculations are non-binding estimates.
+              Last updated 28 September 2026 · SupportGoWhere
             </div>
           </div>
 
@@ -202,16 +176,16 @@ export function Footer({
 
             {activeModal === 'about' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-blue-700">
+                <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
                   <HeartHandshake className="w-5 h-5" />
-                  <h3 className="text-base font-bold text-gray-900">About HelpCompass SG</h3>
+                  <h3 className="text-base font-bold text-gray-900">About SupportGoWhere</h3>
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-3 mb-5">
                   <p>
-                    HelpCompass SG is designed to simplify how households discover, understand, and apply for assistance schemes in Singapore.
+                    SupportGoWhere is a one-stop portal for Singaporeans to discover government support schemes and community initiatives that suit their needs.
                   </p>
                   <p>
-                    Rather than presenting dozens of confusing schemes with equal weight, the directory highlights structured starting points ("Start here") and actionable preparation checklists to reduce decision overload.
+                    From living expenses and healthcare subsidies to career training allowances, the portal provides transparent eligibility criteria and guided assistance for all life stages.
                   </p>
                 </div>
               </div>
@@ -221,17 +195,12 @@ export function Footer({
               <div>
                 <div className="flex items-center gap-2.5 mb-3 text-emerald-700">
                   <Shield className="w-5 h-5" />
-                  <h3 className="text-base font-bold text-gray-900">Privacy Safeguards</h3>
+                  <h3 className="text-base font-bold text-gray-900">Privacy Statement</h3>
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-2.5 mb-5">
                   <p>
-                    Your trust and peace of mind are paramount:
+                    This service adheres to the Public Sector (Governance) Act. All data provided for simulation and discovery remains private and secure.
                   </p>
-                  <ul className="list-disc pl-4 space-y-1.5">
-                    <li>We do not collect or store NRIC numbers, full names, or bank account details.</li>
-                    <li>All household benefit calculations are computed locally in your web browser.</li>
-                    <li>Optional reminders and sharing features contain zero private identifying data.</li>
-                  </ul>
                 </div>
               </div>
             )}
@@ -244,7 +213,7 @@ export function Footer({
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-2.5 mb-5">
                   <p>
-                    HelpCompass SG provides informational guidance based on publicly available eligibility rules. Figures displayed are non-binding estimates. Official administering agencies make final eligibility determinations upon formal application.
+                    Information provided on SupportGoWhere is updated regularly from administering agencies. Eligibility criteria and disbursements are subject to official evaluation.
                   </p>
                 </div>
               </div>
@@ -252,13 +221,13 @@ export function Footer({
 
             {activeModal === 'accessibility' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-blue-700">
+                <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
                   <Eye className="w-5 h-5" />
-                  <h3 className="text-base font-bold text-gray-900">Accessibility Commitment</h3>
+                  <h3 className="text-base font-bold text-gray-900">Accessibility</h3>
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-2.5 mb-5">
                   <p>
-                    HelpCompass SG is designed to meet WCAG AA contrast standards, keyboard navigability, readable typography, and screen-reader accessibility for all Singapore residents.
+                    SupportGoWhere is designed to be accessible to all users, including individuals with disabilities, in compliance with digital government standards.
                   </p>
                 </div>
               </div>
@@ -266,16 +235,16 @@ export function Footer({
 
             {activeModal === 'contact' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-blue-700">
+                <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
                   <Mail className="w-5 h-5" />
-                  <h3 className="text-base font-bold text-gray-900">Contact & Support</h3>
+                  <h3 className="text-base font-bold text-gray-900">Contact SupportGoWhere</h3>
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-2.5 mb-5">
                   <p>
-                    Have questions about community schemes or navigating this directory?
+                    For feedback or enquiries regarding support schemes:
                   </p>
-                  <p className="font-medium text-gray-800">
-                    Email: support@helpcompass.sg
+                  <p className="font-semibold text-gray-800">
+                    Email: support@supportgowhere.gov.sg
                   </p>
                 </div>
               </div>
@@ -283,18 +252,14 @@ export function Footer({
 
             {activeModal === 'help' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-blue-700">
+                <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
                   <HelpCircle className="w-5 h-5" />
-                  <h3 className="text-base font-bold text-gray-900">Help & Guidance</h3>
+                  <h3 className="text-base font-bold text-gray-900">Help & FAQs</h3>
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-3 mb-5">
                   <div>
-                    <strong className="text-gray-900 block mb-0.5">Where should I begin?</strong>
-                    <span>Use the "Start here" section near the top of your assessment results to see the most accessible starting options.</span>
-                  </div>
-                  <div>
-                    <strong className="text-gray-900 block mb-0.5">How do automatic schemes work?</strong>
-                    <span>Schemes marked "Automatic — nothing to do" are credited directly to your utility bills or CPF accounts without paperwork.</span>
+                    <strong className="text-gray-900 block mb-0.5">How do I find relevant support?</strong>
+                    <span>Use the guided assistant on the homepage to select your current situation, or explore schemes by category below.</span>
                   </div>
                 </div>
               </div>
