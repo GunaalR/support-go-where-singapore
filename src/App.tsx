@@ -1,187 +1,164 @@
-import { useState } from 'react';
-import { Language, Scheme, Topic, UserProfile } from './types';
-import { ScamBanner } from './components/ScamBanner';
-import { GovMasthead } from './components/GovMasthead';
+import React, { useState, useEffect } from 'react';
+import { Variant, Scheme, DemoHousehold, FirstMovePlan } from './types';
+import { FICTIONAL_SCHEMES } from './data/fictionalSchemes';
+import { StudentResearchBanner } from './components/StudentResearchBanner';
+import { PrototypeDisclaimerBanner } from './components/PrototypeDisclaimerBanner';
+import { Masthead } from './components/Masthead';
 import { Header } from './components/Header';
-import { LanguageBar } from './components/LanguageBar';
-import { HeroSection } from './components/HeroSection';
-import { ExploreTopics } from './components/ExploreTopics';
-import { SupportSchemesSection } from './components/SupportSchemesSection';
-import { OtherResourcesSection } from './components/OtherResourcesSection';
-import { AgencyAffiliations } from './components/AgencyAffiliations';
-import { Footer } from './components/Footer';
-import { FeedbackWidget } from './components/FeedbackWidget';
+import { ResultsSection } from './components/ResultsSection';
 import { BudgetCalculatorModal } from './components/BudgetCalculatorModal';
 import { SchemeDetailModal } from './components/SchemeDetailModal';
-import { TopicDetailModal } from './components/TopicDetailModal';
-import { SingpassModal } from './components/SingpassModal';
-import { ChatbotInfoModal } from './components/ChatbotInfoModal';
+import { PlanFirstMoveModal } from './components/PlanFirstMoveModal';
 import { SearchModal } from './components/SearchModal';
-import { TOPICS } from './data/topics';
+import { Footer } from './components/Footer';
 
 export default function App() {
-  const [currentLang, setCurrentLang] = useState<Language>('en');
-  const [selectedScheme, setSelectedScheme] = useState<Scheme | null>(null);
-  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
-  const [isBudgetCalcOpen, setIsBudgetCalcOpen] = useState(false);
-  const [isSingpassOpen, setIsSingpassOpen] = useState(false);
-  const [isChatbotInfoOpen, setIsChatbotInfoOpen] = useState(false);
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-  const [isFeedbackOpen, setIsFeedbackOpen] = useState(false);
-
-  // User state (Singpass simulation)
-  const [user, setUser] = useState<UserProfile>({
-    name: 'Guest User',
-    nric: '',
-    email: '',
-    isLoggedIn: false,
-    savedSchemeIds: [],
-    housingType: '',
-    estimatedBenefits: 0
+  // Support ?v=A or ?v=B from URL
+  const [variant, setVariant] = useState<Variant>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const v = params.get('v');
+      if (v === 'B' || v === 'b') return 'B';
+    }
+    return 'A'; // Default to Variant A (Baseline)
   });
 
-  const handleToggleBookmark = (schemeId: string) => {
-    setUser((prev) => {
-      const exists = prev.savedSchemeIds.includes(schemeId);
-      return {
-        ...prev,
-        savedSchemeIds: exists
-          ? prev.savedSchemeIds.filter((id) => id !== schemeId)
-          : [...prev.savedSchemeIds, schemeId]
-      };
-    });
+  const handleVariantChange = (newVariant: Variant) => {
+    setVariant(newVariant);
+    if (typeof window !== 'undefined') {
+      const url = new URL(window.location.href);
+      url.searchParams.set('v', newVariant);
+      window.history.replaceState({}, '', url.toString());
+    }
   };
 
-  const handleLogout = () => {
-    setUser({
-      name: 'Guest User',
-      nric: '',
-      email: '',
-      isLoggedIn: false,
-      savedSchemeIds: [],
-      housingType: '',
-      estimatedBenefits: 0
-    });
+  // Synchronize on browser history popstate
+  useEffect(() => {
+    const handlePopState = () => {
+      const params = new URLSearchParams(window.location.search);
+      const v = params.get('v');
+      setVariant(v === 'B' || v === 'b' ? 'B' : 'A');
+    };
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Fictional household persona
+  const [household, setHousehold] = useState<DemoHousehold>({
+    name: 'The Lee Family',
+    householdLabel: '4-Room Apartment · 1 Senior Dependant, 1 Child',
+    dwellingType: '4-Room Apartment',
+    estimatedTotal: 3300
+  });
+
+  // Track voluntary first-move plans (Variant B)
+  const [plans, setPlans] = useState<Record<string, FirstMovePlan>>({});
+
+  // Modals state
+  const [selectedScheme, setSelectedScheme] = useState<Scheme | null>(null);
+  const [schemeForPlanning, setSchemeForPlanning] = useState<Scheme | null>(null);
+  const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+  const handleCompletePlan = (plan: FirstMovePlan) => {
+    setPlans((prev) => ({
+      ...prev,
+      [plan.schemeId]: plan
+    }));
   };
 
-  const handleSelectTopicById = (topicId: string) => {
-    const found = TOPICS.find((t) => t.id === topicId);
-    if (found) {
-      setSelectedTopic(found);
+  const handleResetHousehold = () => {
+    setHousehold({
+      name: 'The Lee Family',
+      householdLabel: '4-Room Apartment · 1 Senior Dependant, 1 Child',
+      dwellingType: '4-Room Apartment',
+      estimatedTotal: 3300
+    });
+    setPlans({});
+  };
+
+  const handleScrollToResults = () => {
+    const el = document.getElementById('results-section');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans antialiased flex flex-col selection:bg-blue-100 selection:text-[#175CD3]">
+    <div className="min-h-screen bg-white text-gray-900 font-sans antialiased flex flex-col selection:bg-blue-100 selection:text-blue-800">
       
-      {/* 1. Scam Alert Banner */}
-      <ScamBanner currentLang={currentLang} />
+      {/* 1. Academic Course Header & Variant Selector (?v=A | ?v=B) */}
+      <StudentResearchBanner
+        variant={variant}
+        onVariantChange={handleVariantChange}
+      />
 
-      {/* 2. Official Singapore Government Masthead */}
-      <GovMasthead currentLang={currentLang} />
+      {/* 2. Educational & Research Prototype Notice */}
+      <PrototypeDisclaimerBanner />
 
-      {/* 3. Main Header with Navigation & Singpass */}
+      {/* 3. Academic Masthead with Ethics Standards */}
+      <Masthead />
+
+      {/* 4. HelpCompass SG Main Header */}
       <Header
-        currentLang={currentLang}
-        user={user}
-        onOpenLogin={() => setIsSingpassOpen(true)}
-        onLogout={handleLogout}
-        onSelectTopic={handleSelectTopicById}
-        onOpenBudgetCalc={() => setIsBudgetCalcOpen(true)}
+        household={household}
+        onOpenCalculator={() => setIsCalculatorOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
+        onResetHousehold={handleResetHousehold}
+        onScrollToResults={handleScrollToResults}
       />
 
-      {/* 4. Language Bar Switcher */}
-      <LanguageBar
-        currentLang={currentLang}
-        onLanguageChange={(lang) => setCurrentLang(lang)}
-      />
-
-      {/* Main Content Area */}
+      {/* Main Results View (The core of the MGMT 6108 experiment) */}
       <main className="flex-1">
-        {/* 5. Hero & Intelligent Chat/Search Section */}
-        <HeroSection
-          currentLang={currentLang}
-          onOpenScheme={(scheme) => setSelectedScheme(scheme)}
-          onOpenChatbotInfo={() => setIsChatbotInfoOpen(true)}
+        <ResultsSection
+          variant={variant}
+          household={household}
+          schemes={FICTIONAL_SCHEMES}
+          plans={plans}
+          onSelectScheme={(scheme) => setSelectedScheme(scheme)}
+          onOpenPlanModal={(scheme) => setSchemeForPlanning(scheme)}
+          onOpenCalculator={() => setIsCalculatorOpen(true)}
         />
-
-        {/* 6. Explore Support By Topic (12 Cards + Budget 2026 Card) */}
-        <ExploreTopics
-          currentLang={currentLang}
-          onSelectTopic={(topic) => setSelectedTopic(topic)}
-          onOpenBudgetCalc={() => setIsBudgetCalcOpen(true)}
-        />
-
-        {/* 7. Apply for Support Schemes (ComCare & SCFA) */}
-        <SupportSchemesSection
-          currentLang={currentLang}
-          onOpenScheme={(scheme) => setSelectedScheme(scheme)}
-        />
-
-        {/* 8. Other Resources (FoodConnect & GoBusiness) */}
-        <OtherResourcesSection currentLang={currentLang} />
-
-        {/* 9. Agency Affiliations (LifeSG, GovTech, MOF, MSF, NCSS, Muis) */}
-        <AgencyAffiliations currentLang={currentLang} />
       </main>
 
-      {/* 10. Main Official Government Footer */}
-      <Footer
-        currentLang={currentLang}
-        onOpenFeedback={() => setIsFeedbackOpen(true)}
-      />
-
-      {/* 11. Persistent Floating Feedback Widget (Yellow smiley) */}
-      <FeedbackWidget
-        isOpen={isFeedbackOpen}
-        onToggle={() => setIsFeedbackOpen(!isFeedbackOpen)}
-        onClose={() => setIsFeedbackOpen(false)}
-      />
+      {/* 5. Footer with Course Brief and Safeguards */}
+      <Footer />
 
       {/* Modals */}
-      {/* Budget 2026 Calculator Modal */}
-      <BudgetCalculatorModal
-        isOpen={isBudgetCalcOpen}
-        onClose={() => setIsBudgetCalcOpen(false)}
-        onApplyProfile={(total) => {
-          setUser((prev) => ({ ...prev, estimatedBenefits: total }));
-        }}
-      />
-
-      {/* Scheme Detail Modal */}
+      {/* Scheme Detail Modal (includes "What you'll need" checklist) */}
       <SchemeDetailModal
         scheme={selectedScheme}
+        variant={variant}
+        plan={selectedScheme ? plans[selectedScheme.id] : undefined}
         onClose={() => setSelectedScheme(null)}
-        user={user}
-        onToggleBookmark={handleToggleBookmark}
-        onOpenLogin={() => {
+        onOpenPlanModal={(scheme) => {
           setSelectedScheme(null);
-          setIsSingpassOpen(true);
+          setSchemeForPlanning(scheme);
         }}
       />
 
-      {/* Topic Detail Modal */}
-      <TopicDetailModal
-        topic={selectedTopic}
-        onClose={() => setSelectedTopic(null)}
-        onSelectScheme={(scheme) => setSelectedScheme(scheme)}
+      {/* Plan the First Move Modal (Variant B: When will you take the next step? + Do this with someone) */}
+      <PlanFirstMoveModal
+        isOpen={Boolean(schemeForPlanning)}
+        scheme={schemeForPlanning}
+        onClose={() => setSchemeForPlanning(null)}
+        onCompletePlan={handleCompletePlan}
       />
 
-      {/* Singpass Authentication Modal */}
-      <SingpassModal
-        isOpen={isSingpassOpen}
-        onClose={() => setIsSingpassOpen(false)}
-        onLoginSuccess={(profile) => setUser(profile)}
+      {/* Assessment Calculator Modal */}
+      <BudgetCalculatorModal
+        isOpen={isCalculatorOpen}
+        onClose={() => setIsCalculatorOpen(false)}
+        onApplyResults={(total, dwelling) => {
+          setHousehold((prev) => ({
+            ...prev,
+            estimatedTotal: total,
+            dwellingType: dwelling
+          }));
+        }}
       />
 
-      {/* Chatbot Beta Info Modal */}
-      <ChatbotInfoModal
-        isOpen={isChatbotInfoOpen}
-        onClose={() => setIsChatbotInfoOpen(false)}
-      />
-
-      {/* Global Quick Search Modal */}
+      {/* Search Modal */}
       <SearchModal
         isOpen={isSearchOpen}
         onClose={() => setIsSearchOpen(false)}

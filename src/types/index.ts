@@ -1,5 +1,9 @@
 export type Language = 'en' | 'zh' | 'ms' | 'ta';
 
+export type Variant = 'A' | 'B';
+
+export type ActionStatus = 'automatic' | 'apply';
+
 export interface Scheme {
   id: string;
   title: string;
@@ -14,7 +18,12 @@ export interface Scheme {
   benefits: string[];
   requiredDocs: string[];
   disbursement: string;
-  budget2026Measure?: boolean;
+  actionStatus: ActionStatus;
+  estimatedValue: number;
+  // Variant B specific attributes
+  isRecommendedInB?: boolean;
+  recommendationReason?: string;
+  whatYouNeed: string[];
   featured?: boolean;
 }
 
@@ -29,29 +38,30 @@ export interface Topic {
 
 export interface BudgetInput {
   age: number;
-  assessableIncome: 'below_34k' | '34k_100k' | 'above_100k';
-  housingType: 'hdb_1_2' | 'hdb_3' | 'hdb_4' | 'hdb_5_exec' | 'private';
-  hasElderly: boolean;
+  householdIncome: 'tier_1' | 'tier_2' | 'tier_3';
+  dwellingType: 'small_apartment' | 'medium_apartment' | 'large_apartment';
+  hasDependants: boolean;
   numChildren: number;
-  isSelfEmployed: boolean;
 }
 
 export interface BudgetResult {
-  cdcVouchers: number;
-  colSpecialPayment: number;
-  uSaveRebates: number;
-  mediSaveTopup: number;
-  assuranceCash: number;
-  sg60Bonus?: number;
+  utilitiesSubsidy: number;
+  livingCostCredit: number;
+  caregiverSupport: number;
+  skillsCredit: number;
   totalAnnualBenefit: number;
 }
 
-export interface UserProfile {
+export interface FirstMovePlan {
+  schemeId: string;
+  timeframe: 'Today' | 'This weekend' | 'Remind me' | null;
+  sharedWithSomeone: boolean;
+  buddyMessage?: string;
+}
+
+export interface DemoHousehold {
   name: string;
-  nric: string;
-  email: string;
-  isLoggedIn: boolean;
-  savedSchemeIds: string[];
-  housingType: string;
-  estimatedBenefits: number;
+  householdLabel: string;
+  dwellingType: string;
+  estimatedTotal: number;
 }

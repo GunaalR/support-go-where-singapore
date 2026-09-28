@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { X, Search, ChevronRight, Tag } from 'lucide-react';
 import { Scheme } from '../types';
-import { SCHEMES } from '../data/schemes';
+import { FICTIONAL_SCHEMES } from '../data/fictionalSchemes';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -21,7 +21,7 @@ export function SearchModal({ isOpen, onClose, onSelectScheme }: SearchModalProp
 
   if (!isOpen) return null;
 
-  const results = SCHEMES.filter((scheme) => {
+  const results = FICTIONAL_SCHEMES.filter((scheme) => {
     if (!searchTerm.trim()) return true;
     const term = searchTerm.toLowerCase();
     return (
@@ -32,7 +32,7 @@ export function SearchModal({ isOpen, onClose, onSelectScheme }: SearchModalProp
     );
   });
 
-  const popularTags = ['Budget 2026', 'Cash assistance', 'Lower-income', 'Seniors', 'Students', 'Caregiving', 'Job loss'];
+  const popularTags = ['Grocery Support', 'Utilities', 'Caregiving', 'Upskilling', 'Education', 'Seniors'];
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center p-4 pt-16 sm:pt-20 bg-black/50 backdrop-blur-xs animate-in fade-in duration-150">
@@ -46,7 +46,7 @@ export function SearchModal({ isOpen, onClose, onSelectScheme }: SearchModalProp
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search schemes, grants, subsidies, or keywords..."
+            placeholder="Search fictional schemes, allowances, or credits..."
             className="w-full text-sm bg-gray-50 border border-gray-200 rounded-2xl py-3 pl-12 pr-10 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
           />
           {searchTerm && (
@@ -105,7 +105,7 @@ export function SearchModal({ isOpen, onClose, onSelectScheme }: SearchModalProp
             ))
           ) : (
             <div className="py-8 text-center text-xs text-gray-500">
-              No matching schemes found. Try searching for "ComCare", "Child", "Senior", or "CPF".
+              No matching schemes found. Try searching for "Grocery", "Caregiver", or "Utilities".
             </div>
           )}
         </div>
