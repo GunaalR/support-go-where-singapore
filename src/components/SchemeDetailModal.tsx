@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, CheckCircle2, Bookmark, BookmarkCheck, ArrowRight, ShieldCheck, Check, Calendar, CheckSquare, AlertCircle } from 'lucide-react';
+import { X, CheckCircle2, Bookmark, BookmarkCheck, ArrowRight, Check, Calendar, AlertCircle } from 'lucide-react';
 import { Scheme, FirstMovePlan } from '../types';
 import { CategoryIcon } from './CategoryIcon';
 
@@ -22,8 +22,8 @@ export function SchemeDetailModal({
   if (!scheme) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto">
-      <div className="bg-white rounded-2xl max-w-2xl w-full p-6 sm:p-8 shadow-xl border border-gray-100 relative my-8 text-left">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-xs animate-in fade-in duration-150 overflow-y-auto">
+      <div className="bg-white rounded-2xl max-w-xl w-full p-6 sm:p-8 shadow-xl border border-gray-200 relative my-8 text-left">
         
         {/* Top Header */}
         <div className="flex items-center justify-between pb-4 border-b border-gray-100 mb-5">
@@ -31,7 +31,7 @@ export function SchemeDetailModal({
             <CategoryIcon topicId={scheme.topicId} className="w-8 h-8" />
             <div>
               <span className="text-xs font-bold text-gray-900">{scheme.agencyAbbr}</span>
-              <span className="text-xs text-gray-400 ml-1.5 font-normal">· {scheme.agency}</span>
+              <span className="text-xs text-gray-500 ml-1.5 font-normal">· {scheme.agency}</span>
             </div>
           </div>
 
@@ -63,7 +63,7 @@ export function SchemeDetailModal({
             <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight leading-snug">
               {scheme.title}
             </h2>
-            <span className="text-lg font-extrabold text-blue-700 shrink-0">
+            <span className="text-base font-extrabold text-gray-900 shrink-0">
               ${scheme.estimatedValue.toLocaleString()} / year
             </span>
           </div>
@@ -73,24 +73,24 @@ export function SchemeDetailModal({
           </p>
         </div>
 
-        {/* Action Status Banner */}
-        <div className="mb-6 flex flex-wrap items-center gap-2.5">
+        {/* Action Status Treatment */}
+        <div className="mb-5 flex flex-wrap items-center gap-3 text-xs">
           {scheme.actionStatus === 'automatic' ? (
-            <span className="text-xs font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 stroke-[2.5]" />
+            <span className="font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md inline-flex items-center gap-1.5">
+              <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
               Automatic — nothing to do
             </span>
           ) : (
-            <span className="text-xs font-semibold text-amber-900 bg-amber-50 border border-amber-200 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
-              <AlertCircle className="w-3.5 h-3.5 text-amber-700" />
+            <span className="font-semibold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-md inline-flex items-center gap-1.5">
+              <ArrowRight className="w-3.5 h-3.5 text-gray-500" />
               You need to apply
             </span>
           )}
 
           {plan?.timeframe && (
-            <span className="text-xs font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg inline-flex items-center gap-1.5">
+            <span className="font-medium text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md inline-flex items-center gap-1.5">
               <Calendar className="w-3.5 h-3.5 text-emerald-700" />
-              Planned next step: {plan.timeframe}
+              Next step: {plan.timeframe}
             </span>
           )}
         </div>
@@ -115,7 +115,7 @@ export function SchemeDetailModal({
                 : 'border-transparent text-gray-500 hover:text-gray-800'
             }`}
           >
-            Scheme Overview
+            Overview
           </button>
           <button
             onClick={() => setActiveTab('eligibility')}
@@ -125,57 +125,56 @@ export function SchemeDetailModal({
                 : 'border-transparent text-gray-500 hover:text-gray-800'
             }`}
           >
-            Eligibility Details
+            Eligibility
           </button>
         </div>
 
         {/* Tab Content */}
         <div className="min-h-52 text-xs text-gray-700 leading-relaxed mb-6">
           
-          {/* TAB 1: WHAT YOU'LL NEED (Standardized 4-step checklist to reduce uncertainty) */}
+          {/* TAB 1: WHAT YOU'LL NEED */}
           {activeTab === 'what_you_need' && (
-            <div className="space-y-4 animate-in fade-in duration-100">
+            <div className="space-y-5 animate-in fade-in duration-100">
               
-              <div className="p-4 bg-[#F8FAFC] rounded-xl border border-gray-200">
-                <h4 className="font-bold text-gray-900 text-xs mb-1 flex items-center gap-1.5">
-                  <CheckSquare className="w-4 h-4 text-blue-700" />
+              <div>
+                <h4 className="font-bold text-gray-900 text-sm mb-1">
                   What you'll need
                 </h4>
-                <p className="text-[11px] text-gray-500">
-                  This checklist breaks down the application process so you know exactly what to expect.
+                <p className="text-xs text-gray-500 mb-4">
+                  Having these ready can make the next step easier.
                 </p>
 
-                {/* 4 Standard Action Steps from prompt */}
-                <div className="mt-3.5 space-y-2">
-                  <div className="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-gray-200/80">
-                    <Check className="w-3.5 h-3.5 text-blue-600 stroke-[2.5]" />
-                    <span className="font-medium text-gray-900">Review your eligibility information</span>
+                {/* Vertical Checklist with Small Icons */}
+                <div className="space-y-2 mb-5">
+                  <div className="flex items-center gap-2.5 py-1.5 text-gray-800">
+                    <Check className="w-4 h-4 text-emerald-600 stroke-[2.5] shrink-0" />
+                    <span className="font-medium text-xs">Review your eligibility information</span>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-gray-200/80">
-                    <Check className="w-3.5 h-3.5 text-blue-600 stroke-[2.5]" />
-                    <span className="font-medium text-gray-900">Prepare the required documents</span>
+                  <div className="flex items-center gap-2.5 py-1.5 text-gray-800">
+                    <Check className="w-4 h-4 text-emerald-600 stroke-[2.5] shrink-0" />
+                    <span className="font-medium text-xs">Prepare the required documents</span>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-gray-200/80">
-                    <Check className="w-3.5 h-3.5 text-blue-600 stroke-[2.5]" />
-                    <span className="font-medium text-gray-900">Check the application details</span>
+                  <div className="flex items-center gap-2.5 py-1.5 text-gray-800">
+                    <Check className="w-4 h-4 text-emerald-600 stroke-[2.5] shrink-0" />
+                    <span className="font-medium text-xs">Check the application details</span>
                   </div>
-                  <div className="flex items-center gap-2.5 p-2 bg-white rounded-lg border border-gray-200/80">
-                    <Check className="w-3.5 h-3.5 text-blue-600 stroke-[2.5]" />
-                    <span className="font-medium text-gray-900">Submit your application</span>
+                  <div className="flex items-center gap-2.5 py-1.5 text-gray-800">
+                    <Check className="w-4 h-4 text-emerald-600 stroke-[2.5] shrink-0" />
+                    <span className="font-medium text-xs">Start your application</span>
                   </div>
                 </div>
               </div>
 
-              {/* Specific Preparation Items */}
-              <div>
-                <h5 className="font-semibold text-gray-900 text-xs mb-2">
-                  Documents & details to prepare:
-                </h5>
+              {/* Specific Items */}
+              <div className="pt-4 border-t border-gray-100">
+                <div className="font-semibold text-gray-900 text-xs mb-2">
+                  Documents to keep on hand:
+                </div>
                 <div className="space-y-1.5">
                   {scheme.whatYouNeed.map((item, idx) => (
-                    <div key={idx} className="p-2.5 bg-gray-50 rounded-lg border border-gray-200/70 flex items-start gap-2">
-                      <span className="text-[11px] font-bold text-gray-400 shrink-0 mt-0.5">•</span>
-                      <span className="text-gray-700 text-xs">{item}</span>
+                    <div key={idx} className="flex items-start gap-2 text-gray-600">
+                      <span className="text-gray-400 select-none">•</span>
+                      <span>{item}</span>
                     </div>
                   ))}
                 </div>
@@ -191,16 +190,16 @@ export function SchemeDetailModal({
                 {scheme.description}
               </p>
 
-              <div className="p-4 bg-gray-50 rounded-xl border border-gray-200">
+              <div className="p-3.5 bg-gray-50 rounded-xl border border-gray-200">
                 <div className="font-semibold text-gray-900 mb-1">
-                  Disbursement Schedule
+                  Disbursement schedule
                 </div>
                 <p className="text-gray-600 text-xs">
                   {scheme.disbursement}
                 </p>
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <div className="font-semibold text-gray-900">Support provided:</div>
                 <ul className="list-disc pl-4 space-y-1 text-gray-600">
                   {scheme.benefits.map((b, idx) => (
@@ -219,9 +218,9 @@ export function SchemeDetailModal({
               </p>
               <ul className="space-y-2">
                 {scheme.eligibility.map((item, idx) => (
-                  <li key={idx} className="flex items-start gap-2.5 p-3 bg-gray-50 rounded-xl border border-gray-100">
+                  <li key={idx} className="flex items-start gap-2.5 p-2.5 bg-gray-50 rounded-lg">
                     <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
-                    <span>{item}</span>
+                    <span className="text-gray-700">{item}</span>
                   </li>
                 ))}
               </ul>
@@ -231,32 +230,26 @@ export function SchemeDetailModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center justify-between gap-3">
-          <div className="text-[11px] text-gray-400">
-            HelpCompass SG · Public Support Directory
-          </div>
+        <div className="pt-4 border-t border-gray-100 flex items-center justify-between gap-3">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 text-xs font-medium text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+          >
+            Close
+          </button>
 
-          <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          {scheme.actionStatus === 'apply' && (
             <button
-              onClick={onClose}
-              className="w-full sm:w-auto px-4 py-2 text-xs font-semibold text-gray-600 hover:bg-gray-100 rounded-lg transition-colors cursor-pointer"
+              onClick={() => {
+                onClose();
+                onOpenPlanModal(scheme);
+              }}
+              className="px-5 py-2 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg inline-flex items-center gap-1.5 transition-colors cursor-pointer"
             >
-              Close
+              <Calendar className="w-3.5 h-3.5" />
+              <span>{plan?.timeframe ? 'Update next step' : 'Plan next step'}</span>
             </button>
-
-            {scheme.actionStatus === 'apply' && (
-              <button
-                onClick={() => {
-                  onClose();
-                  onOpenPlanModal(scheme);
-                }}
-                className="w-full sm:w-auto px-5 py-2 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-lg inline-flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-98"
-              >
-                <Calendar className="w-3.5 h-3.5" />
-                {plan?.timeframe ? 'Update Next Step' : 'Plan Next Step'}
-              </button>
-            )}
-          </div>
+          )}
         </div>
 
       </div>

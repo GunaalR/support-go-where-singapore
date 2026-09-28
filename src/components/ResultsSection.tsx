@@ -2,19 +2,12 @@ import React, { useState } from 'react';
 import { Scheme, DemoHousehold, FirstMovePlan } from '../types';
 import { CategoryIcon } from './CategoryIcon';
 import { 
-  Sparkles, 
-  ArrowRight, 
-  CheckCircle2, 
-  Clock, 
-  FileCheck, 
-  SlidersHorizontal, 
   Check, 
+  ArrowRight, 
   ChevronDown, 
   ChevronUp, 
   Calendar, 
-  AlertCircle,
-  HelpCircle,
-  ShieldCheck
+  SlidersHorizontal
 } from 'lucide-react';
 
 interface ResultsSectionProps {
@@ -34,13 +27,17 @@ export function ResultsSection({
   onOpenPlanModal,
   onOpenCalculator
 }: ResultsSectionProps) {
-  const [showAllSchemes, setShowAllSchemes] = useState(true);
+  const [showAllSchemes, setShowAllSchemes] = useState(false);
 
-  // Recommended schemes for "Start Here" (2-3 items)
-  const recommendedSchemes = schemes.filter(s => s.isRecommendedInB);
-  const otherSchemes = schemes.filter(s => !s.isRecommendedInB);
+  // Primary recommendation for "Start Here"
+  const primaryScheme = schemes.find(s => s.id === 'family-grocery-grant') || schemes[0];
 
-  // Calculations for breakdown
+  // Secondary recommendations (lighter, compact)
+  const secondarySchemes = schemes.filter(s => 
+    s.id === 'caregiver-respite-allowance' || s.id === 'community-utilities-credit'
+  );
+
+  // Calculations for summary breakdown
   const automaticTotal = schemes
     .filter(s => s.actionStatus === 'automatic')
     .reduce((acc, curr) => acc + curr.estimatedValue, 0);
@@ -49,92 +46,78 @@ export function ResultsSection({
     .filter(s => s.actionStatus === 'apply')
     .reduce((acc, curr) => acc + curr.estimatedValue, 0);
 
+  const primaryPlan = plans[primaryScheme.id];
+
   return (
-    <section className="max-w-5xl mx-auto px-4 sm:px-6 py-8 sm:py-12" id="results-section">
+    <section className="max-w-4xl mx-auto px-4 sm:px-6 py-10 sm:py-16 text-left" id="results-section">
       
       {/* ========================================================================= */}
-      {/* 1. HERO RESULTS SUMMARY CARD                                             */}
+      {/* 1. HERO RESULTS INTRODUCTION (Editorial, Whitespace & Typography)       */}
       {/* ========================================================================= */}
-      <div className="bg-white rounded-2xl border border-gray-200/90 shadow-sm p-6 sm:p-8 mb-10 text-left">
-        <div className="flex flex-col lg:flex-row lg:items-start justify-between gap-8 pb-7 border-b border-gray-100">
-          
-          {/* Main Titles */}
-          <div className="max-w-xl">
-            <div className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-700 bg-blue-50 px-2.5 py-1 rounded-md mb-3">
-              <CheckCircle2 className="w-3.5 h-3.5 text-blue-600" />
-              <span>Assessment Completed</span>
-            </div>
+      <div className="border-b border-gray-200 pb-12 mb-14">
+        
+        {/* Subtle Kicker */}
+        <div className="flex items-center gap-2 text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+          <span className="w-2 h-2 rounded-full bg-emerald-600 inline-block" />
+          <span>Assessment complete</span>
+        </div>
 
-            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900 tracking-tight leading-tight">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          
+          {/* Main Title & Narrative */}
+          <div className="lg:col-span-7">
+            <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight leading-tight">
               Support you may be eligible for
             </h1>
 
-            <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-              Based on the information you provided, you may qualify for <strong>{schemes.length} support schemes</strong> to help with household living costs.
+            <p className="text-base text-gray-600 mt-3.5 leading-relaxed">
+              Based on the information you provided, you may qualify for several forms of support to help with household living costs.
             </p>
 
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-5">
               <button
                 onClick={onOpenCalculator}
-                className="text-xs font-semibold text-blue-700 hover:text-blue-900 underline inline-flex items-center gap-1 cursor-pointer"
+                className="text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center gap-1.5 cursor-pointer group"
               >
-                <SlidersHorizontal className="w-3 h-3" />
-                Review or recalculate household answers
+                <SlidersHorizontal className="w-3.5 h-3.5 text-blue-700" />
+                <span>Review your information</span>
               </button>
             </div>
           </div>
 
-          {/* Prominent Estimated Amount Box */}
-          <div className="bg-[#F8FAFC] border border-gray-200/80 rounded-2xl p-5 sm:p-6 min-w-64 text-left shadow-2xs">
-            <span className="text-[11px] font-semibold text-gray-500 uppercase tracking-wider block">
-              Estimated total support
-            </span>
-            <div className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight my-1">
+          {/* Restrained Estimated Amount Box */}
+          <div className="lg:col-span-5 bg-gray-50/80 rounded-2xl p-6 border border-gray-200/70">
+            <div className="text-xs font-medium text-gray-500 uppercase tracking-wider">
+              Estimated annual support
+            </div>
+            
+            <div className="text-3xl sm:text-4xl font-extrabold text-gray-900 tracking-tight mt-1.5">
               ${household.estimatedTotal.toLocaleString()}
-              <span className="text-xs font-normal text-gray-500 ml-1">/ year</span>
             </div>
-            <p className="text-[11px] text-gray-500 mt-1 leading-snug">
-              Estimated annual support across active schemes. Actual eligibility will be verified upon application or automated processing.
+            
+            <p className="text-xs text-gray-500 mt-1 leading-normal">
+              Estimated based on your current information
             </p>
-          </div>
-        </div>
 
-        {/* Clean Support Breakdown: Automatic vs Requires Application */}
-        <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
-          
-          {/* Automatic Support Box */}
-          <div className="flex items-start gap-3 p-4 rounded-xl bg-emerald-50/50 border border-emerald-100 text-left">
-            <div className="w-8 h-8 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0 mt-0.5">
-              <Check className="w-4 h-4 stroke-[2.5]" />
-            </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-500">
-                Automatic support
+            {/* Clean, Non-aggressive Breakdown */}
+            <div className="mt-5 pt-4 border-t border-gray-200 grid grid-cols-2 gap-4">
+              <div>
+                <div className="text-lg font-bold text-gray-900">
+                  ${automaticTotal.toLocaleString()}
+                </div>
+                <div className="text-xs text-gray-500 mt-0.5">
+                  Automatic support
+                </div>
               </div>
-              <div className="text-lg font-bold text-gray-900 leading-tight">
-                ${automaticTotal.toLocaleString()} <span className="text-xs font-normal text-gray-500">/ year</span>
-              </div>
-              <p className="text-[11px] text-gray-600 mt-0.5">
-                Credited directly to bills or designated accounts without requiring forms.
-              </p>
-            </div>
-          </div>
 
-          {/* Support Requiring Application */}
-          <div className="flex items-start gap-3 p-4 rounded-xl bg-blue-50/50 border border-blue-100 text-left">
-            <div className="w-8 h-8 rounded-lg bg-blue-100 text-blue-700 flex items-center justify-center shrink-0 mt-0.5">
-              <FileCheck className="w-4 h-4 stroke-[2]" />
-            </div>
-            <div>
-              <div className="text-xs font-semibold text-gray-500">
-                Support requiring application
+              <div>
+                <div className="text-lg font-bold text-gray-900">
+                  ${applyTotal.toLocaleString()}
+                </div>
+                <div className="text-xs text-gray-500 mt-0.5">
+                  Support requiring an application
+                </div>
               </div>
-              <div className="text-lg font-bold text-gray-900 leading-tight">
-                ${applyTotal.toLocaleString()} <span className="text-xs font-normal text-gray-500">/ year</span>
-              </div>
-              <p className="text-[11px] text-gray-600 mt-0.5">
-                Requires submitting simple household details and documentation.
-              </p>
             </div>
           </div>
 
@@ -142,141 +125,185 @@ export function ResultsSection({
       </div>
 
       {/* ========================================================================= */}
-      {/* 2. CORE NUDGE: "START HERE" SECTION                                      */}
+      {/* 2. THE MAIN BEHAVIOURAL INTERVENTION: "START HERE"                        */}
       {/* ========================================================================= */}
-      <div className="mb-12 text-left" id="start-here">
+      <div className="mb-16" id="start-here">
+        
+        {/* Section Heading */}
         <div className="mb-6">
-          <div className="flex items-center gap-2 mb-1">
-            <span className="w-2.5 h-2.5 rounded-full bg-blue-600 shrink-0" />
-            <h2 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
-              Start here
-            </h2>
-          </div>
-          <p className="text-sm text-gray-600 leading-relaxed">
-            These are a few useful places to begin based on your results.
+          <h2 className="text-2xl font-bold text-gray-900 tracking-tight">
+            Start here
+          </h2>
+          <p className="text-sm text-gray-600 mt-1">
+            Based on your results, these are a few useful places to begin.
           </p>
         </div>
 
-        {/* Recommended Cards Grid (2-3 items) */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {recommendedSchemes.map((scheme) => {
-            const plan = plans[scheme.id];
-
-            return (
-              <div
-                key={scheme.id}
-                className="bg-white rounded-2xl border-2 border-blue-200/90 p-6 flex flex-col justify-between shadow-xs hover:shadow-md transition-all text-left relative"
-              >
-                <div>
-                  {/* Category Icon + Action Status Tag */}
-                  <div className="flex items-start justify-between gap-3 mb-4">
-                    <CategoryIcon topicId={scheme.topicId} className="w-10 h-10" />
-
-                    {/* Scannable, text-based Action Status */}
-                    {scheme.actionStatus === 'automatic' ? (
-                      <div className="text-right">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-1 rounded-md">
-                          <Check className="w-3 h-3 stroke-[2.5]" />
-                          Automatic — nothing to do
-                        </span>
-                        <span className="block text-[10px] text-gray-500 mt-0.5">
-                          Credited automatically
-                        </span>
-                      </div>
-                    ) : (
-                      <div className="text-right">
-                        <span className="inline-flex items-center gap-1 text-[11px] font-bold text-amber-900 bg-amber-50 border border-amber-200 px-2.5 py-1 rounded-md">
-                          <AlertCircle className="w-3 h-3 text-amber-700" />
-                          You need to apply
-                        </span>
-                        <span className="block text-[10px] text-gray-500 mt-0.5">
-                          Online form submission
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Title & Estimated Value */}
-                  <div className="mb-2">
-                    <h3 className="text-lg font-bold text-gray-900 leading-snug">
-                      {scheme.title}
-                    </h3>
-                    <div className="text-sm font-extrabold text-blue-700 mt-1">
-                      ${scheme.estimatedValue.toLocaleString()} / year
-                    </div>
-                  </div>
-
-                  {/* Plain-language explanation */}
-                  <p className="text-xs text-gray-600 leading-relaxed mb-5">
-                    {scheme.summary}
-                  </p>
-
-                  {/* Active Intention / Next Step indicator if already planned */}
-                  {plan?.timeframe && (
-                    <div className="p-3 bg-emerald-50 rounded-xl border border-emerald-200 mb-4 flex items-center justify-between text-xs text-emerald-900">
-                      <div className="flex items-center gap-1.5 font-semibold">
-                        <Calendar className="w-3.5 h-3.5 text-emerald-700" />
-                        Next step scheduled: {plan.timeframe}
-                      </div>
-                      <span className="text-[10px] text-emerald-700 font-medium">
-                        Intention set
-                      </span>
-                    </div>
-                  )}
+        {/* ONE DOMINANT RECOMMENDED ACTION */}
+        <div className="bg-white rounded-2xl border border-gray-300 shadow-sm p-6 sm:p-8 mb-6 relative">
+          
+          <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-4 pb-5 border-b border-gray-100">
+            <div className="flex items-start gap-4">
+              <CategoryIcon topicId={primaryScheme.topicId} className="w-11 h-11 shrink-0 mt-0.5" />
+              <div>
+                <div className="text-[11px] font-bold text-blue-700 uppercase tracking-wider mb-1">
+                  Start Here
                 </div>
+                <h3 className="text-xl sm:text-2xl font-bold text-gray-900 tracking-tight">
+                  {primaryScheme.title}
+                </h3>
+                <div className="text-base font-bold text-gray-900 mt-1">
+                  ${primaryScheme.estimatedValue.toLocaleString()} / year
+                </div>
+              </div>
+            </div>
 
-                {/* Card CTAs */}
-                <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-2.5">
-                  {scheme.actionStatus === 'apply' ? (
-                    <>
-                      <button
-                        onClick={() => onOpenPlanModal(scheme)}
-                        className="w-full sm:flex-1 py-2.5 px-4 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-xl inline-flex items-center justify-center gap-1.5 transition-all shadow-xs cursor-pointer active:scale-98"
-                      >
-                        <Calendar className="w-3.5 h-3.5" />
-                        {plan?.timeframe ? 'Update plan' : "Plan next step"}
-                      </button>
+            {/* Scannable, text-based Action Status */}
+            <div className="sm:text-right shrink-0">
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-amber-900 bg-amber-50/80 px-2.5 py-1 rounded-md">
+                <ArrowRight className="w-3.5 h-3.5 text-amber-700" />
+                <span>You need to apply</span>
+              </span>
+            </div>
+          </div>
 
-                      <button
-                        onClick={() => onSelectScheme(scheme)}
-                        className="w-full sm:w-auto py-2.5 px-4 text-xs font-semibold text-gray-700 hover:bg-gray-100 rounded-xl border border-gray-200 transition-colors cursor-pointer"
-                      >
-                        See what you'll need
-                      </button>
-                    </>
-                  ) : (
+          <div className="py-5">
+            <p className="text-sm text-gray-700 leading-relaxed mb-3">
+              Support for everyday grocery and household expenses.
+            </p>
+            
+            <p className="text-xs text-gray-500 leading-relaxed">
+              This is one of the simpler application-based options in your results.
+            </p>
+
+            {/* Active Intention / Next Step indicator if already planned */}
+            {primaryPlan?.timeframe && (
+              <div className="mt-4 p-3 bg-emerald-50/70 rounded-xl border border-emerald-200/80 flex items-center justify-between text-xs text-emerald-900">
+                <div className="flex items-center gap-2 font-medium">
+                  <Calendar className="w-3.5 h-3.5 text-emerald-700" />
+                  <span>Next step scheduled: {primaryPlan.timeframe}</span>
+                </div>
+                <span className="text-[11px] text-emerald-700">
+                  Intention set
+                </span>
+              </div>
+            )}
+          </div>
+
+          {/* Primary Recommendation Actions */}
+          <div className="pt-4 border-t border-gray-100 flex flex-col sm:flex-row items-center gap-3">
+            <button
+              onClick={() => onSelectScheme(primaryScheme)}
+              className="w-full sm:w-auto py-2.5 px-5 text-xs font-semibold text-white bg-blue-700 hover:bg-blue-800 rounded-xl inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
+            >
+              <span>See what you'll need</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+
+            <button
+              onClick={() => onOpenPlanModal(primaryScheme)}
+              className="w-full sm:w-auto py-2.5 px-4 text-xs font-semibold text-gray-700 hover:bg-gray-100 rounded-xl border border-gray-200 transition-colors cursor-pointer inline-flex items-center justify-center gap-1.5"
+            >
+              <Calendar className="w-3.5 h-3.5 text-gray-500" />
+              <span>{primaryPlan?.timeframe ? 'Update plan' : 'Plan next step'}</span>
+            </button>
+          </div>
+
+        </div>
+
+        {/* 1-2 COMPACT SECONDARY STARTING OPTIONS */}
+        <div className="pt-3">
+          <div className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+            Other places you could start
+          </div>
+
+          <div className="space-y-3">
+            {secondarySchemes.map((scheme) => {
+              const plan = plans[scheme.id];
+
+              return (
+                <div
+                  key={scheme.id}
+                  className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:border-gray-300 transition-colors"
+                >
+                  <div className="flex items-center gap-3.5">
+                    <CategoryIcon topicId={scheme.topicId} className="w-8 h-8 shrink-0" />
+                    <div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h4 className="text-sm font-bold text-gray-900">
+                          {scheme.title}
+                        </h4>
+                        <span className="text-xs font-semibold text-gray-700">
+                          ${scheme.estimatedValue.toLocaleString()} / year
+                        </span>
+                      </div>
+                      
+                      {/* Subtle action status */}
+                      <div className="mt-1 flex items-center gap-3 text-xs">
+                        {scheme.actionStatus === 'automatic' ? (
+                          <span className="text-emerald-800 font-medium inline-flex items-center gap-1">
+                            <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
+                            Automatic — nothing to do
+                          </span>
+                        ) : (
+                          <span className="text-gray-600 font-medium inline-flex items-center gap-1">
+                            <ArrowRight className="w-3.5 h-3.5 text-gray-400" />
+                            You need to apply
+                          </span>
+                        )}
+
+                        {plan?.timeframe && (
+                          <span className="text-emerald-700 text-[11px] font-medium">
+                            · Planned: {plan.timeframe}
+                          </span>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2 self-start sm:self-center shrink-0">
                     <button
                       onClick={() => onSelectScheme(scheme)}
-                      className="w-full py-2.5 px-4 text-xs font-semibold text-gray-700 hover:bg-gray-100 rounded-xl border border-gray-200 transition-colors cursor-pointer text-center"
+                      className="text-xs font-semibold text-blue-700 hover:text-blue-900 px-3 py-1.5 rounded-lg hover:bg-blue-50 transition-colors cursor-pointer"
                     >
                       View details
                     </button>
-                  )}
-                </div>
 
-              </div>
-            );
-          })}
+                    {scheme.actionStatus === 'apply' && (
+                      <button
+                        onClick={() => onOpenPlanModal(scheme)}
+                        className="text-xs font-semibold text-gray-600 hover:text-gray-900 px-2.5 py-1.5 rounded-lg border border-gray-200 hover:bg-gray-50 transition-colors cursor-pointer"
+                      >
+                        Plan
+                      </button>
+                    )}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
+
       </div>
 
       {/* ========================================================================= */}
       {/* 3. "SEE ALL ELIGIBLE SUPPORT" (Preserving Complete Choice Freedom)        */}
       {/* ========================================================================= */}
-      <div className="text-left pt-6 border-t border-gray-200" id="all-schemes">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-6">
+      <div className="pt-8 border-t border-gray-200" id="all-schemes">
+        
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
             <h3 className="text-xl font-bold text-gray-900 tracking-tight">
-              See all eligible support ({schemes.length})
+              All eligible support ({schemes.length})
             </h3>
             <p className="text-xs text-gray-500 mt-0.5">
-              Browse every support programme your household qualifies for.
+              Review every programme your household qualifies for.
             </p>
           </div>
 
           <button
             onClick={() => setShowAllSchemes(!showAllSchemes)}
-            className="self-start sm:self-auto text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center gap-1.5 cursor-pointer bg-blue-50/70 hover:bg-blue-100/60 px-3.5 py-1.5 rounded-xl border border-blue-200 transition-colors"
+            className="self-start sm:self-auto text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center gap-1.5 cursor-pointer bg-gray-50 hover:bg-gray-100 px-3.5 py-2 rounded-xl border border-gray-200 transition-colors"
           >
             {showAllSchemes ? (
               <>
@@ -285,97 +312,87 @@ export function ResultsSection({
               </>
             ) : (
               <>
-                <span>Show all schemes ({schemes.length})</span>
+                <span>See all eligible support ({schemes.length})</span>
                 <ChevronDown className="w-3.5 h-3.5" />
               </>
             )}
           </button>
         </div>
 
-        {/* All Schemes Grid */}
+        {/* All Schemes List (Refined, Non-bulky presentation) */}
         {showAllSchemes && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+          <div className="space-y-4 animate-in fade-in duration-150">
             {schemes.map((scheme) => {
               const plan = plans[scheme.id];
 
               return (
                 <div
                   key={scheme.id}
-                  className="bg-white rounded-2xl border border-gray-200/90 p-5 sm:p-6 flex flex-col justify-between shadow-2xs hover:border-gray-300 hover:shadow-xs transition-all text-left"
+                  className="bg-white rounded-xl border border-gray-200 p-5 sm:p-6 flex flex-col justify-between hover:border-gray-300 transition-all text-left"
                 >
-                  <div>
-                    {/* Header Row: Category Icon + Action Status */}
-                    <div className="flex items-start justify-between gap-3 mb-3">
-                      <CategoryIcon topicId={scheme.topicId} className="w-9 h-9" />
-
-                      {scheme.actionStatus === 'automatic' ? (
-                        <div className="text-right">
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-800 bg-emerald-50 border border-emerald-200 px-2 py-0.5 rounded-md">
-                            <Check className="w-3 h-3 stroke-[2.5]" />
-                            Automatic — nothing to do
-                          </span>
-                          <span className="block text-[10px] text-gray-500 mt-0.5">
-                            Your support will be credited automatically.
-                          </span>
+                  <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-3 mb-2">
+                    <div className="flex items-start gap-3.5">
+                      <CategoryIcon topicId={scheme.topicId} className="w-8 h-8 shrink-0 mt-0.5" />
+                      <div>
+                        <h4 className="text-base font-bold text-gray-900 leading-snug">
+                          {scheme.title}
+                        </h4>
+                        <div className="text-xs font-bold text-gray-700 mt-0.5">
+                          ${scheme.estimatedValue.toLocaleString()} / year
                         </div>
-                      ) : (
-                        <div className="text-right">
-                          <span className="inline-flex items-center gap-1 text-[11px] font-semibold text-amber-900 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md">
-                            <AlertCircle className="w-3 h-3 text-amber-700" />
-                            You need to apply
-                          </span>
-                          <span className="block text-[10px] text-gray-500 mt-0.5">
-                            Complete an application to receive this support.
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    {/* Title & Estimated Value */}
-                    <div className="mb-2">
-                      <h4 className="text-base font-bold text-gray-900 leading-snug">
-                        {scheme.title}
-                      </h4>
-                      <div className="text-xs font-bold text-gray-900 mt-0.5">
-                        ${scheme.estimatedValue.toLocaleString()} / year
                       </div>
                     </div>
 
-                    <p className="text-xs text-gray-600 leading-relaxed mb-4">
-                      {scheme.summary}
-                    </p>
+                    {/* Action Status */}
+                    <div className="sm:text-right shrink-0">
+                      {scheme.actionStatus === 'automatic' ? (
+                        <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-800 bg-emerald-50/70 px-2 py-0.5 rounded">
+                          <Check className="w-3 h-3 text-emerald-600 stroke-[2.5]" />
+                          Automatic — nothing to do
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 text-xs font-medium text-gray-700 bg-gray-100 px-2 py-0.5 rounded">
+                          <ArrowRight className="w-3 h-3 text-gray-500" />
+                          You need to apply
+                        </span>
+                      )}
+                    </div>
+                  </div>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-1.5 mb-4">
+                  <p className="text-xs text-gray-600 leading-relaxed my-2 sm:pl-11.5">
+                    {scheme.summary}
+                  </p>
+
+                  <div className="pt-3 border-t border-gray-100 flex items-center justify-between sm:pl-11.5">
+                    <div className="flex items-center gap-1.5 flex-wrap">
                       {scheme.tags.map((tag, idx) => (
                         <span
                           key={idx}
-                          className="text-[10px] font-medium text-gray-600 bg-gray-100 px-2 py-0.5 rounded-md"
+                          className="text-[10px] text-gray-500 bg-gray-50 border border-gray-100 px-2 py-0.5 rounded"
                         >
                           {tag}
                         </span>
                       ))}
                     </div>
-                  </div>
 
-                  {/* Actions */}
-                  <div className="pt-3 border-t border-gray-100 flex items-center justify-between">
-                    <button
-                      onClick={() => onSelectScheme(scheme)}
-                      className="text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center gap-1 cursor-pointer"
-                    >
-                      {scheme.actionStatus === 'apply' ? "See what you'll need" : "View details"}
-                      <ArrowRight className="w-3.5 h-3.5" />
-                    </button>
-
-                    {scheme.actionStatus === 'apply' && (
+                    <div className="flex items-center gap-2 shrink-0">
                       <button
-                        onClick={() => onOpenPlanModal(scheme)}
-                        className="text-xs font-semibold text-blue-700 hover:text-blue-900 bg-blue-50 px-3 py-1 rounded-lg border border-blue-200 cursor-pointer"
+                        onClick={() => onSelectScheme(scheme)}
+                        className="text-xs font-semibold text-blue-700 hover:text-blue-900 inline-flex items-center gap-1 cursor-pointer"
                       >
-                        {plan?.timeframe ? `Planned: ${plan.timeframe}` : "Plan when to apply"}
+                        {scheme.actionStatus === 'apply' ? "See what you'll need" : "View details"}
+                        <ArrowRight className="w-3 h-3" />
                       </button>
-                    )}
+
+                      {scheme.actionStatus === 'apply' && (
+                        <button
+                          onClick={() => onOpenPlanModal(scheme)}
+                          className="text-xs font-semibold text-gray-600 hover:text-gray-900 px-2.5 py-1 rounded border border-gray-200 hover:bg-gray-50 cursor-pointer"
+                        >
+                          {plan?.timeframe ? `Planned: ${plan.timeframe}` : "Plan"}
+                        </button>
+                      )}
+                    </div>
                   </div>
                 </div>
               );

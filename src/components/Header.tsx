@@ -40,24 +40,24 @@ export function Header({
           </a>
 
           {/* Navigation Links */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700">
+          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
             <button
               onClick={onScrollToStartHere}
-              className="hover:text-blue-700 transition-colors cursor-pointer"
+              className="text-gray-700 hover:text-blue-700 transition-colors cursor-pointer"
             >
-              Start Here
+              Start here
             </button>
             <button
               onClick={onScrollToAllSchemes}
-              className="hover:text-blue-700 transition-colors cursor-pointer"
+              className="text-gray-700 hover:text-blue-700 transition-colors cursor-pointer"
             >
-              All Eligible Schemes
+              All support
             </button>
             <button
               onClick={onOpenCalculator}
-              className="hover:text-blue-700 transition-colors cursor-pointer"
+              className="text-gray-700 hover:text-blue-700 transition-colors cursor-pointer"
             >
-              Support Calculator
+              Support calculator
             </button>
           </nav>
         </div>
