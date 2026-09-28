@@ -27,7 +27,7 @@ export const FICTIONAL_SCHEMES: Scheme[] = [
       'Immediate confirmation upon form submission'
     ],
     requiredDocs: [
-      'Copy of recent residential utility statement (fictional)',
+      'Copy of recent residential utility statement',
       'Household members identification confirmation'
     ],
     whatYouNeed: [
@@ -41,7 +41,7 @@ export const FICTIONAL_SCHEMES: Scheme[] = [
     id: 'community-utilities-credit',
     title: 'Community Utilities Credit (CUC)',
     subtitle: 'Direct quarterly billing rebates for household energy and water',
-    agency: 'Energy & Infrastructure Board (Fictional)',
+    agency: 'Energy & Infrastructure Board',
     agencyAbbr: 'EIB',
     topicId: 'financial',
     featured: true,
@@ -145,7 +145,7 @@ export const FICTIONAL_SCHEMES: Scheme[] = [
     ],
     requiredDocs: [
       'School enrolment confirmation letter',
-      'Proof of dependent relationship (fictional child ID)'
+      'Proof of dependent relationship'
     ],
     whatYouNeed: [
       'School enrolment confirmation letter or student handbook copy',

@@ -11,7 +11,7 @@ import { SearchModal } from './components/SearchModal';
 import { Footer } from './components/Footer';
 
 export default function App() {
-  // Household profile
+  // Household profile used for calculations
   const [household, setHousehold] = useState<DemoHousehold>({
     name: 'Your assessment',
     householdLabel: '4-Room Apartment · 1 Senior Dependant, 1 Child',
@@ -35,15 +35,15 @@ export default function App() {
     }));
   };
 
-  const handleScrollToStartHere = () => {
-    const el = document.getElementById('start-here');
+  const handleScrollToSupport = () => {
+    const el = document.getElementById('results-section');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
-  const handleScrollToAllSchemes = () => {
-    const el = document.getElementById('all-schemes');
+  const handleScrollToResources = () => {
+    const el = document.getElementById('resources-and-tools');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -55,13 +55,12 @@ export default function App() {
       {/* 1. Official Reassuring Public-Service Masthead */}
       <Masthead />
 
-      {/* 2. Main Navigation Header */}
+      {/* 2. Main Navigation Header (Clean, Understated, No login/account) */}
       <Header
-        household={household}
         onOpenCalculator={() => setIsCalculatorOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
-        onScrollToStartHere={handleScrollToStartHere}
-        onScrollToAllSchemes={handleScrollToAllSchemes}
+        onScrollToSupport={handleScrollToSupport}
+        onScrollToResources={handleScrollToResources}
       />
 
       {/* 3. Main Results Experience */}
@@ -77,7 +76,11 @@ export default function App() {
       </main>
 
       {/* 4. Trustworthy Public Service Footer */}
-      <Footer />
+      <Footer
+        onScrollToSupport={handleScrollToSupport}
+        onScrollToResources={handleScrollToResources}
+        onOpenCalculator={() => setIsCalculatorOpen(true)}
+      />
 
       {/* Modals */}
       {/* Scheme Detail Modal (with "What you'll need" checklist) */}

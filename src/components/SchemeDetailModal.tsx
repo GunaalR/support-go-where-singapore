@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { X, CheckCircle2, Bookmark, BookmarkCheck, ArrowRight, Check, Calendar, AlertCircle } from 'lucide-react';
+import { X, CheckCircle2, Bookmark, BookmarkCheck, ArrowRight, Check, Calendar } from 'lucide-react';
 import { Scheme, FirstMovePlan } from '../types';
 import { CategoryIcon } from './CategoryIcon';
 
@@ -73,18 +73,28 @@ export function SchemeDetailModal({
           </p>
         </div>
 
-        {/* Action Status Treatment */}
+        {/* Action Status Treatment with Explanations */}
         <div className="mb-5 flex flex-wrap items-center gap-3 text-xs">
           {scheme.actionStatus === 'automatic' ? (
-            <span className="font-semibold text-emerald-800 bg-emerald-50 px-2.5 py-1 rounded-md inline-flex items-center gap-1.5">
-              <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[2.5]" />
-              Automatic — nothing to do
-            </span>
+            <div className="p-2.5 rounded-lg bg-emerald-50/80 border border-emerald-200/80 w-full flex items-center justify-between">
+              <span className="font-semibold text-emerald-900 inline-flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-emerald-600 stroke-[2.5]" />
+                Automatic — nothing to do
+              </span>
+              <span className="text-emerald-700 text-[11px]">
+                Your support will be credited automatically.
+              </span>
+            </div>
           ) : (
-            <span className="font-semibold text-gray-700 bg-gray-100 px-2.5 py-1 rounded-md inline-flex items-center gap-1.5">
-              <ArrowRight className="w-3.5 h-3.5 text-gray-500" />
-              You need to apply
-            </span>
+            <div className="p-2.5 rounded-lg bg-amber-50/80 border border-amber-200/80 w-full flex items-center justify-between">
+              <span className="font-semibold text-amber-900 inline-flex items-center gap-1.5">
+                <ArrowRight className="w-4 h-4 text-amber-700" />
+                You need to apply
+              </span>
+              <span className="text-amber-800 text-[11px]">
+                Complete an application to receive this support.
+              </span>
+            </div>
           )}
 
           {plan?.timeframe && (

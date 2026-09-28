@@ -46,7 +46,7 @@ export function SearchModal({ isOpen, onClose, onSelectScheme }: SearchModalProp
             type="text"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search fictional schemes, allowances, or credits..."
+            placeholder="Search schemes, allowances, or credits..."
             className="w-full text-sm bg-gray-50 border border-gray-200 rounded-2xl py-3 pl-12 pr-10 focus:bg-white focus:ring-2 focus:ring-blue-500 outline-none"
           />
           {searchTerm && (
