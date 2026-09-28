@@ -13,7 +13,7 @@ import { Footer } from './components/Footer';
 export default function App() {
   // Household profile
   const [household, setHousehold] = useState<DemoHousehold>({
-    name: 'The Lee Family',
+    name: 'Your assessment',
     householdLabel: '4-Room Apartment · 1 Senior Dependant, 1 Child',
     dwellingType: '4-Room Apartment',
     estimatedTotal: 3300

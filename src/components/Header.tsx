@@ -93,7 +93,7 @@ export function Header({
                 <div className="px-2 py-1.5 border-b border-gray-100 mb-2.5">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900">
                     <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" />
-                    Household Profile Active
+                    Household Details
                   </div>
                   <p className="text-[11px] text-gray-500 mt-0.5">
                     {household.householdLabel}

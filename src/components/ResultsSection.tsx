@@ -70,7 +70,7 @@ export function ResultsSection({
             </h1>
 
             <p className="text-sm text-gray-600 mt-2 leading-relaxed">
-              Based on the information you provided for <strong>{household.name}</strong> ({household.dwellingType}), you may qualify for <strong>{schemes.length} support schemes</strong> to help with household living costs.
+              Based on the information you provided, you may qualify for <strong>{schemes.length} support schemes</strong> to help with household living costs.
             </p>
 
             <div className="mt-4 flex items-center gap-3">
