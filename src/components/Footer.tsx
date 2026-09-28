@@ -77,10 +77,7 @@ export function Footer({
                 <ul className="space-y-2.5">
                   <li>
                     <button
-                      onClick={() => {
-                        const el = document.getElementById('results-section');
-                        if (el) el.scrollIntoView({ behavior: 'smooth' });
-                      }}
+                      onClick={onScrollToSupport}
                       className="text-gray-600 hover:text-blue-700 transition-colors cursor-pointer"
                     >
                       Support

@@ -5,7 +5,6 @@ interface HeaderProps {
   currentView: 'home' | 'results';
   onNavigateHome: () => void;
   onNavigateResults: () => void;
-  onOpenCalculator: () => void;
   onOpenSearch: () => void;
   onScrollToResources: () => void;
   hasAssessmentResults?: boolean;
@@ -15,13 +14,11 @@ export function Header({
   currentView,
   onNavigateHome,
   onNavigateResults,
-  onOpenCalculator,
   onOpenSearch,
   onScrollToResources,
   hasAssessmentResults = true
 }: HeaderProps) {
   const [selectedLanguage, setSelectedLanguage] = useState<'English' | '中文' | 'Melayu' | 'தமிழ்'>('English');
-  const [langMenuOpen, setLangMenuOpen] = useState(false);
 
   const languages: Array<'English' | '中文' | 'Melayu' | 'தமிழ்'> = ['English', '中文', 'Melayu', 'தமிழ்'];
 
@@ -29,7 +26,7 @@ export function Header({
     <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
       
       {/* Top Language Bar (SupportGoWhere style: "Read this in: English | 中文 | Melayu | தமிழ்") */}
-      <div className="bg-gray-50 border-b border-gray-200/70 py-1 px-4 sm:px-6 lg:px-8 text-[11px] text-gray-500">
+      <div className="bg-gray-50 border-b border-gray-200/70 py-1.5 px-4 sm:px-6 lg:px-8 text-[11px] text-gray-500">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-1.5 font-medium">
             <Globe className="w-3.5 h-3.5 text-gray-400 mr-1" />
@@ -54,7 +51,7 @@ export function Header({
           </div>
 
           <div className="text-[11px] text-gray-400 hidden md:inline">
-            Free independent community directory for Singapore households
+            Free public support directory for Singapore households
           </div>
         </div>
       </div>
@@ -63,7 +60,7 @@ export function Header({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         
         {/* Brand Container */}
-        <div className="flex items-center gap-8 lg:gap-10">
+        <div className="flex items-center gap-8 lg:gap-12">
           <button
             onClick={onNavigateHome}
             className="flex items-center gap-3 group text-left cursor-pointer"
@@ -82,8 +79,8 @@ export function Header({
             </div>
           </button>
 
-          {/* Primary Navigation Links */}
-          <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-gray-700">
+          {/* Primary Navigation Links: Support, Resources & Tools */}
+          <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-700">
             <button
               onClick={onNavigateHome}
               className={`transition-colors cursor-pointer py-1 ${
@@ -100,19 +97,13 @@ export function Header({
             >
               Resources & Tools
             </button>
-            <button
-              onClick={onOpenCalculator}
-              className="text-gray-700 hover:text-blue-700 transition-colors cursor-pointer py-1"
-            >
-              Support Calculator
-            </button>
           </nav>
         </div>
 
         {/* Right Action Area */}
         <div className="flex items-center gap-3 sm:gap-4">
           
-          {/* Quick Results View Toggle Button */}
+          {/* Quick Assessment Results link when results exist */}
           {hasAssessmentResults && (
             <button
               onClick={currentView === 'results' ? onNavigateHome : onNavigateResults}

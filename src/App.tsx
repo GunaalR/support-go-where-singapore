@@ -63,7 +63,6 @@ export default function App() {
         currentView={currentView}
         onNavigateHome={() => setCurrentView('home')}
         onNavigateResults={() => setCurrentView('results')}
-        onOpenCalculator={() => setIsCalculatorOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
         onScrollToResources={handleScrollToResources}
         hasAssessmentResults={true}
