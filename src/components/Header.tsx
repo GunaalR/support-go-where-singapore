@@ -1,21 +1,21 @@
 import React, { useState } from 'react';
-import { Compass, Search, UserCheck, RotateCcw, ChevronDown, CheckCircle2 } from 'lucide-react';
+import { Compass, Search, Home, ChevronDown, SlidersHorizontal, Check } from 'lucide-react';
 import { DemoHousehold } from '../types';
 
 interface HeaderProps {
   household: DemoHousehold;
   onOpenCalculator: () => void;
   onOpenSearch: () => void;
-  onResetHousehold: () => void;
-  onScrollToResults: () => void;
+  onScrollToStartHere: () => void;
+  onScrollToAllSchemes: () => void;
 }
 
 export function Header({
   household,
   onOpenCalculator,
   onOpenSearch,
-  onResetHousehold,
-  onScrollToResults
+  onScrollToStartHere,
+  onScrollToAllSchemes
 }: HeaderProps) {
   const [profileOpen, setProfileOpen] = useState(false);
 
@@ -26,15 +26,15 @@ export function Header({
         {/* Logo Container */}
         <div className="flex items-center gap-8">
           <a href="#" className="flex items-center gap-2.5 group">
-            <div className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-tr from-teal-500 via-blue-600 to-indigo-600 shadow-xs shadow-blue-200">
-              <Compass className="w-5 h-5 text-white" />
+            <div className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-tr from-teal-600 via-blue-600 to-indigo-700 shadow-xs shadow-blue-200">
+              <Compass className="w-5 h-5 text-white stroke-[2.2]" />
             </div>
             <div className="leading-none text-left">
               <span className="block text-xl font-bold tracking-tight text-gray-900 font-sans">
                 HelpCompass
               </span>
-              <span className="block text-[10px] font-bold text-gray-500 tracking-wider uppercase">
-                SG · Student Prototype
+              <span className="block text-[10px] font-semibold text-gray-500 tracking-wider uppercase">
+                SG · Support Directory
               </span>
             </div>
           </a>
@@ -42,25 +42,27 @@ export function Header({
           {/* Navigation Links */}
           <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700">
             <button
-              onClick={onScrollToResults}
+              onClick={onScrollToStartHere}
               className="hover:text-blue-700 transition-colors cursor-pointer"
             >
-              Calculated Results
+              Start Here
+            </button>
+            <button
+              onClick={onScrollToAllSchemes}
+              className="hover:text-blue-700 transition-colors cursor-pointer"
+            >
+              All Eligible Schemes
             </button>
             <button
               onClick={onOpenCalculator}
               className="hover:text-blue-700 transition-colors cursor-pointer"
             >
-              Assessment Calculator
+              Support Calculator
             </button>
-            <span className="text-gray-300">|</span>
-            <span className="text-xs text-gray-400 font-normal">
-              Course: MGMT 6108
-            </span>
           </nav>
         </div>
 
-        {/* Right Action Area: Demo Household Profile & Search */}
+        {/* Right Action Area: Household Profile Indicator & Search */}
         <div className="flex items-center gap-3">
           <button 
             onClick={onOpenSearch}
@@ -71,14 +73,14 @@ export function Header({
             <Search className="w-4 h-4 text-blue-700" />
           </button>
 
-          {/* Household Persona Indicator */}
+          {/* Household Context Dropdown */}
           <div className="relative">
             <button
               onClick={() => setProfileOpen(!profileOpen)}
-              className="flex items-center gap-2 pl-2.5 pr-3 py-1.5 text-xs font-semibold text-gray-800 border border-gray-200 rounded-full hover:bg-gray-50 transition-colors cursor-pointer bg-blue-50/50"
+              className="flex items-center gap-2 pl-2.5 pr-3 py-1.5 text-xs font-semibold text-gray-800 border border-gray-200 rounded-full hover:bg-gray-50 transition-colors cursor-pointer bg-blue-50/40"
             >
-              <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px] font-bold">
-                <UserCheck className="w-3 h-3" />
+              <div className="w-5 h-5 rounded-full bg-blue-600 text-white flex items-center justify-center text-[10px]">
+                <Home className="w-3 h-3" />
               </div>
               <span className="hidden sm:inline font-medium text-gray-900">
                 {household.name}
@@ -87,32 +89,38 @@ export function Header({
             </button>
 
             {profileOpen && (
-              <div className="absolute right-0 mt-2 w-64 bg-white rounded-2xl shadow-xl border border-gray-100 p-3 z-50 animate-in fade-in duration-100 text-left">
-                <div className="px-2 py-1.5 border-b border-gray-100 mb-2">
+              <div className="absolute right-0 mt-2 w-72 bg-white rounded-2xl shadow-xl border border-gray-100 p-3.5 z-50 animate-in fade-in duration-100 text-left">
+                <div className="px-2 py-1.5 border-b border-gray-100 mb-2.5">
                   <div className="flex items-center gap-1.5 text-xs font-bold text-gray-900">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
-                    Simulated Household Persona
+                    <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" />
+                    Household Profile Active
                   </div>
                   <p className="text-[11px] text-gray-500 mt-0.5">
                     {household.householdLabel}
                   </p>
                 </div>
 
-                <div className="px-2 py-1 text-xs text-gray-600 space-y-1">
-                  <div>Dwelling: <strong className="text-gray-900">{household.dwellingType}</strong></div>
-                  <div>Estimated Support: <strong className="text-emerald-700">${household.estimatedTotal}/year</strong></div>
+                <div className="px-2 py-1 text-xs text-gray-600 space-y-1.5">
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Dwelling:</span>
+                    <strong className="text-gray-900">{household.dwellingType}</strong>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-500">Estimated Total:</span>
+                    <strong className="text-emerald-700 font-bold">${household.estimatedTotal}/year</strong>
+                  </div>
                 </div>
 
-                <div className="mt-2 pt-2 border-t border-gray-100">
+                <div className="mt-3 pt-2.5 border-t border-gray-100">
                   <button
                     onClick={() => {
-                      onResetHousehold();
+                      onOpenCalculator();
                       setProfileOpen(false);
                     }}
-                    className="w-full text-left px-2 py-1.5 text-xs text-blue-600 hover:bg-blue-50 rounded-lg flex items-center gap-1.5 cursor-pointer font-medium"
+                    className="w-full text-center px-3 py-2 text-xs font-semibold text-blue-700 bg-blue-50 hover:bg-blue-100/70 rounded-xl transition-colors cursor-pointer flex items-center justify-center gap-1.5"
                   >
-                    <RotateCcw className="w-3 h-3" />
-                    Reset Fictional Persona
+                    <SlidersHorizontal className="w-3 h-3" />
+                    Adjust Household Profile
                   </button>
                 </div>
               </div>

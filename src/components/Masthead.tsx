@@ -1,22 +1,22 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronUp, ShieldCheck, GraduationCap } from 'lucide-react';
+import { ChevronDown, ChevronUp, ShieldCheck, HeartHandshake } from 'lucide-react';
 
 export function Masthead() {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="bg-[#F0F2F5] border-b border-gray-200 py-1 px-4 text-[11px] text-[#475467]" data-purpose="masthead">
+    <div className="bg-[#F4F6F8] border-b border-gray-200 py-1.5 px-4 text-[11px] text-[#475467]" data-purpose="service-masthead">
       <div className="max-w-7xl mx-auto flex flex-col">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            <GraduationCap className="w-3.5 h-3.5 text-blue-700 shrink-0" />
-            <span className="font-medium text-gray-700">HelpCompass SG — Academic Student Prototype</span>
+            <span className="w-2 h-2 rounded-full bg-emerald-500 shrink-0" />
+            <span className="font-medium text-gray-700">HelpCompass SG — Public Household Support Navigator</span>
             <button 
               onClick={() => setIsOpen(!isOpen)}
               className="text-blue-700 underline hover:text-blue-900 ml-1 inline-flex items-center gap-0.5 cursor-pointer font-medium"
               aria-expanded={isOpen}
             >
-              Ethics & Research Protocol
+              How this service works
               {isOpen ? <ChevronUp className="w-2.5 h-2.5" /> : <ChevronDown className="w-2.5 h-2.5" />}
             </button>
           </div>
@@ -27,19 +27,19 @@ export function Masthead() {
             <div className="flex items-start gap-2.5">
               <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-gray-900">Zero Real Data Collection</p>
+                <p className="font-semibold text-gray-900">Privacy & Data Protection</p>
                 <p className="text-[11px] text-gray-500 mt-0.5">
-                  No NRIC, names, addresses, or banking information are collected or stored. The prototype runs purely in the client browser with simulated mock data.
+                  HelpCompass SG does not collect, track, or store personal identity numbers, bank accounts, or confidential credentials. All calculations run securely in your browser.
                 </p>
               </div>
             </div>
 
             <div className="flex items-start gap-2.5">
-              <GraduationCap className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+              <HeartHandshake className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
               <div>
-                <p className="font-semibold text-gray-900">Decision Architecture Testing</p>
+                <p className="font-semibold text-gray-900">Clear, Guided Assistance</p>
                 <p className="text-[11px] text-gray-500 mt-0.5">
-                  Testing whether structured choice architecture ("Start Here" + implementation intention planning) reduces cognitive overload and friction without coercion or deceptive dark patterns.
+                  Designed to help families and caregivers navigate support schemes with less stress by highlighting practical starting points and step-by-step preparation checklists.
                 </p>
               </div>
             </div>

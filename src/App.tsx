@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { Variant, Scheme, DemoHousehold, FirstMovePlan } from './types';
+import { useState } from 'react';
+import { Scheme, DemoHousehold, FirstMovePlan } from './types';
 import { FICTIONAL_SCHEMES } from './data/fictionalSchemes';
-import { StudentResearchBanner } from './components/StudentResearchBanner';
-import { PrototypeDisclaimerBanner } from './components/PrototypeDisclaimerBanner';
 import { Masthead } from './components/Masthead';
 import { Header } from './components/Header';
 import { ResultsSection } from './components/ResultsSection';
@@ -13,37 +11,7 @@ import { SearchModal } from './components/SearchModal';
 import { Footer } from './components/Footer';
 
 export default function App() {
-  // Support ?v=A or ?v=B from URL
-  const [variant, setVariant] = useState<Variant>(() => {
-    if (typeof window !== 'undefined') {
-      const params = new URLSearchParams(window.location.search);
-      const v = params.get('v');
-      if (v === 'B' || v === 'b') return 'B';
-    }
-    return 'A'; // Default to Variant A (Baseline)
-  });
-
-  const handleVariantChange = (newVariant: Variant) => {
-    setVariant(newVariant);
-    if (typeof window !== 'undefined') {
-      const url = new URL(window.location.href);
-      url.searchParams.set('v', newVariant);
-      window.history.replaceState({}, '', url.toString());
-    }
-  };
-
-  // Synchronize on browser history popstate
-  useEffect(() => {
-    const handlePopState = () => {
-      const params = new URLSearchParams(window.location.search);
-      const v = params.get('v');
-      setVariant(v === 'B' || v === 'b' ? 'B' : 'A');
-    };
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, []);
-
-  // Fictional household persona
+  // Household profile
   const [household, setHousehold] = useState<DemoHousehold>({
     name: 'The Lee Family',
     householdLabel: '4-Room Apartment · 1 Senior Dependant, 1 Child',
@@ -51,7 +19,7 @@ export default function App() {
     estimatedTotal: 3300
   });
 
-  // Track voluntary first-move plans (Variant B)
+  // Track voluntary first-move intentions
   const [plans, setPlans] = useState<Record<string, FirstMovePlan>>({});
 
   // Modals state
@@ -67,51 +35,38 @@ export default function App() {
     }));
   };
 
-  const handleResetHousehold = () => {
-    setHousehold({
-      name: 'The Lee Family',
-      householdLabel: '4-Room Apartment · 1 Senior Dependant, 1 Child',
-      dwellingType: '4-Room Apartment',
-      estimatedTotal: 3300
-    });
-    setPlans({});
+  const handleScrollToStartHere = () => {
+    const el = document.getElementById('start-here');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
-  const handleScrollToResults = () => {
-    const el = document.getElementById('results-section');
+  const handleScrollToAllSchemes = () => {
+    const el = document.getElementById('all-schemes');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="min-h-screen bg-white text-gray-900 font-sans antialiased flex flex-col selection:bg-blue-100 selection:text-blue-800">
+    <div className="min-h-screen bg-[#FDFDFD] text-gray-900 font-sans antialiased flex flex-col selection:bg-blue-100 selection:text-blue-900">
       
-      {/* 1. Academic Course Header & Variant Selector (?v=A | ?v=B) */}
-      <StudentResearchBanner
-        variant={variant}
-        onVariantChange={handleVariantChange}
-      />
-
-      {/* 2. Educational & Research Prototype Notice */}
-      <PrototypeDisclaimerBanner />
-
-      {/* 3. Academic Masthead with Ethics Standards */}
+      {/* 1. Official Reassuring Public-Service Masthead */}
       <Masthead />
 
-      {/* 4. HelpCompass SG Main Header */}
+      {/* 2. Main Navigation Header */}
       <Header
         household={household}
         onOpenCalculator={() => setIsCalculatorOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
-        onResetHousehold={handleResetHousehold}
-        onScrollToResults={handleScrollToResults}
+        onScrollToStartHere={handleScrollToStartHere}
+        onScrollToAllSchemes={handleScrollToAllSchemes}
       />
 
-      {/* Main Results View (The core of the MGMT 6108 experiment) */}
+      {/* 3. Main Results Experience */}
       <main className="flex-1">
         <ResultsSection
-          variant={variant}
           household={household}
           schemes={FICTIONAL_SCHEMES}
           plans={plans}
@@ -121,14 +76,13 @@ export default function App() {
         />
       </main>
 
-      {/* 5. Footer with Course Brief and Safeguards */}
+      {/* 4. Trustworthy Public Service Footer */}
       <Footer />
 
       {/* Modals */}
-      {/* Scheme Detail Modal (includes "What you'll need" checklist) */}
+      {/* Scheme Detail Modal (with "What you'll need" checklist) */}
       <SchemeDetailModal
         scheme={selectedScheme}
-        variant={variant}
         plan={selectedScheme ? plans[selectedScheme.id] : undefined}
         onClose={() => setSelectedScheme(null)}
         onOpenPlanModal={(scheme) => {
@@ -137,7 +91,7 @@ export default function App() {
         }}
       />
 
-      {/* Plan the First Move Modal (Variant B: When will you take the next step? + Do this with someone) */}
+      {/* Plan the First Move Modal (Intention-setting + optional social support) */}
       <PlanFirstMoveModal
         isOpen={Boolean(schemeForPlanning)}
         scheme={schemeForPlanning}
@@ -145,7 +99,7 @@ export default function App() {
         onCompletePlan={handleCompletePlan}
       />
 
-      {/* Assessment Calculator Modal */}
+      {/* Support Calculator Modal */}
       <BudgetCalculatorModal
         isOpen={isCalculatorOpen}
         onClose={() => setIsCalculatorOpen(false)}

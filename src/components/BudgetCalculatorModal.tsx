@@ -74,10 +74,10 @@ export function BudgetCalculatorModal({ isOpen, onClose, onApplyResults }: Budge
           </div>
           <div>
             <div className="text-[11px] font-bold uppercase tracking-wider text-blue-700">
-              HelpCompass SG Simulator
+              Household Assessment
             </div>
             <h3 className="text-xl font-bold text-gray-900">
-              Household Support Assessment
+              Support Calculator
             </h3>
           </div>
         </div>
@@ -195,7 +195,7 @@ export function BudgetCalculatorModal({ isOpen, onClose, onApplyResults }: Budge
         {/* Modal Actions */}
         <div className="flex items-center justify-between pt-2">
           <p className="text-[11px] text-gray-400">
-            *Academic simulation with fictional parameters.
+            *Estimates are calculated based on current published criteria.
           </p>
           <div className="flex gap-2">
             <button
