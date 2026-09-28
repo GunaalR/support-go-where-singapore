@@ -3,7 +3,8 @@ import { Scheme, DemoHousehold, FirstMovePlan } from './types';
 import { FICTIONAL_SCHEMES } from './data/fictionalSchemes';
 import { Masthead } from './components/Masthead';
 import { Header } from './components/Header';
-import { ResultsSection } from './components/ResultsSection';
+import { HomePage } from './components/HomePage';
+import { ResultsPage } from './components/ResultsPage';
 import { BudgetCalculatorModal } from './components/BudgetCalculatorModal';
 import { SchemeDetailModal } from './components/SchemeDetailModal';
 import { PlanFirstMoveModal } from './components/PlanFirstMoveModal';
@@ -11,6 +12,9 @@ import { SearchModal } from './components/SearchModal';
 import { Footer } from './components/Footer';
 
 export default function App() {
+  // Navigation view: 'home' for normal homepage, 'results' for completed assessment
+  const [currentView, setCurrentView] = useState<'home' | 'results'>('home');
+
   // Household profile used for calculations
   const [household, setHousehold] = useState<DemoHousehold>({
     name: 'Your assessment',
@@ -35,17 +39,16 @@ export default function App() {
     }));
   };
 
-  const handleScrollToSupport = () => {
-    const el = document.getElementById('results-section');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
   const handleScrollToResources = () => {
-    const el = document.getElementById('resources-and-tools');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+    if (currentView !== 'home') {
+      setCurrentView('home');
+      setTimeout(() => {
+        const el = document.getElementById('resources-and-tools');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
+    } else {
+      const el = document.getElementById('resources-and-tools');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
@@ -55,29 +58,46 @@ export default function App() {
       {/* 1. Official Reassuring Public-Service Masthead */}
       <Masthead />
 
-      {/* 2. Main Navigation Header (Clean, Understated, No login/account) */}
+      {/* 2. Main Navigation Header with Language Selector Bar */}
       <Header
+        currentView={currentView}
+        onNavigateHome={() => setCurrentView('home')}
+        onNavigateResults={() => setCurrentView('results')}
         onOpenCalculator={() => setIsCalculatorOpen(true)}
         onOpenSearch={() => setIsSearchOpen(true)}
-        onScrollToSupport={handleScrollToSupport}
         onScrollToResources={handleScrollToResources}
+        hasAssessmentResults={true}
       />
 
-      {/* 3. Main Results Experience */}
+      {/* 3. Main Views: HomePage vs Dedicated ResultsPage */}
       <main className="flex-1">
-        <ResultsSection
-          household={household}
-          schemes={FICTIONAL_SCHEMES}
-          plans={plans}
-          onSelectScheme={(scheme) => setSelectedScheme(scheme)}
-          onOpenPlanModal={(scheme) => setSchemeForPlanning(scheme)}
-          onOpenCalculator={() => setIsCalculatorOpen(true)}
-        />
+        {currentView === 'home' ? (
+          <HomePage
+            schemes={FICTIONAL_SCHEMES}
+            onSelectScheme={(scheme) => setSelectedScheme(scheme)}
+            onOpenCalculator={() => setIsCalculatorOpen(true)}
+            onNavigateToResults={() => setCurrentView('results')}
+            hasAssessmentResults={true}
+          />
+        ) : (
+          <ResultsPage
+            household={household}
+            schemes={FICTIONAL_SCHEMES}
+            plans={plans}
+            onSelectScheme={(scheme) => setSelectedScheme(scheme)}
+            onOpenPlanModal={(scheme) => setSchemeForPlanning(scheme)}
+            onOpenCalculator={() => setIsCalculatorOpen(true)}
+            onBackToHome={() => setCurrentView('home')}
+          />
+        )}
       </main>
 
       {/* 4. Trustworthy Public Service Footer */}
       <Footer
-        onScrollToSupport={handleScrollToSupport}
+        onScrollToSupport={() => {
+          if (currentView !== 'home') setCurrentView('home');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
         onScrollToResources={handleScrollToResources}
         onOpenCalculator={() => setIsCalculatorOpen(true)}
       />
@@ -112,6 +132,7 @@ export default function App() {
             estimatedTotal: total,
             dwellingType: dwelling
           }));
+          setCurrentView('results');
         }}
       />
 
