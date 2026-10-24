@@ -34,7 +34,7 @@
 | 9 | Largest button on the page goes to LifeSG to view past payouts | W7 fluency; salience | grey | 1 | |
 | 10 | No way to plan, save or be reminded; a reopened link returns to the start | W6 planning prompts and reminders; W2 progress | missed nudge | 3 | |
 | 11 | Help is an FAQ link; no path to do it with a family member | W6 accountability | missed nudge | 1 | |
-| 12 | One pale green for every box; the category lives only in the name's prefix | W8 colour, Labrecque & Milne; Nielsen #6 | missed nudge | 1 | |
+| 12 | One pale green for every box; the category lives only in the name's prefix | W8 colour, Labrecque & Milne (2012); Nielsen #6 | missed nudge | 1 | |
 
 Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every finding alone before we compare, and both the individual and the agreed numbers stay in this file.
 
@@ -140,7 +140,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 ## Finding 12 - One pale green for every box; the category lives only in the name's prefix
 - **Where:** box headers (all the same pale green, #EBF1EE) and rows (plain text).
 - **What the user sees and does:** cash, top-ups to CPF, rebates on bills, vouchers and app credits all look the same. Telling them apart means reading each prefix.
-- **Principle:** W8 colour carries meaning that shapes judgments (Labrecque & Milne, 2011; Alter, 2014, ch. 7). Nielsen heuristic 6, recognition rather than recall (Week 6 briefing, slide 17).
+- **Principle:** W8 colour carries meaning: it "can shape consumer perceptions such as brand personality, familiarity, likability, and purchase intent" (Labrecque & Milne, 2012, p. 711; Alter, 2014, ch. 7). Nielsen heuristic 6, recognition rather than recall (Week 6 briefing, slide 17).
 - **Mechanism, whose goal wins:** the user has to recall what each prefix means, row by row. A small cost in time. · **missed nudge**
 - **Severity 0-4:** M1 [ ] · M2 EZ 1 · M3 [ ] · M4 [ ] · M5 [ ] · agreed [ ] · driver: how often
 - **Repair (what should be true afterwards):** one consistent colour and icon per kind of support, always with its text label (never colour alone), and no alarm red on "Claim it yourself" (M5).
@@ -151,7 +151,10 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 - **"Apply" becomes "claim".** The official record says "No application needed" for all ten schemes P1 gets, yet three need action (Finding 5). B's labels and the primary metric use "claim it yourself" and "commit to a dated first move for an item that needs action", not "start an application".
 - **Not every finding gets a repair in B.** Finding 3 (paid versus coming) is real but outside B's scope; it goes to section 6 as the next test.
 
-**Citations check:** page numbers for Kahneman ch. 26 (p. 282), the Week 2, 3, 6 and 7 slides, and the syllabus page ranges were checked against our copies on 2026-10-24. Ariely ch. 9, Alter ch. 2 and ch. 7, Labrecque & Milne and Beshears & Gino are cited by chapter or article. Exact pages still need a check against the eLearn copies, logged in REFLECTION.md A2.
+**Citations check (2026-10-25):** checked against our copies:
+- Kahneman ch. 26 (p. 282); Labrecque & Milne (2012, p. 711; published online 2011, which is why the syllabus lists 2011); the Week 2, 3, 6 and 7 slides; and the syllabus page ranges.
+- Ariely ch. 9 at chapter level: our eLearn scan has its page numbers cropped off. The claims rest on "expectations are more than the mere anticipation of a boost" and "these biased processes can influence how we experience other aspects of our world".
+- Alter ch. 2 and ch. 7, Petrova et al. and Beshears & Gino could not be opened through the library proxy. Each claim that cites them is also tied to a slide we checked (Week 6 slide 5; Week 7 slides 7, 13-17, 20 and 38).
 
 ## Added after building
 [Dated. From the first prompt for B, nothing above this heading changes.]
