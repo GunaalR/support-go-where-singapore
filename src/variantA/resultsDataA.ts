@@ -1,7 +1,9 @@
 // Variant A: the live calculator results screen as it was on 2026-10-24,
-// rebuilt under the fictional brand. Amounts, payout months, row order and
-// notes follow audit/evidence/2026-10-24_P1_calculator_result.json; every
-// real name is swapped as listed in audit/evidence/README.md.
+// rebuilt under the fictional brand. Amounts, payout months and notes follow
+// the dated screenshots in audit/screenshots/ and the saved results in
+// audit/evidence/; every real name is swapped as listed in
+// audit/evidence/README.md. Rows keep the live order, which is alphabetical
+// by the real scheme name (so the fictional names may look unsorted).
 
 export type PayoutUnit = 'currency' | 'months';
 
@@ -100,8 +102,8 @@ export const RESULTS_A: YearPanelA[] = [
         profile: PROFILE_YOU,
         rows: [
           { schemeName: NAME.steadyCash, schemeCode: 'STEADY-CASH', amount: 250, unit: 'currency', payoutLine: 'Payout in December 2026' },
-          { schemeName: NAME.lcvCash, schemeCode: 'LCV-CASH', amount: 850, unit: 'currency', payoutLine: 'Payout in August 2026' },
           { schemeName: NAME.costOfLiving, schemeCode: 'COL-2026', amount: 500, unit: 'currency', payoutLine: 'Payout in September 2026' },
+          { schemeName: NAME.lcvCash, schemeCode: 'LCV-CASH', amount: 850, unit: 'currency', payoutLine: 'Payout in August 2026' },
         ],
         notes: [],
       },
@@ -111,9 +113,9 @@ export const RESULTS_A: YearPanelA[] = [
         title: 'Your household benefits',
         profile: PROFILE_HOUSEHOLD,
         rows: [
+          { schemeName: NAME.euc, schemeCode: 'EUCR', amount: 2.5, unit: 'months', payoutLine: 'Granted from January 2026, April 2026, July 2026 and October 2026' },
           { schemeName: NAME.uCredit, schemeCode: 'U-CREDIT', amount: 600, unit: 'currency', payoutLine: 'Granted from January 2026, April 2026, July 2026 and October 2026' },
           { schemeName: NAME.ncv, schemeCode: 'NCV', amount: 800, unit: 'currency', payoutLine: 'Payout in January 2026 and June 2026' },
-          { schemeName: NAME.euc, schemeCode: 'EUCR', amount: 2.5, unit: 'months', payoutLine: 'Granted from January 2026, April 2026, July 2026 and October 2026' },
         ],
         notes: [NOTE_EUC, NOTE_U_CREDIT],
       },
@@ -126,11 +128,11 @@ export const RESULTS_A: YearPanelA[] = [
         profile: PROFILE_MEMBER_1,
         rows: [
           { schemeName: NAME.steadyCash, schemeCode: 'STEADY-CASH', amount: 250, unit: 'currency', payoutLine: 'Payout in December 2026' },
+          { schemeName: NAME.costOfLiving, schemeCode: 'COL-2026', amount: 600, unit: 'currency', payoutLine: 'Payout in September 2026' },
           { schemeName: NAME.lcvCash, schemeCode: 'LCV-CASH', amount: 850, unit: 'currency', payoutLine: 'Payout in August 2026' },
+          { schemeName: NAME.nsfTopUp, schemeCode: 'NSF-TOPUP-2026', amount: 1500, unit: 'currency', payoutLine: 'Payout in December 2026' },
           { schemeName: NAME.lcvHealthSave, schemeCode: 'LCV-HEALTHSAVE', amount: 250, unit: 'currency', payoutLine: 'Payout in August 2026' },
           { schemeName: NAME.earnAndSave, schemeCode: 'HP-ESB', amount: 1000, unit: 'currency', isMax: true, payoutLine: 'Payout in March 2026' },
-          { schemeName: NAME.costOfLiving, schemeCode: 'COL-2026', amount: 600, unit: 'currency', payoutLine: 'Payout in September 2026' },
-          { schemeName: NAME.nsfTopUp, schemeCode: 'NSF-TOPUP-2026', amount: 1500, unit: 'currency', payoutLine: 'Payout in December 2026' },
         ],
         notes: [NOTE_EARN_AND_SAVE],
       },
@@ -140,7 +142,7 @@ export const RESULTS_A: YearPanelA[] = [
         title: 'Member 2 benefits',
         profile: PROFILE_MEMBER_2,
         rows: [
-          { schemeName: NAME.childCredits, schemeCode: 'CHILD-CREDITS', amount: 500, unit: 'currency', payoutLine: 'Payout in April 2026 and July 2026' },
+          { schemeName: NAME.childCredits, schemeCode: 'CHILD-CREDITS', amount: 500, unit: 'currency', payoutLine: 'Payout in July 2026' },
         ],
         notes: [NOTE_CHILD_CREDITS],
       },
@@ -150,7 +152,7 @@ export const RESULTS_A: YearPanelA[] = [
         title: 'Member 3 benefits',
         profile: PROFILE_MEMBER_3,
         rows: [
-          { schemeName: NAME.childCredits, schemeCode: 'CHILD-CREDITS', amount: 500, unit: 'currency', payoutLine: 'Payout in April 2026 and July 2026' },
+          { schemeName: NAME.childCredits, schemeCode: 'CHILD-CREDITS', amount: 500, unit: 'currency', payoutLine: 'Payout in July 2026' },
         ],
         notes: [NOTE_CHILD_CREDITS],
       },
@@ -175,9 +177,9 @@ export const RESULTS_A: YearPanelA[] = [
         title: 'Your household benefits',
         profile: PROFILE_HOUSEHOLD,
         rows: [
+          { schemeName: NAME.euc, schemeCode: 'EUCR', amount: 2.5, unit: 'months', payoutLine: 'Granted from January 2027, April 2027, July 2027 and October 2027' },
           { schemeName: NAME.uCredit, schemeCode: 'U-CREDIT', amount: 375, unit: 'currency', payoutLine: 'Granted from January 2027, April 2027, July 2027 and October 2027' },
           { schemeName: NAME.ncv, schemeCode: 'NCV', amount: 300, unit: 'currency', payoutLine: 'Payout in January 2027' },
-          { schemeName: NAME.euc, schemeCode: 'EUCR', amount: 2.5, unit: 'months', payoutLine: 'Granted from January 2027, April 2027, July 2027 and October 2027' },
         ],
         notes: [NOTE_EUC, NOTE_U_CREDIT],
       },

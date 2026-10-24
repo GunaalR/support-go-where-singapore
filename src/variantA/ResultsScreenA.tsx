@@ -1,11 +1,12 @@
 import { useState } from 'react';
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Home, User } from 'lucide-react';
+import { Calculator, ChevronDown, ChevronLeft, ChevronUp, FileText, Home, Search, User } from 'lucide-react';
 import { BenefitBoxA, COPY_A, PayoutRowA, RESULTS_A, YearPanelA } from './resultsDataA';
 
 // Variant A: the live results screen as it is, for persona P1.
-// Owned by M2. Layout follows the live page, element by element:
-// page title, sticky year tabs, total box, your own and household boxes
-// (open by default), other members' boxes, notes, banner, FAQ link.
+// Owned by M2. Layout follows the dated screenshots in audit/screenshots/,
+// element by element: page title, sticky year tabs, total box, your own and
+// household boxes (open by default), other members' boxes, notes, banner,
+// FAQ link.
 
 interface ResultsScreenAProps {
   onBack?: () => void;
@@ -16,6 +17,9 @@ interface ResultsScreenAProps {
 }
 
 const GREEN_LIGHTER = '#EBF1EE';
+const ORANGE_LIGHT = '#FEF6F1';
+const ORANGE_REGULAR = '#F2A474';
+const ORANGE_DARK = '#A96237';
 const BORDER_GREY = '#CACACA';
 const TEXT_DARK = '#4E4E4E';
 const LINK_BLUE = '#125EEC';
@@ -53,13 +57,30 @@ function BoxHeaderTotal({ box }: { box: BenefitBoxA }) {
   const cash = boxCash(box);
   const months = boxMonths(box);
   if (cash === 0 && months === 0) {
-    return <p className="text-sm" style={{ color: TEXT_DARK }}>{COPY_A.notEligible}</p>;
+    return <p className="font-semibold text-lg" style={{ color: TEXT_DARK }}>{COPY_A.notEligible}</p>;
   }
   const isMax = box.rows.some(r => r.isMax);
   return (
-    <div className="font-semibold text-base text-[#222222]">
+    <div className="font-bold text-lg md:text-xl" style={{ color: TEXT_DARK }}>
       {cash > 0 && <p>{isMax ? COPY_A.upTo(money(cash)) : money(cash)}</p>}
       {months > 0 && <p>{COPY_A.rebateMonthsShort(months)}</p>}
+    </div>
+  );
+}
+
+function NoResult({ year }: { year: string }) {
+  return (
+    <div className="flex flex-col items-center text-center px-4 py-8">
+      <div
+        className="relative w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center mb-6"
+        style={{ backgroundColor: ORANGE_LIGHT }}
+        aria-hidden="true"
+      >
+        <Calculator className="w-12 h-12 md:w-16 md:h-16 text-[#2C2C2C]" />
+        <Search className="absolute -left-2 top-2 w-10 h-10 md:w-12 md:h-12 text-[#4E6B7A]" />
+      </div>
+      <p className="font-bold text-lg md:text-xl" style={{ color: TEXT_DARK }}>{COPY_A.memberNoResultTitle(year)}</p>
+      <p className="mt-2" style={{ color: TEXT_DARK }}>{COPY_A.memberNoResultDesc}</p>
     </div>
   );
 }
@@ -89,13 +110,11 @@ function BenefitBox({
         style={{ backgroundColor: GREEN_LIGHTER, borderRadius: open ? '8px 8px 0 0' : 8 }}
       >
         <div className="flex items-start gap-4 w-full">
-          <span className="shrink-0 w-10 h-10 rounded-full bg-white flex items-center justify-center">
-            <Icon className="w-5 h-5 text-[#166938]" aria-hidden="true" />
-          </span>
-          <div className="flex flex-col md:flex-row md:items-start md:justify-between w-full gap-2">
+          <Icon className="w-7 h-7 shrink-0 mt-1" style={{ color: ORANGE_DARK }} strokeWidth={1.5} aria-hidden="true" />
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-2">
             <div>
-              <p className="font-semibold text-base text-[#222222]">{box.title}</p>
-              <p className="text-sm mt-0.5 max-w-[690px]" style={{ color: TEXT_DARK }}>{box.profile}</p>
+              <p className="font-semibold text-lg md:text-xl" style={{ color: TEXT_DARK }}>{box.title}</p>
+              <p className="mt-0.5 max-w-[690px]" style={{ color: TEXT_DARK }}>{box.profile}</p>
             </div>
             <div className="md:text-right">
               <BoxHeaderTotal box={box} />
@@ -103,44 +122,41 @@ function BenefitBox({
           </div>
         </div>
         {open ? (
-          <ChevronUp className="w-5 h-5 shrink-0 text-gray-500" aria-hidden="true" />
+          <ChevronUp className="w-6 h-6 shrink-0 text-gray-500" strokeWidth={1.5} aria-hidden="true" />
         ) : (
-          <ChevronDown className="w-5 h-5 shrink-0 text-gray-500" aria-hidden="true" />
+          <ChevronDown className="w-6 h-6 shrink-0 text-gray-500" strokeWidth={1.5} aria-hidden="true" />
         )}
       </button>
 
       {open && (
         <div className="pb-2">
           {box.rows.length === 0 ? (
-            <div className="px-4 py-6">
-              <p className="font-semibold text-[#222222]">{COPY_A.memberNoResultTitle(year)}</p>
-              <p className="mt-2" style={{ color: TEXT_DARK }}>{COPY_A.memberNoResultDesc}</p>
-            </div>
+            <NoResult year={year} />
           ) : (
             box.rows.map((row, i) => (
               <div key={`${row.schemeCode}-${i}`} className="flex flex-col gap-2 mt-2 md:mt-4 mb-5">
-                <div className="flex flex-col pt-2 pl-4 pr-2 pb-2">
+                <div className="flex flex-col pt-2 pl-4 md:pl-6 pr-2 pb-2">
                   <button
                     type="button"
                     onClick={() => onOpenScheme?.(row.schemeCode)}
-                    className="text-left font-semibold underline-offset-2 hover:underline cursor-pointer w-fit"
+                    className="text-left text-lg font-medium underline underline-offset-2 cursor-pointer w-fit"
                     style={{ color: LINK_BLUE }}
                   >
                     {row.schemeName}
                   </button>
-                  <p className="text-[#222222]">{row.payoutLine}</p>
+                  <p className="text-lg" style={{ color: TEXT_DARK }}>{row.payoutLine}</p>
                 </div>
-                <p className="pl-4 font-semibold text-[#222222]">{rowAmount(row)}</p>
+                <p className="pl-4 md:pl-6 text-lg font-bold" style={{ color: TEXT_DARK }}>{rowAmount(row)}</p>
               </div>
             ))
           )}
 
           {box.notes.length > 0 && (
-            <div className="ml-2 mr-4 mb-2">
-              <p className="italic text-sm ml-3" style={{ color: TEXT_DARK }}>{COPY_A.toNote}</p>
+            <div className="ml-2 md:ml-4 mr-4 mb-4">
+              <p className="italic ml-3" style={{ color: TEXT_DARK }}>{COPY_A.toNote}</p>
               <ul className="list-disc mt-0 ml-8">
                 {box.notes.map(note => (
-                  <li key={note} className="italic text-sm" style={{ color: TEXT_DARK }}>{note}</li>
+                  <li key={note} className="italic" style={{ color: TEXT_DARK }}>{note}</li>
                 ))}
               </ul>
             </div>
@@ -158,68 +174,69 @@ export function ResultsScreenA({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
   const panel = RESULTS_A[tab];
 
   return (
-    <div className="bg-white text-[#222222]" data-variant="A">
+    <div className="bg-white" style={{ color: TEXT_DARK }} data-variant="A">
       {/* Page title */}
-      <div className="bg-[#F7F7F7] border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 py-6 md:py-10">
+      <div style={{ background: 'linear-gradient(to bottom, #FAFAFA, #ECF0EF)' }}>
+        <div className="max-w-6xl mx-auto px-4 pt-6 pb-12 md:pt-8 md:pb-20">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-1 text-sm font-semibold cursor-pointer mb-4"
+            className="inline-flex items-center gap-2 text-lg font-semibold cursor-pointer mb-8 md:mb-12"
             style={{ color: LINK_BLUE }}
             aria-label="Go back to calculator landing page"
           >
-            <ChevronLeft className="w-4 h-4" aria-hidden="true" />
+            <ChevronLeft className="w-5 h-5 text-gray-500" strokeWidth={1.5} aria-hidden="true" />
             {COPY_A.back}
           </button>
           <h1 className="text-2xl md:text-4xl font-bold leading-tight">{COPY_A.pageTitle}</h1>
-          <p className="mt-3 text-base max-w-3xl" style={{ color: TEXT_DARK }}>{COPY_A.pageSubtitle}</p>
+          <p className="mt-4 text-lg md:text-2xl max-w-5xl">{COPY_A.pageSubtitle}</p>
         </div>
       </div>
 
       {/* Year tabs, sticky like the live page */}
-      <div className="sticky top-0 z-10 bg-white border-b border-gray-200">
-        <div className="max-w-5xl mx-auto px-4 flex gap-6" role="tablist">
-          {RESULTS_A.map((p, i) => (
-            <button
-              key={p.year}
-              type="button"
-              role="tab"
-              aria-selected={i === tab}
-              onClick={() => setTab(i)}
-              className="py-3 text-base font-semibold cursor-pointer border-b-4"
-              style={{
-                borderColor: i === tab ? LINK_BLUE : 'transparent',
-                color: i === tab ? LINK_BLUE : TEXT_DARK,
-              }}
-            >
-              {p.year}
-            </button>
-          ))}
+      <div className="sticky top-0 z-10 bg-white">
+        <div className="max-w-6xl mx-auto px-4 pt-6 md:pt-10">
+          <div className="flex" role="tablist" style={{ borderBottom: `1px solid ${ORANGE_REGULAR}` }}>
+            {RESULTS_A.map((p, i) => (
+              <button
+                key={p.year}
+                type="button"
+                role="tab"
+                aria-selected={i === tab}
+                onClick={() => setTab(i)}
+                className="flex-1 py-3 text-lg md:text-xl cursor-pointer"
+                style={{
+                  backgroundColor: i === tab ? ORANGE_LIGHT : 'transparent',
+                  borderBottom: i === tab ? `4px solid ${ORANGE_REGULAR}` : '4px solid transparent',
+                  fontWeight: i === tab ? 700 : 400,
+                  color: '#222222',
+                }}
+              >
+                {p.year}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      <div className="max-w-5xl mx-auto px-4 mt-2 md:mt-4 mb-6 md:mb-8" role="tabpanel">
+      <div className="max-w-6xl mx-auto px-4 mt-6 md:mt-8 mb-6 md:mb-8" role="tabpanel">
         {/* Total box */}
         <div
-          className="relative flex flex-col p-6 md:p-8 mb-10 overflow-hidden rounded-2xl shadow-sm mt-4"
+          className="relative flex flex-col p-6 md:p-8 mb-10 overflow-hidden rounded-2xl shadow-sm"
           style={{ backgroundColor: GREEN_LIGHTER }}
         >
           <span
-            className="absolute rounded-full bg-[#FEF6F1] w-[1200px] h-[1200px] -right-[800px] -top-[50px] md:-right-[490px] md:-top-[40px]"
+            className="absolute rounded-full w-[1200px] h-[1200px] -right-[800px] -top-[50px] md:-right-[490px] md:-top-[40px]"
+            style={{ backgroundColor: ORANGE_LIGHT }}
             aria-hidden="true"
           />
-          <p className="relative text-lg md:text-2xl font-semibold" style={{ color: TEXT_DARK }}>{COPY_A.totalTitle}</p>
-          <p
-            className="relative text-2xl md:text-3xl font-bold mt-1"
-            style={{ color: TEXT_DARK }}
-            id={`${panel.year}-aggregate`}
-          >
+          <p className="relative text-xl md:text-3xl font-bold">{COPY_A.totalTitle}</p>
+          <p className="relative text-xl md:text-3xl mt-1" id={`${panel.year}-aggregate`}>
             {totalLabel(panel)}
           </p>
         </div>
 
-        <h2 className="text-xl md:text-2xl font-bold mb-6">{COPY_A.ownSectionTitle}</h2>
+        <h2 className="text-xl md:text-3xl mb-6">{COPY_A.ownSectionTitle}</h2>
         {panel.ownBoxes.map(box => (
           <BenefitBox key={`${panel.year}-${box.id}`} box={box} year={panel.year} onOpenScheme={onOpenScheme} />
         ))}
@@ -228,8 +245,8 @@ export function ResultsScreenA({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
           <>
             <hr className="border-t mb-10 mt-4" style={{ borderColor: BORDER_GREY }} />
             <div className="flex flex-col mb-6">
-              <h2 className="text-xl md:text-2xl font-bold">{COPY_A.membersSectionTitle}</h2>
-              <p className="text-sm py-2" style={{ color: TEXT_DARK }}>{COPY_A.membersSectionNote}</p>
+              <h2 className="text-xl md:text-3xl">{COPY_A.membersSectionTitle}</h2>
+              <p className="py-2">{COPY_A.membersSectionNote}</p>
             </div>
             {panel.memberBoxes.map(box => (
               <BenefitBox key={`${panel.year}-${box.id}`} box={box} year={panel.year} onOpenScheme={onOpenScheme} />
@@ -239,27 +256,27 @@ export function ResultsScreenA({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
       </div>
 
       {/* Banner and FAQ link, below the tabbed results */}
-      <div className="max-w-5xl mx-auto px-4">
+      <div className="max-w-6xl mx-auto px-4">
         <div
-          className="flex flex-col md:flex-row md:items-center gap-4 p-6 rounded-xl mb-10"
+          className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-6 md:p-8 rounded-xl shadow-sm mb-10"
           style={{ background: 'linear-gradient(to left, #F3F7E8, #EEF6FA)' }}
         >
+          <FileText className="w-12 h-12 shrink-0 hidden md:block" style={{ color: BANNER_BLUE }} strokeWidth={1.25} aria-hidden="true" />
           <div className="flex-1">
-            <p className="text-sm font-bold uppercase tracking-wide" style={{ color: BANNER_BLUE }}>{COPY_A.bannerTitle}</p>
-            <p className="mt-1 md:mt-2" style={{ color: TEXT_DARK }}>{COPY_A.bannerDesc}</p>
+            <p className="text-sm md:text-base font-semibold uppercase tracking-widest" style={{ color: BANNER_BLUE }}>{COPY_A.bannerTitle}</p>
+            <p className="mt-1 md:mt-2 text-lg font-semibold">{COPY_A.bannerDesc}</p>
           </div>
           <button
             type="button"
             onClick={onOpenBanner}
-            className="inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 font-semibold text-white cursor-pointer w-full md:w-[284px]"
+            className="rounded-lg px-5 py-3 text-lg font-semibold text-white cursor-pointer w-full md:w-[284px]"
             style={{ backgroundColor: BANNER_BLUE }}
           >
             {COPY_A.bannerButton}
-            <ChevronRight className="w-4 h-4" aria-hidden="true" />
           </button>
         </div>
 
-        <p className="text-center mb-10 md:mb-16">
+        <p className="text-center text-lg mb-10 md:mb-16">
           {COPY_A.unsure}
           <button
             type="button"
