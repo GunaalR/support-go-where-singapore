@@ -4,7 +4,7 @@
 
 **Product audited:** the live results screen at supportgowhere.life.gov.sg/budget/support-calculator/result, which appears after the calculator form. Our prototype rebuilds it as variant A under the fictional brand HelpCompass SG.
 
-**Captured:** 2026-10-24. The live results for two fictional households were saved from the site's own calculator service, together with the official record behind each scheme page (`audit/evidence/`). Dated phone and laptop screenshots of every screen are listed in `audit/screenshots/SHOTLIST.md`, one dated row per file.
+**Captured:** 2026-10-24. The live results for two fictional households were saved from the site's own calculator service, together with the official record behind each scheme page (`audit/evidence/`). Dated laptop screenshots of every screen (Chrome on Windows 11, 24 Oct 2026) are in `audit/screenshots/`, logged one row per file in `SHOTLIST.md`.
 
 **Fictional households (no real personal data):**
 - **P1:** you, born 1981, assessable income $22,001 to $39,000; your mother, born 1955, no income; two school-age children, born 2014 and 2017; you own a 4-room HDB flat, annual value $15,000 and below.
@@ -121,7 +121,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 
 ## Finding 10 - No way to plan, save or be reminded
 - **Where:** the whole results screen, which has no planning, saving or reminder control.
-- **What the user sees and does:** nothing asks when the household will deal with the vouchers or credits. Saving the link does not help: opening the results link in a new tab or a later session sends the user back to the calculator's start (the page checks a one-session ID before showing results, and the site's bookmark feature is switched off). To be confirmed on shot S10.
+- **What the user sees and does:** nothing asks when the household will deal with the vouchers or credits. Saving the link does not help: opening the results link in a new tab or a later session sends the user back to the calculator's start (the page checks a one-session ID before showing results, and the site's bookmark feature is switched off). Confirmed on shot S10: the results link opened in a private window lands on the calculator's start page.
 - **Principle:** W6 planning prompts and reminders: "When will you do it?", with a time the person picks and a reminder at that time (Beshears & Gino, 2015; Week 6 briefing, slide 5). W2 progress: showing what is done (to-date) early and what is left (to-go) late sustains effort (Koo & Fishbach, 2008, in Week 2 slides, pp. 134-140).
 - **Mechanism, whose goal wins:** good intentions at the screen ("I'll claim those later") have no plan or cue behind them, so they lapse once the tab closes. The user loses, and so does the agency's uptake. · **missed nudge**
 - **Severity 0-4:** M1 [ ] · M2 EZ 3 · M3 [ ] · M4 [ ] · M5 [ ] · agreed [ ] · driver: how often (every visit); cost (missed claims)

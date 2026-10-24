@@ -403,3 +403,8 @@ The prototype supports:
 **What came back:** a render of variant A shows the same figures as the live results for P1: 2026 total "Up to $8,450 and 2.5 months of EUC Rebate" (live: "... S&CC Rebate"), 14 rows in 2026 and 7 in 2027, and the same box totals ($1,600; $1,400 and 2.5 months; Up to $4,450; $500; $500).
 **Our judgement, and what we changed next:** A is faithful on content and order. Its visual style is close to, not identical with, the live page; the dated screenshots in `audit/screenshots/` are the reference.
 **Principle check:** none: production only.
+
+## Entry EZ-4 - variant A checked against the dated screenshots · 2026-10-24, 22:15 SGT · EZ · Claude Code
+**What came back:** comparing A with screenshots S03-S08, the AI had made two content errors. It ordered the rows as the calculator service lists them, but the live page sorts the rows in each box alphabetically by scheme name. And it wrote "Payout in April 2026 and July 2026" for the child credits, where the live page says "Payout in July 2026". The styling also differed: peach year tabs with an orange underline, orange outline icons, a centred illustration for "not eligible".
+**Our judgement, and what we changed next:** the screenshots, not the service data, are the reference for A, so A now follows them on order, wording and styling. AUDIT.md Finding 10 is confirmed by S10: the results link opened in a private window lands on the calculator's start page.
+**Principle check:** none: production only.

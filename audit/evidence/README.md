@@ -14,6 +14,8 @@ The results screen gets its numbers from the calculator service the page itself 
 
 ## What P1 receives (2026 tab, default)
 
+The table groups rows by box; on screen, rows inside each box are sorted alphabetically by scheme name (screenshots S04–S07).
+
 | Box | Scheme as named on screen | Amount | Payout line | What the household must do (official record) |
 |---|---|---|---|---|
 | You | Cash - Assurance Package | $250 | Payout in December 2026 | Nothing |
@@ -28,13 +30,13 @@ The results screen gets its numbers from the calculator service the page itself 
 | Member 1 | Cash - Assurance Package | $250 | Payout in December 2026 | Nothing |
 | Member 1 | Cash - Budget 2026 Cost-of-Living Special Payment | $600 | Payout in September 2026 | Nothing |
 | Member 1 | Cash - GSTV | $850 | Payout in August 2026 | As above |
-| Member 2, Member 3 | Credit - Child LifeSG Credits | $500 each | Payout in April and July 2026 | Reaches the CDA trustee in the LifeSG app; expires 12 months after payout |
+| Member 2, Member 3 | Credit - Child LifeSG Credits | $500 each | Payout in July 2026 | Reaches the CDA trustee in the LifeSG app; expires 12 months after payout |
 
 Total shown: **Up to $8,450 and 2.5 months of S&CC Rebate** (2026); **Up to $3,625 and 2.5 months** (2027). On 24 Oct 2026, $6,450 of the 2026 total had already been paid out and $2,000 was still to come.
 
 ## How variant A maps the live screen to the fictional brand
 
-Variant A (`src/variantA/`) keeps the live layout, order, amounts, payout months and caveats for P1, and swaps every real name for a fictional one.
+Variant A (`src/variantA/`) keeps the live layout, row order, amounts, payout months and caveats for P1, as checked against the screenshots, and swaps every real name for a fictional one.
 
 | Live site | Variant A (HelpCompass SG) |
 |---|---|
