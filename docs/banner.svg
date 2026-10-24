@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-label="HelpCompass SG: a behavioural redesign of one decision">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F4F7F5"/>
+      <stop offset="0.55" stop-color="#EBF1EE"/>
+      <stop offset="1" stop-color="#FDF3EC"/>
+    </linearGradient>
+    <linearGradient id="needle" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#C2410C"/>
+      <stop offset="1" stop-color="#F2A474"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="360" rx="24" fill="url(#bg)"/>
+  <circle cx="1030" cy="80" r="260" fill="#FEF6F1" opacity="0.9"/>
+  <g transform="translate(1000 180)">
+    <circle r="112" fill="none" stroke="#166938" stroke-opacity="0.18" stroke-width="2"/>
+    <circle r="86" fill="#FFFFFF" fill-opacity="0.75" stroke="#166938" stroke-opacity="0.35" stroke-width="1.5"/>
+    <g stroke="#166938" stroke-opacity="0.45" stroke-width="2" stroke-linecap="round">
+      <line x1="0" y1="-86" x2="0" y2="-72"/><line x1="0" y1="86" x2="0" y2="72"/>
+      <line x1="-86" y1="0" x2="-72" y2="0"/><line x1="86" y1="0" x2="72" y2="0"/>
+    </g>
+    <g transform="rotate(32)">
+      <path d="M0 -64 L11 0 L0 8 L-11 0 Z" fill="url(#needle)"/>
+      <path d="M0 64 L11 0 L0 -8 L-11 0 Z" fill="#4E4E4E" fill-opacity="0.35"/>
+    </g>
+    <circle r="6" fill="#222222"/>
+  </g>
+  <g font-family="Inter, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif">
+    <text x="72" y="96" font-size="15" letter-spacing="3.5" fill="#166938" font-weight="600">MGMT 6108 · DECISION ARCHITECTURE FOR MANAGERS · SMU</text>
+    <text x="70" y="172" font-size="64" font-weight="700" fill="#222222" letter-spacing="-1">HelpCompass SG</text>
+    <text x="72" y="220" font-size="24" fill="#4E4E4E">Redesigning the moment after a household sees its benefits</text>
+    <line x1="72" y1="256" x2="152" y2="256" stroke="#F2A474" stroke-width="4" stroke-linecap="round"/>
+    <text x="72" y="296" font-size="16" fill="#6E6E6E">Audit · Variant A (as is) · Variant B (redesign) · A/B test plan</text>
+  </g>
+</svg>
