@@ -1,0 +1,6 @@
+{"householdMembers":[
+ {"identity":"You","yearOfBirth":1981,"assessableIncome":"ASSESSABLE_INCOME_TIER_2"},
+ {"identity":"Member 1","yearOfBirth":1955,"assessableIncome":"ASSESSABLE_INCOME_TIER_1","questionUnicorn":"QUESTION_UNICORN_TIER_1"},
+ {"identity":"Member 2","yearOfBirth":2014,"assessableIncome":"ASSESSABLE_INCOME_TIER_1"},
+ {"identity":"Member 3","yearOfBirth":2017,"assessableIncome":"ASSESSABLE_INCOME_TIER_1"}],
+ "ownMoreThanOneProperty":"No","propertyOwnership":"OWNED_BY_ME_OR_HOUSEHOLD_MEMBER","housingType":"PUBLIC_4R","annualValue":"ANNUAL_VALUE_TIER_1","lang":"en"}

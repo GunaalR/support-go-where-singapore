@@ -1,0 +1,134 @@
+{
+  "retrieved": "2026-10-24",
+  "source": "https://api.supportgowhere.life.gov.sg/v2/sr/schemes/{code}?lang=en (the record behind each scheme page on the live site)",
+  "note": "Trimmed to the fields the audit uses.",
+  "schemes": [
+    {
+      "friendlyId": "CDC",
+      "title": "Community Development Council (CDC) Vouchers",
+      "applicationNeeded": false,
+      "highlights": [
+        "Additional $300 in CDC Vouchers in Jan 2027",
+        "Total of $800 in CDC Vouchers in FY2026 (includes $500 disbursed in Jun 2026)",
+        "No application needed"
+      ],
+      "howToApply": "No application needed / Singaporean households can claim their vouchers via the RedeemSG website / Find out how to claim your CDC vouchers",
+      "aboutThisSupport": "Each Singaporean household can claim $500 in CDC Vouchers from June 2026, and an additional $300 from January 2027. The vouchers will be valid until 31 December 2027 / The vouchers are allocated equally for spending at participating heartland merchants, hawkers, and supermarkets",
+      "infoLastUpdated": "2026-09-01T06:44:55.497Z"
+    },
+    {
+      "friendlyId": "ESbwvFrn",
+      "title": "Enhanced Budget 2026 Cost-of-Living Special Payment",
+      "applicationNeeded": false,
+      "highlights": [
+        "$400 to $600 cash payout for eligible Singaporean adults",
+        "Payouts will be disbursed in September 2026",
+        "No application needed"
+      ],
+      "howToApply": "No application needed",
+      "aboutThisSupport": "Cash payout of $400 to $600 for eligible Singaporean adults",
+      "infoLastUpdated": "2026-04-29T08:55:47.260Z"
+    },
+    {
+      "friendlyId": "GNAgZJDj",
+      "title": "Child LifeSG Credits",
+      "applicationNeeded": false,
+      "highlights": [
+        "$500 Child LifeSG Credits for every Singapore Citizen child aged 0 to 12",
+        "Disbursed to eligible child's CDA trustee via the LifeSG mobile app",
+        "Can be used to defray household expenses"
+      ],
+      "howToApply": "No application needed",
+      "aboutThisSupport": "$500 Child LifeSG Credits disbursed to the Child Development Account (CDA) trustee of the child via the LifeSG mobile app  / Can be used at merchants that accept payments using PayNow UEN QR or NETS QR / Credits are valid for 12 months from disbursement, with the expiry date displayed in the LifeSG mobile app / Disbursement timeline: / Child's birth year / Eligibility assessment date* / Disbursement timeline / For 2025 Child LifeSG Credits /  | Between 2013 and 2024 /  | 1 June 2025 /  | Week of 7 July 2025 /  |  / 2025 /  | 1 March 2026 /  | From 8 April 2026 /  |  / For 2026 Child LifeSG Credits /  | Between 2014 and 2025 /  | 1 June 2026 /  | From 14 July 2026 /  |  / 2026 /  | 1 March 2027 /  | April 2027 /  |  / * The credits are disbursed to the eligible child’s CDA trustee in MSF’s records as of the eligibility assessment date. To check CDA trustee information, please access the Family View service on Parent Portal Services.",
+      "infoLastUpdated": "2026-08-26T08:00:59.078Z"
+    },
+    {
+      "friendlyId": "GST-CASH",
+      "title": "Assurance Package (AP) Cash",
+      "applicationNeeded": false,
+      "highlights": [
+        "Eligible Singapore citizens can receive up to $2,250 of cash payout over 5 years  from 2022 to 2026",
+        "Payout will be disbursed in December each year",
+        "No application needed"
+      ],
+      "howToApply": "No application required.",
+      "aboutThisSupport": "Cash payouts of $700 to $2,250 in December over 5 years from 2022 to 2026.",
+      "infoLastUpdated": "2026-07-06T06:23:08.915Z"
+    },
+    {
+      "friendlyId": "GSTV-CASH",
+      "title": "GST Voucher (GSTV) – Cash",
+      "applicationNeeded": false,
+      "highlights": [
+        "Eligible Singapore Citizens can receive up to $850 of cash payout",
+        "Payouts will be disbursed in August each year"
+      ],
+      "howToApply": "No application needed if you have previously signed-up for past GSTV payouts / If you have never signed-up for past GSTV payouts, you can apply by logging in to the e-services on the govbenefits portal",
+      "aboutThisSupport": "Enhanced cash payouts up to $850 from 2024 / Payouts will be disbursed in August each year",
+      "infoLastUpdated": "2026-07-06T06:25:48.679Z"
+    },
+    {
+      "friendlyId": "GSTV-MEDISAVE",
+      "title": "GST Voucher (GSTV) – MediSave",
+      "applicationNeeded": false,
+      "highlights": [
+        "Eligible Singapore citizens can receive up to $450 in their MediSave accounts",
+        "Top-ups will be credited in August each year"
+      ],
+      "howToApply": "No application needed if you have previously signed-up for past GSTV payouts / If you have never signed-up for past GSTV payouts, you can apply by logging in to the e-services on the govbenefits portal",
+      "aboutThisSupport": "Top-up of up to $450 to MediSave accounts of Singapore Citizens aged 65 and above / To be credited in August each year",
+      "infoLastUpdated": "2026-07-06T06:27:47.380Z"
+    },
+    {
+      "friendlyId": "MP-ESB",
+      "title": "Majulah Package – Earn and Save Bonus",
+      "applicationNeeded": false,
+      "highlights": [
+        "Eligible working seniors can receive up to $1,000 annual Earn and Save Bonus in their CPF account",
+        "Bonus will be credited in March each year",
+        "No application needed"
+      ],
+      "howToApply": "Employees and Platform Workers / No application required / Your Earn and Save Bonus eligibility will be automatically assessed / Self-employed persons / Declare your income to IRAS to be assessed for Earn and Save Bonus",
+      "aboutThisSupport": "Eligible working seniors can receive $400 to $1,000 annual Earn and Save Bonus in their CPF account, tiered by income / Eligible working seniors with lower income will receive a higher Earn and Save Bonus",
+      "infoLastUpdated": "2026-07-06T06:32:25.763Z"
+    },
+    {
+      "friendlyId": "SCCR",
+      "title": "Service and Conservancy Charges (S&CC) Rebate",
+      "applicationNeeded": false,
+      "highlights": [
+        "1.5 to 3.5 months of S&CC Rebate in each Financial Year",
+        "Rebates will be given out in January, April, July and October",
+        "No application needed"
+      ],
+      "howToApply": "No application required / S&CC rebates will be credited directly to your household's S&CC account managed by your respective Town Council",
+      "aboutThisSupport": "Offsets between 1.5 and 3.5 months of S&CC / Eligible households will receive their S&CC rebates in January, April, July, and October",
+      "infoLastUpdated": "2026-07-06T06:41:47.591Z"
+    },
+    {
+      "friendlyId": "U-SAVE",
+      "title": "U-Save",
+      "applicationNeeded": false,
+      "highlights": [
+        "Up to $190 of additional U-Save rebates (Oct 2026 and Jan 2027) for eligible HDB households",
+        "Total of $440 to $760 in U-Save rebates for eligible HDB households in FY2026",
+        "No application needed"
+      ],
+      "howToApply": "No application needed / U-Save will be credited directly into eligible households’ utilities accounts with SP Services",
+      "aboutThisSupport": "2026 Additional U-Save / $110 to $190 for eligible HDB households on top of GSTV – U-Save in October 2026 and January 2027 / Will be credited to eligible households at the same time as the GSTV – U-Save, in October 2026 and January 2027 / GST Voucher (GSTV) – U-Save / $220 to $380 in GSTV – U-Save for eligible HDB households / Will be credited in April, July, October 2026, and January 2027 / Budget 2026 U-Save / $110 to $190 for eligible HDB households on top of GSTV – U-Save, which helps households with utilities expenses, cushioning the impact of higher utility bills due to an increase in carbon tax from 2026 / Will be credited to eligible households at the same time as the GSTV – U-Save, in April and July 2026",
+      "infoLastUpdated": "2026-09-01T06:47:06.961Z"
+    },
+    {
+      "friendlyId": "WOuv5ZHU",
+      "title": "Budget 2026 CPF Top-Up ",
+      "applicationNeeded": false,
+      "highlights": [
+        "Eligible seniors can receive up to $1,500 in CPF top-up",
+        "No application needed - eligibility will be automatically assessed"
+      ],
+      "howToApply": "No application needed – eligibility will be automatically assessed",
+      "aboutThisSupport": "$500 to $1,500 in CPF top-up for eligible Singaporean seniors, tiered by CPF retirement savings and Annual Value of the place of residence",
+      "infoLastUpdated": "2026-07-06T06:43:56.786Z"
+    }
+  ]
+}

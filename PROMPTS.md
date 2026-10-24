@@ -379,3 +379,27 @@ The prototype supports:
 - `?v=A` → Variant A (Baseline condition)
 - `?v=B` → Variant B (Start Here + Plan the First Move intervention)
 - Interactive in-app switcher on the top research bar for seamless evaluator testing.
+
+---
+
+# 8. BUILD LOG (every prompt in order, initialled, failures kept)
+
+## Entry EZ-1 - M2 audit and variant A · 2026-10-24, 20:50 SGT · sent by EZ · Claude Code
+```
+我选的是M2，接下来完成我的这部分
+```
+(English: "I took M2. Now complete my part." Attached: the team split, the 24 Oct meeting transcript, the 28 Sep plan and the Week 6 briefing.)
+
+**What came back:** instead of working from public descriptions, the AI read how the live results screen gets its data, saved the live results for our two fictional households and the official record of each scheme (`audit/evidence/`), drafted `AUDIT.md` with 12 findings, and built variant A in `src/variantA/` from the saved P1 results, with every real name swapped for a fictional one.
+**Our judgement, and what we changed next:** two hypotheses in our 28 Sep plan failed against the evidence. The live screen already shows a hedged total, which is now Finding 1, kept in B. And every scheme record says "No application needed", yet three need the household to claim or sign up, so B's labels and our primary metric say "claim", not "apply" (Finding 5).
+**Principle check:** W3 expectations, W6 simplify and planning prompts, W7 fluency.
+
+## Entry EZ-2 - AI error caught before commit · 2026-10-24, 21:20 SGT · EZ · Claude Code
+**What came back:** the first AUDIT.md draft stated three principles more strongly than our sources: "every extra step cuts follow-through" (Beshears & Gino), "colour is judged before the words are read" (Labrecque & Milne), and "hard-to-process information is judged less useful" (Petrova et al.). It also counted two rows that need a claim where P1 has three.
+**Our judgement, and what we changed next:** each principle line was checked against the slides we hold and rewritten to what they say (Week 6 slide 5; Week 7 slides 7, 13-17, 20 and 38), and the count was fixed. Guardrail added: every principle line cites a page we have opened, and pages not yet checked are flagged in AUDIT.md.
+**Principle check:** none: citation accuracy.
+
+## Entry EZ-3 - check that variant A matches the live screen · 2026-10-24, 21:30 SGT · EZ · Claude Code
+**What came back:** a render of variant A shows the same figures as the live results for P1: 2026 total "Up to $8,450 and 2.5 months of EUC Rebate" (live: "... S&CC Rebate"), 14 rows in 2026 and 7 in 2027, and the same box totals ($1,600; $1,400 and 2.5 months; Up to $4,450; $500; $500).
+**Our judgement, and what we changed next:** A is faithful on content and order. Its visual style is close to, not identical with, the live page; the dated screenshots in `audit/screenshots/` are the reference.
+**Principle check:** none: production only.
