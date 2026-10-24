@@ -28,7 +28,7 @@
 | 3 | Default 2026 tab mixes money already paid with money still to come | W3 expectations; W4 reference point, Kahneman ch. 26 | grey | 2 | |
 | 4 | Rows grouped by person, in no order of importance | W7 fluency; W6 simplify | grey | 2 | |
 | 5 | No row says whether money arrives by itself or must be claimed | W6 simplify; W3 expectations | sludge (unintended) | 3 | |
-| 6 | Scheme names in agency shorthand ("Cash - GSTV", "S&CC") | W5 labels, Alter ch. 2; W7 fluency | grey | 2 | |
+| 6 | Scheme names in agency shorthand ("Cash - GSTV", "S&CC") | W5 labels, Alter (2014) ch. 2; W7 fluency | grey | 2 | |
 | 7 | How to claim, and by when, only behind a link to another page | W6 simplify | sludge (unintended) | 2 | |
 | 8 | Conditions on amounts in small italics under "To note:" | W7 fluency | grey | 2 | |
 | 9 | Largest button on the page goes to LifeSG to view past payouts | W7 fluency; salience | grey | 1 | |
@@ -41,7 +41,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 ## Finding 1 - The total is shown, and labelled an estimate (keep)
 - **Where:** results screen, top box under the year tabs.
 - **What the user sees and does:** "Total estimated benefits for you and your household: Up to $8,450 and 2.5 months of S&CC Rebate", under a page line that says the figures assume the inputs stay the same for current and 2027 payouts. The user reads the total first.
-- **Principle:** W3 expectations shape how an outcome is judged (Ariely, 2008, ch. 9; Week 3 slides, p. 6). The word "estimated", the assumption line and "Up to" keep the expectation honest.
+- **Principle:** W3 expectations shape how an outcome is judged (Ariely, 2008, ch. 9, pp. 155-172; Week 3 slides, p. 6). The word "estimated", the assumption line and "Up to" keep the expectation honest.
 - **Mechanism, whose goal wins:** a single truthful number answers "is this worth my time?" before any detail, and the hedges stop it reading as a promise. Both the user and the agency win. · **nudge**
 - **Severity 0-4:** M1 [ ] · M2 EZ 0 · M3 [ ] · M4 [ ] · M5 [ ] · agreed [ ] · driver: none, it works
 - **Repair (what should be true afterwards):** keep the total and its hedges in B. Our plan assumed the live screen showed "amounts per card only". The screenshots show a total, so B keeps this element rather than adding it.
@@ -86,7 +86,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 ## Finding 6 - Scheme names are in agency shorthand
 - **Where:** the scheme name at the top of every row.
 - **What the user sees and does:** "Cash - GSTV", "CPF Top-up - GSTV — MediSave", "CPF Top-up - Majulah Package — Earn and Save Bonus", "Rebate - Service and Conservancy Charges (S&CC) Rebate", "Credit - Child LifeSG Credits". The prefix ("Cash", "Rebate", "Credit") is the only plain-language cue.
-- **Principle:** W5 labels: the name given to a thing shapes what people think it is (Alter, 2013, ch. 2). W7 fluency: plain words are easier to process than rare ones (Petrova et al., 2012; Week 7 slides, pp. 16-17, "use" vs "utilize"), and what is easy to process feels more familiar and more likable (Week 7 slides, p. 38).
+- **Principle:** W5 labels: the name given to a thing shapes what people think it is (Alter, 2014, ch. 2, pp. 28-29: "Labels make a complex world simpler"). W7 fluency: plain words are easier to process than rare ones (Petrova et al., 2012; Week 7 slides, pp. 16-17, "use" vs "utilize"), and what is easy to process feels more familiar and more likable (Week 7 slides, p. 38).
 - **Mechanism, whose goal wins:** acronyms make each row harder to understand, so the user skims and cannot tell what each payment is for. Nobody gains. · **grey**
 - **Severity 0-4:** M1 [ ] · M2 EZ 2 · M3 [ ] · M4 [ ] · M5 [ ] · agreed [ ] · driver: how often (every row); learn around it (not without opening each page)
 - **Repair (what should be true afterwards):** each name keeps its official form and gains one plain line underneath, such as "GST Voucher cash: paid into your bank account in August" (M5).
@@ -140,7 +140,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 ## Finding 12 - One pale green for every box; the category lives only in the name's prefix
 - **Where:** box headers (all the same pale green, #EBF1EE) and rows (plain text).
 - **What the user sees and does:** cash, top-ups to CPF, rebates on bills, vouchers and app credits all look the same. Telling them apart means reading each prefix.
-- **Principle:** W8 colour carries meaning: it "can shape consumer perceptions such as brand personality, familiarity, likability, and purchase intent" (Labrecque & Milne, 2012, p. 711; Alter, 2014, ch. 7). Nielsen heuristic 6, recognition rather than recall (Week 6 briefing, slide 17).
+- **Principle:** W8 colour carries meaning: it "can shape consumer perceptions such as brand personality, familiarity, likability, and purchase intent" (Labrecque & Milne, 2012, p. 711; Alter, 2014, ch. 7, pp. 125-126). Nielsen heuristic 6, recognition rather than recall (Week 6 briefing, slide 17).
 - **Mechanism, whose goal wins:** the user has to recall what each prefix means, row by row. A small cost in time. · **missed nudge**
 - **Severity 0-4:** M1 [ ] · M2 EZ 1 · M3 [ ] · M4 [ ] · M5 [ ] · agreed [ ] · driver: how often
 - **Repair (what should be true afterwards):** one consistent colour and icon per kind of support, always with its text label (never colour alone), and no alarm red on "Claim it yourself" (M5).
@@ -152,9 +152,12 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 - **Not every finding gets a repair in B.** Finding 3 (paid versus coming) is real but outside B's scope; it goes to section 6 as the next test.
 
 **Citations check (2026-10-25):** checked against our copies:
-- Kahneman ch. 26 (p. 282); Labrecque & Milne (2012, p. 711; published online 2011, which is why the syllabus lists 2011); the Week 2, 3, 6 and 7 slides; and the syllabus page ranges.
-- Ariely ch. 9 at chapter level: our eLearn scan has its page numbers cropped off. The claims rest on "expectations are more than the mere anticipation of a boost" and "these biased processes can influence how we experience other aspects of our world".
-- Alter ch. 2 and ch. 7, Petrova et al. and Beshears & Gino could not be opened through the library proxy. Each claim that cites them is also tied to a slide we checked (Week 6 slide 5; Week 7 slides 7, 13-17, 20 and 38).
+- Kahneman ch. 26 (p. 282).
+- Labrecque & Milne (2012, p. 711; published online 2011, which is why the syllabus lists 2011).
+- Alter (2014, Oneworld edition, the one on the course reading list): ch. 2, "Labels", pp. 28-29; ch. 7, "Colours", pp. 125-126 (Ebook Central page numbers).
+- Ariely ch. 9 (pp. 155-172 per the reading list; our scan has the page numbers cropped). The claims rest on "expectations are more than the mere anticipation of a boost" and "these biased processes can influence how we experience other aspects of our world".
+- The Week 2, 3, 6 and 7 slides, and the syllabus page ranges.
+- Not opened: Petrova et al. and Beshears & Gino. Beshears & Gino is not on the course reading list, so we cite it through the Week 6 briefing. Each claim that cites either reading is also tied to a slide we checked (Week 6 slide 5; Week 7 slides 7, 13-17, 20 and 38).
 
 ## Added after building
 [Dated. From the first prompt for B, nothing above this heading changes.]
