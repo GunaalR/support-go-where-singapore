@@ -43,7 +43,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 - **What the user sees and does:** "Total estimated benefits for you and your household: Up to $8,450 and 2.5 months of S&CC Rebate", under a page line that says the figures assume the inputs stay the same for current and 2027 payouts. The user reads the total first.
 - **Principle:** W3 expectations shape how an outcome is judged (Ariely, 2008, ch. 9, pp. 155-172; Week 3 slides, p. 6). The word "estimated", the assumption line and "Up to" keep the expectation honest.
 - **Mechanism, whose goal wins:** a single truthful number answers "is this worth my time?" before any detail, and the hedges stop it reading as a promise. Both the user and the agency win. · **nudge**
-- **Severity 0-4:** M1 [ ] · M2 EZ 0 · M3 [ ] · M4 [ ] · M5 [ ] · agreed [ ] · driver: none, it works
+- **Severity 0-4:** M1 [ ] · M2 EZ 0 · M3 [ ] · M4 Dhiksha · M5 [ ] · agreed [ ] · driver: none, it works
 - **Repair (what should be true afterwards):** keep the total and its hedges in B. Our plan assumed the live screen showed "amounts per card only". The screenshots show a total, so B keeps this element rather than adding it.
 - **Prediction:** none, because the element does not change between A and B.
 
