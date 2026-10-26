@@ -1,6 +1,6 @@
 # AUDIT.md - SupportGoWhere, Support For You Calculator results screen · the decision: what, if anything, a household does after it sees its estimated benefits
 
-**Group:** [no.] · **Members:** M1 Gunaal R. · M2 Enhao (Andy) Zhang (EZ) · M3 [name] · M4 [Dhiksha] · M5 [name]
+**Group:** [no.] · **Members:** M1 Gunaal R. · M2 Enhao (Andy) Zhang (EZ) · M3 [name] · M4 Dhiksha · M5 [name]
 
 **Product audited:** the live results screen at supportgowhere.life.gov.sg/budget/support-calculator/result, which appears after the calculator form. Our prototype rebuilds it as variant A under the fictional brand HelpCompass SG.
 
