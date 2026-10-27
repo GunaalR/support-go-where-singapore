@@ -416,3 +416,11 @@ Build my part: the A/B switch. One URL, ?v=A shows variant A and ?v=B shows vari
 **What came back:** `src/study/` holds the switch (`useVariant.ts`) and a floating "A: Live site / B: With nudges" toggle at the bottom of the screen (`VariantToggle.tsx`). No `?v=` opens variant A; `?v=home` opens the rebuilt homepage, and the Back button on the results screen goes there. `src/variantB/ResultsScreenB.tsx` is an exact copy of variant A with four empty slots, one file per owner in `src/variantB/slots/`: `StartHere.tsx` and `SchemeLabel.tsx` (M3), `NextStep.tsx` (M4), `styleB.ts` (M5: wording and colour). Until a slot is filled, B looks exactly like A.
 **Our judgement, and what we changed next:** the prof asked for A and B to grade, with a live A/B test optional after the semester, so the consent and debrief screens and the random split are left out for now and described in paper §4 instead. Checked in a browser on desktop and phone: all four URLs load, the toggle switches views, and the browser back button returns to the previous variant. Variant A's files were not changed.
 **Principle check:** none: production only.
+
+## Entry GR-2 - M1 rename to the fictional brand HelpCompass SG · 2026-10-28 · sent by GR · Claude (claude.ai)
+```
+Change the site name from SupportGoWhere to the fictional HelpCompass SG, as AUDIT.md and the rules at the top of this file say.
+```
+**What came back:** header logo text now reads "HelpCompass SG"; footer brand, about, contact and copyright lines no longer claim to be an official government site; the homepage assistant is "HelpCompass Guided Assistant"; browser tab title and metadata.json updated. Layout, logo shape and colours unchanged. Variant A and B files were not touched.
+**Our judgement, and what we changed next:** the grey "A Singapore Government Agency Website" bar and the "Part of LifeSG" link are left as they were for the team to decide, since the bar is part of the live page that variant A copies.
+**Principle check:** none: production only.

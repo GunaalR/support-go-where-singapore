@@ -343,7 +343,7 @@ export function HeroSection({
                 <Sparkles className="w-3.5 h-3.5" />
               </div>
               <span className="text-xs font-bold text-gray-900">
-                SupportGoWhere Guided Assistant
+                HelpCompass Guided Assistant
               </span>
             </div>
 

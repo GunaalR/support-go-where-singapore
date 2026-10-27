@@ -39,9 +39,9 @@ export function Header({
     <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         
-        {/* SupportGoWhere Original Logo */}
+        {/* HelpCompass SG logo (fictional brand, layout kept from the live site) */}
         <div className="flex items-center gap-8 lg:gap-10">
-          <a href="#" className="flex items-center gap-2.5 group cursor-pointer" aria-label="SupportGoWhere Home">
+          <a href="#" className="flex items-center gap-2.5 group cursor-pointer" aria-label="HelpCompass SG home">
             <div className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-rose-500 to-red-500 shadow-xs shadow-red-200">
               <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
@@ -49,10 +49,10 @@ export function Header({
             </div>
             <div className="leading-none text-left">
               <span className="block text-xl font-bold tracking-tight text-gray-900 font-sans">
-                Support
+                HelpCompass
               </span>
               <span className="block text-[10px] font-bold text-gray-500 tracking-wider uppercase">
-                GoWhere
+                SG
               </span>
             </div>
           </a>

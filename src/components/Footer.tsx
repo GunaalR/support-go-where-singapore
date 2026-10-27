@@ -22,7 +22,7 @@ export function Footer({
           {/* Main Footer Grid */}
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 pb-10 border-b border-gray-200">
             
-            {/* SupportGoWhere Brand Column */}
+            {/* HelpCompass SG brand column */}
             <div className="md:col-span-4">
               <div className="flex items-center gap-2.5 mb-3">
                 <div className="relative w-8 h-8 flex items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-rose-500 to-red-500 shadow-xs shadow-red-200">
@@ -32,16 +32,16 @@ export function Footer({
                 </div>
                 <div className="leading-none text-left">
                   <span className="block text-lg font-bold tracking-tight text-gray-900 font-sans">
-                    SupportGoWhere
+                    HelpCompass SG
                   </span>
                   <span className="block text-[10px] font-bold text-gray-400 tracking-wider uppercase">
-                    Singapore Public Support
+                    Class prototype
                   </span>
                 </div>
               </div>
 
               <p className="text-xs text-gray-500 leading-relaxed max-w-sm mt-3">
-                An official Singapore Government initiative helping residents discover and access support schemes, subsidies, and community assistance.
+                A fictional class prototype for a Singapore Management University course. Not a government website; all data is made up.
               </p>
             </div>
 
@@ -153,10 +153,10 @@ export function Footer({
           {/* Bottom Copyright Row */}
           <div className="pt-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 text-[11px] text-gray-500">
             <div>
-              © 2026 Government of Singapore. All rights reserved.
+              © 2026 HelpCompass SG, a class prototype.
             </div>
             <div>
-              Last updated 28 September 2026 · SupportGoWhere
+              Last updated 28 September 2026 · HelpCompass SG
             </div>
           </div>
 
@@ -178,11 +178,11 @@ export function Footer({
               <div>
                 <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
                   <HeartHandshake className="w-5 h-5" />
-                  <h3 className="text-base font-bold text-gray-900">About SupportGoWhere</h3>
+                  <h3 className="text-base font-bold text-gray-900">About HelpCompass SG</h3>
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-3 mb-5">
                   <p>
-                    SupportGoWhere is a one-stop portal for Singaporeans to discover government support schemes and community initiatives that suit their needs.
+                    HelpCompass SG is a fictional one-stop portal for Singaporeans to discover government support schemes and community initiatives that suit their needs.
                   </p>
                   <p>
                     From living expenses and healthcare subsidies to career training allowances, the portal provides transparent eligibility criteria and guided assistance for all life stages.
@@ -213,7 +213,7 @@ export function Footer({
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-2.5 mb-5">
                   <p>
-                    Information provided on SupportGoWhere is updated regularly from administering agencies. Eligibility criteria and disbursements are subject to official evaluation.
+                    Information provided on HelpCompass SG is updated regularly from administering agencies. Eligibility criteria and disbursements are subject to official evaluation.
                   </p>
                 </div>
               </div>
@@ -227,7 +227,7 @@ export function Footer({
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-2.5 mb-5">
                   <p>
-                    SupportGoWhere is designed to be accessible to all users, including individuals with disabilities, in compliance with digital government standards.
+                    HelpCompass SG is designed to be accessible to all users, including individuals with disabilities, in compliance with digital government standards.
                   </p>
                 </div>
               </div>
@@ -237,14 +237,14 @@ export function Footer({
               <div>
                 <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
                   <Mail className="w-5 h-5" />
-                  <h3 className="text-base font-bold text-gray-900">Contact SupportGoWhere</h3>
+                  <h3 className="text-base font-bold text-gray-900">Contact HelpCompass SG</h3>
                 </div>
                 <div className="text-xs text-gray-600 leading-relaxed space-y-2.5 mb-5">
                   <p>
                     For feedback or enquiries regarding support schemes:
                   </p>
                   <p className="font-semibold text-gray-800">
-                    Email: support@supportgowhere.gov.sg
+                    Email: hello@helpcompass.example
                   </p>
                 </div>
               </div>
