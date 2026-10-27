@@ -26,8 +26,8 @@ export function StartHere({ panel }: { panel: YearPanelA }) {
           Start here
         </h2>
         <p className="mt-2 text-lg" style={{ color: '#4E4E4E' }}>
-          {items.length === 1 ? 'This one needs' : `These ${items.length} need`} something from you in {panel.year}. Most of
-          the rest is paid without you doing anything.
+          {items.length === 1 ? 'This one needs' : `These ${items.length} need`} something from you. The label under
+          each scheme below shows what, if anything, the others need.
         </p>
 
         <ol className="mt-6 flex flex-col gap-5">
