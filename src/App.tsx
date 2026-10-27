@@ -9,25 +9,37 @@ import { BudgetCalculatorModal } from './components/BudgetCalculatorModal';
 import { SchemeDetailModal } from './components/SchemeDetailModal';
 import { SearchModal } from './components/SearchModal';
 import { Footer } from './components/Footer';
+import { ResultsScreenA } from './variantA/ResultsScreenA';
+import { ResultsScreenB } from './variantB/ResultsScreenB';
+import { useVariant } from './study/useVariant';
+import { VariantToggle } from './study/VariantToggle';
+
+// ?v=A (or no ?v=) shows variant A, ?v=B shows variant B, ?v=home the homepage.
+// The switch lives in src/study/ (M1).
 
 export default function App() {
   const [currentLang, setCurrentLang] = useState('en');
   const [selectedScheme, setSelectedScheme] = useState<Scheme | null>(null);
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const { view, setView } = useVariant();
 
-  const handleSelectTopic = (topicId: string) => {
-    const el = document.getElementById('explore-topics');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
+  // homepage sections only exist on the homepage, so go there first
+  const scrollOnHome = (id: string) => {
+    const go = () => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+    if (view === 'home') go();
+    else {
+      setView('home');
+      setTimeout(go, 50);
     }
   };
 
+  const handleSelectTopic = (_topicId: string) => {
+    scrollOnHome('explore-topics');
+  };
+
   const handleScrollToResources = () => {
-    const el = document.getElementById('resources-and-tools');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+    scrollOnHome('resources-and-tools');
   };
 
   const handleScrollToSupport = () => {
@@ -55,12 +67,17 @@ export default function App() {
       />
 
       {/* 4. Original SupportGoWhere Homepage with Guided AI Assistant */}
-      <main className="flex-1">
-        <HomePage
-          schemes={FICTIONAL_SCHEMES}
-          onSelectScheme={(scheme) => setSelectedScheme(scheme)}
-          onOpenCalculator={() => setIsCalculatorOpen(true)}
-        />
+      {/* pb-24 keeps the floating A/B switch from covering the last line */}
+      <main className="flex-1 pb-24">
+        {view === 'home' && (
+          <HomePage
+            schemes={FICTIONAL_SCHEMES}
+            onSelectScheme={(scheme) => setSelectedScheme(scheme)}
+            onOpenCalculator={() => setIsCalculatorOpen(true)}
+          />
+        )}
+        {view === 'A' && <ResultsScreenA onBack={() => setView('home')} />}
+        {view === 'B' && <ResultsScreenB onBack={() => setView('home')} />}
       </main>
 
       {/* 5. SupportGoWhere Footer (No duplicate language selector) */}
@@ -90,6 +107,8 @@ export default function App() {
         onClose={() => setIsSearchOpen(false)}
         onSelectScheme={(scheme) => setSelectedScheme(scheme)}
       />
+
+      <VariantToggle view={view} onChange={setView} />
 
     </div>
   );
