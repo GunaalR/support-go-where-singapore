@@ -408,3 +408,11 @@ The prototype supports:
 **What came back:** comparing A with screenshots S03-S08, the AI had made two content errors. It ordered the rows as the calculator service lists them, but the live page sorts the rows in each box alphabetically by scheme name. And it wrote "Payout in April 2026 and July 2026" for the child credits, where the live page says "Payout in July 2026". The styling also differed: peach year tabs with an orange underline, orange outline icons, a centred illustration for "not eligible".
 **Our judgement, and what we changed next:** the screenshots, not the service data, are the reference for A, so A now follows them on order, wording and styling. AUDIT.md Finding 10 is confirmed by S10: the results link opened in a private window lands on the calculator's start page.
 **Principle check:** none: production only.
+
+## Entry GR-1 - M1 A/B switch and empty slots for variant B · 2026-10-27, 10:30 SGT · sent by GR · Claude (claude.ai)
+```
+Build my part: the A/B switch. One URL, ?v=A shows variant A and ?v=B shows variant B, with a switch so the prof can flip between them on one page. Don't touch anyone else's files.
+```
+**What came back:** `src/study/` holds the switch (`useVariant.ts`) and a floating "A: Live site / B: With nudges" toggle at the bottom of the screen (`VariantToggle.tsx`). No `?v=` opens variant A; `?v=home` opens the rebuilt homepage, and the Back button on the results screen goes there. `src/variantB/ResultsScreenB.tsx` is an exact copy of variant A with four empty slots, one file per owner in `src/variantB/slots/`: `StartHere.tsx` and `SchemeLabel.tsx` (M3), `NextStep.tsx` (M4), `styleB.ts` (M5: wording and colour). Until a slot is filled, B looks exactly like A.
+**Our judgement, and what we changed next:** the prof asked for A and B to grade, with a live A/B test optional after the semester, so the consent and debrief screens and the random split are left out for now and described in paper §4 instead. Checked in a browser on desktop and phone: all four URLs load, the toggle switches views, and the browser back button returns to the previous variant. Variant A's files were not changed.
+**Principle check:** none: production only.
