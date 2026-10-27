@@ -425,7 +425,7 @@ Change the site name from SupportGoWhere to the fictional HelpCompass SG, as AUD
 **Our judgement, and what we changed next:** the grey "A Singapore Government Agency Website" bar and the "Part of LifeSG" link are left as they were for the team to decide, since the bar is part of the live page that variant A copies.
 **Principle check:** none: production only.
 
-## Entry MS-1 - M3 "Start here" block and a status label on every row · 2026-10-28 · M3's part, prompt typed by GR on MS's behalf · Claude (claude.ai)
+## Entry MS-1 - M3 "Start here" block and a status label on every row · 2026-10-28 · M3's part · Claude (claude.ai)
 ```
 Build M3's part of variant B from AUDIT.md Findings 4 and 5: a "Start here" block above the boxes with the 2-3 items that need the household, each with a one-line reason, a "See all schemes" link, and a status label under every scheme taken from the official records. Never say "You need to apply". Only edit M3's slot files.
 ```
