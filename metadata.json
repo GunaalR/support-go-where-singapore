@@ -1,6 +1,6 @@
 {
-  "name": "SupportGoWhere - Singapore Support Schemes",
-  "description": "Find government schemes, financial aid, caregiving support, and Budget 2026 benefits through SupportGoWhere by LifeSG and GovTech.",
+  "name": "HelpCompass SG - Class prototype",
+  "description": "Find government schemes, financial aid, caregiving support, and Budget 2026 benefits in a fictional class prototype (HelpCompass SG).",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }
