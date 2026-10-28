@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Calculator, ChevronDown, ChevronLeft, ChevronUp, FileText, Home, Search, User } from 'lucide-react';
 import { BenefitBoxA, PayoutRowA, RESULTS_A, YearPanelA } from '../variantA/resultsDataA';
-import { COPY_B, schemeColour } from './slots/styleB';
+import { COPY_B, schemeColour, schemeTint } from './slots/styleB';
 import { StartHere } from './slots/StartHere';
 import { SchemeLabel } from './slots/SchemeLabel';
 import { NextStep } from './slots/NextStep';
@@ -149,8 +149,17 @@ function BenefitBox({
               <div
                 key={`${row.schemeCode}-${i}`}
                 className="flex flex-col gap-2 mt-2 md:mt-4 mb-5"
-                // M5 slot: colour per category, drawn as a bar on the left
-                style={schemeColour(row) ? { borderLeft: `4px solid ${schemeColour(row)}` } : undefined}
+                // M5 slot: colour per category, a bar on the left and a pale tint behind the row
+                style={
+                  schemeColour(row)
+                    ? {
+                        borderLeft: `6px solid ${schemeColour(row)}`,
+                        backgroundColor: schemeTint(row),
+                        padding: '12px 16px',
+                        borderRadius: '0 8px 8px 0',
+                      }
+                    : undefined
+                }
               >
                 <div className="flex flex-col pt-2 pl-4 md:pl-6 pr-2 pb-2">
                   <button

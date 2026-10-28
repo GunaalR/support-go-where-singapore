@@ -31,15 +31,20 @@ export const COPY_B = {
 //    Rebate     #8A5300   6.33:1    5.53:1
 //    Voucher    #0E6B6B   6.30:1    5.50:1
 //    Credit     #8B3A62   7.29:1    6.37:1
-//    All pass 4.5:1 for text (the kind word) and 3:1 for the 4px bar.
+//    All pass 4.5:1 for text (the kind word) and 3:1 for the bar.
+//
+//    Each kind also has a pale tint (9% of its colour on white) used as the
+//    row background in variant B, so the kind shows at a glance (GR-4).
+//    Contrast on each tint: kind colour 5.5-6.6:1, body grey #4E4E4E
+//    7.2-7.3:1, link blue #125EEC 4.8:1. All pass 4.5:1.
 export type SupportKind = 'cash' | 'topup' | 'rebate' | 'voucher' | 'credit';
 
-export const KIND_STYLE: Record<SupportKind, { word: string; colour: string }> = {
-  cash: { word: 'Cash', colour: '#1D5A96' },
-  topup: { word: 'NSF Top-up', colour: '#5B4A8B' },
-  rebate: { word: 'Rebate', colour: '#8A5300' },
-  voucher: { word: 'Voucher', colour: '#0E6B6B' },
-  credit: { word: 'Credit', colour: '#8B3A62' },
+export const KIND_STYLE: Record<SupportKind, { word: string; colour: string; tint: string }> = {
+  cash: { word: 'Cash', colour: '#1D5A96', tint: '#EBF0F6' },
+  topup: { word: 'NSF Top-up', colour: '#5B4A8B', tint: '#F0EFF5' },
+  rebate: { word: 'Rebate', colour: '#8A5300', tint: '#F4F0E8' },
+  voucher: { word: 'Voucher', colour: '#0E6B6B', tint: '#E9F2F2' },
+  credit: { word: 'Credit', colour: '#8B3A62', tint: '#F5EDF1' },
 };
 
 const KIND_BY_CODE: Record<string, SupportKind> = {
@@ -68,9 +73,15 @@ export function kindOf(row: PayoutRowA): SupportKind | undefined {
   return undefined;
 }
 
-// Colour per support category. Variant B draws it as a 4px bar on the left
+// Colour per support category. Variant B draws it as a 6px bar on the left
 // of each scheme row; undefined means no bar.
 export function schemeColour(row: PayoutRowA): string | undefined {
   const kind = kindOf(row);
   return kind ? KIND_STYLE[kind].colour : undefined;
+}
+
+// Pale background for the whole row in that kind's colour (GR-4).
+export function schemeTint(row: PayoutRowA): string | undefined {
+  const kind = kindOf(row);
+  return kind ? KIND_STYLE[kind].tint : undefined;
 }

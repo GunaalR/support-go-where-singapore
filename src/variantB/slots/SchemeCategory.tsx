@@ -43,9 +43,12 @@ export function SchemeCategory({ row }: { row: PayoutRowA }) {
   const Icon = kind ? KIND_ICON[kind] : null;
   const style = kind ? KIND_STYLE[kind] : null;
   return (
-    <div className="flex flex-col gap-0.5 mt-1" data-kind={kind}>
+    <div className="flex flex-col gap-1.5 mt-1" data-kind={kind}>
       {style && Icon && (
-        <p className="flex items-center gap-1.5 text-base font-semibold" style={{ color: style.colour }}>
+        <p
+          className="flex items-center gap-1.5 w-fit rounded-full px-3 py-0.5 text-base font-semibold"
+          style={{ color: style.colour, backgroundColor: '#FFFFFF', border: `1.5px solid ${style.colour}` }}
+        >
           <Icon className="w-5 h-5 shrink-0" strokeWidth={2} aria-hidden="true" />
           <span>{style.word}</span>
         </p>
