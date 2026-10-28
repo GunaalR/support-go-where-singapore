@@ -10,11 +10,67 @@ export const COPY_B = {
   ...COPY_A,
 };
 
-// 2. Colour per support category. Return a colour (e.g. '#2E7D32') for a row
-//    and variant B draws it as a bar on the left of that scheme; return
-//    undefined for no colour. Look the row up by row.schemeCode.
-//    Check every colour against white for contrast (WCAG AA, 3:1 for a bar).
-export function schemeColour(row: PayoutRowA): string | undefined {
-  void row;
+// 2. Kind of support (AUDIT.md Finding 12). Five kinds, taken from the prefix
+//    of each scheme name in src/variantA/resultsDataA.ts. Each kind has ONE
+//    colour, always shown with an icon and a word (SchemeCategory.tsx), so the
+//    meaning never rests on colour alone (colour-blind users, Week 8).
+//
+//    Colour choices (Week 8):
+//    - No red anywhere: red reads as risk and loss (Bazley et al., 2021) and
+//      also means prosperity in Chinese culture, so it is ambiguous here.
+//    - No green on money: green reads as "healthy/good" (Schuldt, 2013) and
+//      would make some amounts look better than others for the same facts.
+//    - Blue for cash, the most common kind: calm, open thinking.
+//    - The other four are muted and clearly different from each other and
+//      from the site's pale green boxes. No gradients, no flashing.
+//
+//    Contrast (WCAG AA), computed with the WCAG relative-luminance formula:
+//    kind       colour    on white  on box green #EBF1EE
+//    Cash       #1D5A96   7.11:1    6.21:1
+//    NSF Top-up #5B4A8B   7.51:1    6.56:1
+//    Rebate     #8A5300   6.33:1    5.53:1
+//    Voucher    #0E6B6B   6.30:1    5.50:1
+//    Credit     #8B3A62   7.29:1    6.37:1
+//    All pass 4.5:1 for text (the kind word) and 3:1 for the 4px bar.
+export type SupportKind = 'cash' | 'topup' | 'rebate' | 'voucher' | 'credit';
+
+export const KIND_STYLE: Record<SupportKind, { word: string; colour: string }> = {
+  cash: { word: 'Cash', colour: '#1D5A96' },
+  topup: { word: 'NSF Top-up', colour: '#5B4A8B' },
+  rebate: { word: 'Rebate', colour: '#8A5300' },
+  voucher: { word: 'Voucher', colour: '#0E6B6B' },
+  credit: { word: 'Credit', colour: '#8B3A62' },
+};
+
+const KIND_BY_CODE: Record<string, SupportKind> = {
+  'STEADY-CASH': 'cash',
+  'COL-2026': 'cash',
+  'LCV-CASH': 'cash',
+  'NSF-TOPUP-2026': 'topup',
+  'LCV-HEALTHSAVE': 'topup',
+  'HP-ESB': 'topup',
+  EUCR: 'rebate',
+  'U-CREDIT': 'rebate',
+  NCV: 'voucher',
+  'CHILD-CREDITS': 'credit',
+};
+
+// Look up by scheme code; fall back to the name's prefix for any new row.
+export function kindOf(row: PayoutRowA): SupportKind | undefined {
+  const byCode = KIND_BY_CODE[row.schemeCode];
+  if (byCode) return byCode;
+  const prefix = row.schemeName.split(' - ')[0].trim().toLowerCase();
+  if (prefix === 'cash') return 'cash';
+  if (prefix === 'nsf top-up') return 'topup';
+  if (prefix === 'rebate') return 'rebate';
+  if (prefix === 'voucher') return 'voucher';
+  if (prefix === 'credit') return 'credit';
   return undefined;
+}
+
+// Colour per support category. Variant B draws it as a 4px bar on the left
+// of each scheme row; undefined means no bar.
+export function schemeColour(row: PayoutRowA): string | undefined {
+  const kind = kindOf(row);
+  return kind ? KIND_STYLE[kind].colour : undefined;
 }

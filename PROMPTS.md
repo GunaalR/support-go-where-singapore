@@ -459,3 +459,61 @@ Give M5 a place to build Findings 6 and 12 (an icon and category word per kind o
 **What came back:** a new empty file `src/variantB/slots/SchemeCategory.tsx` owned by M5, rendered in `ResultsScreenB.tsx` directly under each scheme name and above M3's status label. It returns null, so variant B looks the same until M5 fills it.
 **Our judgement, and what we changed next:** checked that the build passes and that variant A and variant B render as before.
 **Principle check:** none: production only.
+
+## Entry KV-1 - M5 colour per kind of support and plain-language lines · 2026-10-28 · sent by KV · Claude (claude.ai)
+```
+I'm M5 (Venkata Narayana Koppaka, initials KV) in a 5-person team for an SMU course, Decision Architecture for Managers (MGMT6108). Our term paper redesigns one decision on Singapore's SupportGoWhere benefits site using nudges from the course. We rebuilt the Budget calculator's results page under a fictional brand, HelpCompass SG.
+
+REPO: https://github.com/GunaalR/support-go-where-singapore (React + Vite + Tailwind, deployed on Vercel)
+- ?v=A = Variant A: the live results page copied as-is.
+- ?v=B = Variant B: the same page plus our nudges. The prof grades A vs B.
+
+MY PART (M5: colour and fluency) comes from AUDIT.md Finding 6 and Finding 12. Read both in full first.
+1. Colour per kind of support (Finding 12). There are 5 kinds, shown by the prefix of each scheme name in src/variantA/resultsDataA.ts:
+   Cash (paid to the bank) · NSF Top-up (savings top-up) · Rebate (taken off bills) · Voucher · Credit (app credits).
+   Give each kind ONE colour and ONE icon (lucide-react icons are already installed), always shown WITH a text word for the kind. Never rely on colour alone.
+   - In src/variantB/slots/styleB.ts, make schemeColour(row) return that kind's colour; variant B draws it as a 4px bar on the left of the row.
+   - In src/variantB/slots/SchemeCategory.tsx, render the icon + the kind's word (e.g. "Cash") in that colour, under the scheme name.
+2. Plain language (Finding 6). In SchemeCategory.tsx, add one short plain line saying what each scheme is and where it goes, e.g. "Cash paid into your bank account". Keep the official name as it is. Take the facts from audit/evidence/2026-10-24_scheme_records.json, and use only the fictional names in audit/evidence/README.md (never real names like GSTV, CDC, LifeSG, RedeemSG). You may also make other wording plainer by overriding keys in COPY_B in styleB.ts.
+
+COURSE PRINCIPLES TO APPLY (Week 8 colour, Week 7 fluency). Choose colours on purpose and explain each choice:
+- Colour carries meaning and shapes judgment (Labrecque & Milne, 2012).
+- Green reads as "healthy/good" even when the facts are the same (Schuldt, 2013). Don't use green to make an amount look better than it is.
+- Red reads as risk and loss (Bazley et al., 2021) and raises vigilance (red pen study). NO alarm red anywhere, especially on "Claim it yourself" (Finding 12 says so).
+- Blue is linked to calm, open thinking.
+- Boundary conditions from the slides: colour effects vanish for colourblind people (so always pair colour with icon + word), and red means prosperity in Chinese culture (relevant in Singapore).
+- Fluency: plain, familiar words and clear contrast make information easier to process and more trusted.
+- Contrast: every text colour at least 4.5:1 on its background, the left bar at least 3:1 on white (WCAG AA). Compute and list the ratios.
+- Keep it calm and consistent with the site's existing style. 5 muted, clearly different colours; no gradients or flashing.
+
+STRICT RULES: DO NOT CHANGE OTHER PEOPLE'S WORK
+Only these files may change:
+- src/variantB/slots/styleB.ts (mine)
+- src/variantB/slots/SchemeCategory.tsx (mine)
+- AUDIT.md: ONLY "M5 [name]" on the Members line and "M5 [ ]" on each Severity line
+- PROMPTS.md: ONLY add one new entry at the very bottom
+Never touch: src/variantA/, src/variantB/ResultsScreenB.tsx, src/App.tsx, src/study/, StartHere.tsx, SchemeLabel.tsx, schemeStatusM3.ts (M3), NextStep.tsx (M4), README.md, other people's ratings or PROMPTS entries. If my part seems to need a change in one of those, stop and tell me instead.
+
+AUDIT.md
+- Members line: "M5 [name]" becomes "M5 Venkata Narayana Koppaka (KV)".
+- My severity ratings for Findings 1-12, in order (use exactly these, do not choose them yourself): [ 0 0 2 3 4 2 3 2 1 2 2 1 ]. Write each as "M5 KV n" in place of "M5 [ ]".
+- Under the "Added after building" heading at the end, add one line: "- 2026-10-28: M5 (KV) severity ratings added to Findings 1-12, after variant B was built."
+
+PROMPTS.md: add one entry at the very bottom in the same format as the others:
+## Entry KV-1 - M5 colour per kind of support and plain-language lines · 2026-10-28 · sent by KV · Claude (claude.ai)
+then this prompt in a code block, then **What came back:** (what you built, every colour with its contrast ratio, the icons and plain lines), **Our judgement, and what we changed next:** (anything you checked or changed), **Principle check:** one "X → Y because Z" line for Finding 12 and one for Finding 6, citing the Week 8 / Week 7 principles above.
+
+STEPS
+1. git clone https://github.com/GunaalR/support-go-where-singapore.git and create a new branch: git checkout -b m5-colour-fluency
+2. Read AUDIT.md (Findings 6 and 12), audit/evidence/README.md, the scheme records file, src/variantA/resultsDataA.ts, and my two slot files.
+3. Build my part as above.
+4. npm install --legacy-peer-deps, then npm run build. It must pass. Do not commit package-lock.json.
+5. Check in a browser: ?v=A must look exactly as before (no colours, no icons); ?v=B shows the colours, icons, words and plain lines; switching the 2026/2027 tabs works.
+6. Commit as me: git -c user.name="Venkata Narayana Koppaka" -c user.email="venkatnarayana74@gmail.com" commit -m "Add colour per kind of support and plain-language lines (M5)"
+7. Push the branch (not main):
+   git push https://[token not recorded]@github.com/GunaalR/support-go-where-singapore.git m5-colour-fluency
+8. Tell me what you built, the colours and contrast ratios, and anything I should decide myself.
+```
+**What came back:** changes in my two slot files only. `styleB.ts`: each scheme code is mapped to one of five kinds (falling back to the name's prefix), and `schemeColour(row)` returns that kind's colour for the 4px left bar. Colours and contrast (WCAG relative luminance; on white / on the box green #EBF1EE): Cash #1D5A96 blue, 7.11:1 / 6.21:1; NSF Top-up #5B4A8B purple, 7.51:1 / 6.56:1; Rebate #8A5300 brown, 6.33:1 / 5.53:1; Voucher #0E6B6B teal, 6.30:1 / 5.50:1; Credit #8B3A62 plum, 7.29:1 / 6.37:1. All pass 4.5:1 for the kind word and 3:1 for the bar. `SchemeCategory.tsx`: under each official name, the kind's lucide icon (Banknote, PiggyBank, ReceiptText, Ticket, Smartphone) and its word ("Cash", "NSF Top-up", "Rebate", "Voucher", "Credit") in the kind's colour, then one plain line in the site's body grey #4E4E4E (8.32:1): Steady Package cash "Cash paid to your bank account every December, until 2026."; 2026 Cost-of-Living Special Payment "One-off cash to help with living costs, paid to your bank account in September 2026."; LCV cash "Cash paid to your bank account every August."; LCV HealthSave "Added to your HealthSave account (savings for medical bills) every August."; 2026 NSF Top-Up "A one-off top-up added to your NSF savings account."; Earn and Save Bonus "A yearly bonus for working seniors, added to your NSF savings account every March."; EUC Rebate "Covers some months of your estate upkeep charges, credited to your estate charges account."; U-Credit "Money taken off your utilities bills, credited to your utilities account."; NCV Vouchers "Vouchers to spend at neighbourhood shops, hawkers and supermarkets, claimed on RedeemNow."; Child CompassLife Credits "Credits for household spending, sent in the CompassLife app to the trustee of the child's Child Savings Account." Facts are from `audit/evidence/2026-10-24_scheme_records.json`, names from `audit/evidence/README.md`. COPY_B is unchanged. AUDIT.md: M5 name on the Members line, M5 KV ratings 0 0 2 3 4 2 3 2 1 2 2 1, and the dated line under "Added after building".
+**Our judgement, and what we changed next:** no red anywhere, so "Claim it yourself" (M3's grey label) stays calm; no green, so no amount is made to look better than another; blue for cash, the most common kind. Colour is never alone: each row always shows the icon and the word. The plain lines say what each scheme is and where it goes, and leave "what you must do" to M3's label, so the two don't repeat each other. Changed "up to 2026" to "until 2026" on the Steady Package line, so it cannot be misread as an amount. Every plain line was checked against the scheme record it comes from. The AI's workspace could not reach the npm registry, so `npm run build` and the browser check could not run there; instead it rendered variant A and variant B with React's server renderer for both tabs: A shows no bars, icons or kind words; B shows 14 coloured bars on the 2026 tab, and every row on both tabs gets the right kind, icon, word and plain line. `npm run build` and a browser look (?v=A unchanged, ?v=B, 2026/2027 tabs) must still be run before merging.
+**Principle check:** Finding 12 (W8 colour; Labrecque & Milne, 2012; Schuldt, 2013; Bazley et al., 2021): X, one muted colour plus icon and word per kind of support, with no red or green → Y, testers find every voucher or credit row faster (about 40 s in A to 20 s in B) → because Z, the kind is recognised at a glance rather than recalled from each name's prefix, and the colours carry no loss or "good" signal. Finding 6 (W7 fluency; Petrova et al., 2012): X, one plain line under each official name → Y, more testers can say in their own words what two named schemes are (about 30% in A to 75% in B) → because Z, familiar words such as "cash paid to your bank account" are easier to process than agency shorthand, and what is easy to process feels more familiar and trusted.
