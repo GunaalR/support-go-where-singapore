@@ -5,6 +5,7 @@ import { COPY_B, schemeColour } from './slots/styleB';
 import { StartHere } from './slots/StartHere';
 import { SchemeLabel } from './slots/SchemeLabel';
 import { NextStep } from './slots/NextStep';
+import { SchemeCategory } from './slots/SchemeCategory';
 
 // Variant B: the same results screen as variant A, with our nudges.
 // Starts as an exact copy of src/variantA/ResultsScreenA.tsx (same data, same
@@ -15,6 +16,7 @@ import { NextStep } from './slots/NextStep';
 //   slots/SchemeLabel.tsx  M3  "Automatic" / "Claim it yourself" under each scheme
 //   slots/NextStep.tsx     M4  plan the next step, after the results
 //   slots/styleB.ts        M5  plain wording (COPY_B) and colour per category
+//   slots/SchemeCategory.tsx M5 icon, category word and plain line under each scheme
 // This file is owned by M1. If your nudge needs a new slot or a change here,
 // ask M1 rather than editing it.
 
@@ -159,6 +161,8 @@ function BenefitBox({
                   >
                     {row.schemeName}
                   </button>
+                  {/* M5 slot: category icon and plain-language line */}
+                  <SchemeCategory row={row} />
                   {/* M3 slot: Automatic / Claim it yourself */}
                   <SchemeLabel row={row} />
                   <p className="text-lg" style={{ color: TEXT_DARK }}>{row.payoutLine}</p>
