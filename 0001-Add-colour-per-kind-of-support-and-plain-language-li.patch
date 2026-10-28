@@ -1,0 +1,356 @@
+From 2276892fd578b45431711b7d6b1ab96516e53ec2 Mon Sep 17 00:00:00 2001
+From: Venkata Narayana Koppaka <venkatnarayana74@gmail.com>
+Date: Wed, 28 Oct 2026 18:39:10 +0800
+Subject: [PATCH] Add colour per kind of support and plain-language lines (M5)
+
+---
+ AUDIT.md                              | 27 ++++++-----
+ PROMPTS.md                            | 58 +++++++++++++++++++++++
+ src/variantB/slots/SchemeCategory.tsx | 59 ++++++++++++++++++++---
+ src/variantB/slots/styleB.ts          | 68 ++++++++++++++++++++++++---
+ 4 files changed, 186 insertions(+), 26 deletions(-)
+
+diff --git a/AUDIT.md b/AUDIT.md
+index 5cc8bcd..96e28ac 100644
+--- a/AUDIT.md
++++ b/AUDIT.md
+@@ -1,6 +1,6 @@
+ # AUDIT.md - SupportGoWhere, Support For You Calculator results screen · the decision: what, if anything, a household does after it sees its estimated benefits
+ 
+-**Group:** [no.] · **Members:** M1 Gunaal R. · M2 Enhao (Andy) Zhang (EZ) · M3 Maya M. Sukumar (MS) · M4 Dhiksha D.(DD) · M5 [name]
++**Group:** [no.] · **Members:** M1 Gunaal R. · M2 Enhao (Andy) Zhang (EZ) · M3 Maya M. Sukumar (MS) · M4 Dhiksha D.(DD) · M5 Venkata Narayana Koppaka (KV)
+ 
+ **Product audited:** the live results screen at supportgowhere.life.gov.sg/budget/support-calculator/result, which appears after the calculator form. Our prototype rebuilds it as variant A under the fictional brand HelpCompass SG.
+ 
+@@ -43,7 +43,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** "Total estimated benefits for you and your household: Up to $8,450 and 2.5 months of S&CC Rebate", under a page line that says the figures assume the inputs stay the same for current and 2027 payouts. The user reads the total first.
+ - **Principle:** W3 expectations shape how an outcome is judged (Ariely, 2008, ch. 9, pp. 155-172; Week 3 slides, p. 6). The word "estimated", the assumption line and "Up to" keep the expectation honest.
+ - **Mechanism, whose goal wins:** a single truthful number answers "is this worth my time?" before any detail, and the hedges stop it reading as a promise. Both the user and the agency win. · **nudge**
+-- **Severity 0-4:** M1 GR 0 · M2 EZ 0 · M3 MS 0 · M4 DD 2  · M5 [ ] · agreed [ ] · driver: none, it works
++- **Severity 0-4:** M1 GR 0 · M2 EZ 0 · M3 MS 0 · M4 DD 2  · M5 KV 0 · agreed [ ] · driver: none, it works
+ - **Repair (what should be true afterwards):** keep the total and its hedges in B. Our plan assumed the live screen showed "amounts per card only". The screenshots show a total, so B keeps this element rather than adding it.
+ - **Prediction:** none, because the element does not change between A and B.
+ 
+@@ -52,7 +52,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** every box is already expanded on arrival, so all 14 rows are visible by scrolling, each with its amount and payout month ("Payout in August 2026").
+ - **Principle:** W7 processing fluency. Nothing is hidden behind a tap, so the information is easy to reach (Petrova et al., 2012, pp. 39-48).
+ - **Mechanism, whose goal wins:** no hidden rows means no scheme is missed through a closed box. The user wins. · **nudge**
+-- **Severity 0-4:** M1 GR 0 · M2 EZ 0 · M3 MS 0 · M4 DD 0 · M5 [ ] · agreed [ ] · driver: none, it works
++- **Severity 0-4:** M1 GR 0 · M2 EZ 0 · M3 MS 0 · M4 DD 0 · M5 KV 0 · agreed [ ] · driver: none, it works
+ - **Repair (what should be true afterwards):** B keeps every row reachable. "See all schemes" in B must be one tap and must show every row A shows.
+ - **Prediction:** guardrail for Finding 4. Testers in B list the schemes they qualify for as accurately as testers in A, within 10 points.
+ 
+@@ -61,7 +61,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** on 24 Oct 2026, P1's 2026 tab shows $8,450. $6,450 of it (76%) was paid out between January and October. Only $2,000 (December) is still to come. The rows say "Payout in August 2026" with no "paid" or "coming" mark, so the user takes the whole total as money ahead.
+ - **Principle:** W3 expectations (Ariely, 2008, ch. 9). W4 reference point: "the outcome that you expect, or perhaps the outcome to which you feel entitled" becomes the reference point (Kahneman, 2011, ch. 26, p. 282).
+ - **Mechanism, whose goal wins:** the total becomes the reference point, so later payouts below it feel like a loss. The site's own FAQ has a question for exactly this: "Why do the estimated benefits not tally with the actual payouts that I have received?" Nobody gains. · **grey**
+-- **Severity 0-4:** M1 GR 2 · M2 EZ 2 · M3 MS 2 · M4 DD 1 · M5 [ ] · agreed [ ] · driver: how often (every visit after the first quarter); trust
++- **Severity 0-4:** M1 GR 2 · M2 EZ 2 · M3 MS 2 · M4 DD 1 · M5 KV 2 · agreed [ ] · driver: how often (every visit after the first quarter); trust
+ - **Repair (what should be true afterwards):** each row says "Paid in August 2026" or "Coming in December 2026", and the total is split into "already paid this year" and "still to come". Not in our B, which keeps to the five-person scope; listed for section 6.
+ - **Prediction:** the share of testers who can say how much P1 still gets in 2026 moves from about 15% in A to 60% in a future B. Not tested in this round.
+ 
+@@ -70,7 +70,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** P1 scrolls through 14 rows sorted by who receives them. The three rows that need a claim (CDC Vouchers in the household box, Child LifeSG Credits in each child's box) sit among 11 others, in three different boxes. The user has to read everything to find the few that matter.
+ - **Principle:** W7 processing fluency: how easy information feels to process shapes how it is judged, apart from what it says (Petrova et al., 2012, pp. 39-48; Week 7 slides, p. 20). W6 simplify, a System 1 tool (Beshears & Gino, 2015; Week 6 briefing, slide 5).
+ - **Mechanism, whose goal wins:** effort goes into reading rows that need nothing, and the items that need action are easy to miss. The agency wants uptake and the user wants the money, so both lose. · **grey**
+-- **Severity 0-4:** M1 GR 3 · M2 EZ 2 · M3 MS 3 · M4 DD 1· M5 [ ] · agreed [ ] · driver: how often (every household with more than one member); cost (missed claims)
++- **Severity 0-4:** M1 GR 3 · M2 EZ 2 · M3 MS 3 · M4 DD 1· M5 KV 3 · agreed [ ] · driver: how often (every household with more than one member); cost (missed claims)
+ - **Repair (what should be true afterwards):** a "Start here" block above the boxes shows the 2-3 items that need the household's action, each with a one-line reason, and "See all schemes" keeps the full list one tap away (M3).
+ - **Prediction:** the share of testers who, unprompted, name a correct first thing to do moves from about 35% in A to 65% in B. We drop this repair if B testers list the schemes they qualify for more than 10 points less accurately than A testers.
+ 
+@@ -79,7 +79,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** "Voucher - CDC Vouchers · Payout in January 2026 and June 2026 · $800" looks exactly like "Rebate - U-Save · $600", which needs nothing. In fact the vouchers must be claimed on RedeemSG, the child credits arrive only in the LifeSG app, and GST Voucher cash needs a one-time sign-up for anyone who has never signed up. The site already holds this information (an "application needed" field and a "How to apply" section on each scheme page, plus "Need to apply / No need to apply" filters in its directory), but the results screen does not show it.
+ - **Principle:** W6 simplify: put the needed information where the decision is made (Beshears & Gino, 2015; Week 6 briefing, slide 5). W3 expectations: "Payout in June 2026" sets the expectation that money will simply arrive (Ariely, 2008, ch. 9).
+ - **Mechanism, whose goal wins:** the user infers "automatic" for everything, does nothing, and unclaimed vouchers or credits expire. The user loses money they are entitled to. · **sludge (unintended)**
+-- **Severity 0-4:** M1 GR 3 · M2 EZ 3 · M3 MS 4 · M4 DD 4 · M5 [ ] · agreed [ ] · driver: cost (money); learn around it (only by opening each scheme page)
++- **Severity 0-4:** M1 GR 3 · M2 EZ 3 · M3 MS 4 · M4 DD 4 · M5 KV 4 · agreed [ ] · driver: cost (money); learn around it (only by opening each scheme page)
+ - **Repair (what should be true afterwards):** each row carries one plain status taken from the official record: "Automatic: nothing to do", "Claim it yourself: [where]", or "Automatic if you have signed up before". B must not label anything "You need to apply" when the record says "No application needed" (M3).
+ - **Prediction:** the share of testers who correctly pick the items that need their action moves from about 20% in A to 70% in B. We drop this repair if more than 10% of B testers mark an automatic item as needing action.
+ 
+@@ -88,7 +88,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** "Cash - GSTV", "CPF Top-up - GSTV — MediSave", "CPF Top-up - Majulah Package — Earn and Save Bonus", "Rebate - Service and Conservancy Charges (S&CC) Rebate", "Credit - Child LifeSG Credits". The prefix ("Cash", "Rebate", "Credit") is the only plain-language cue.
+ - **Principle:** W5 labels: the name given to a thing shapes what people think it is (Alter, 2014, ch. 2, pp. 28-29: "Labels make a complex world simpler"). W7 fluency: plain words are easier to process than rare ones (Petrova et al., 2012; Week 7 slides, pp. 16-17, "use" vs "utilize"), and what is easy to process feels more familiar and more likable (Week 7 slides, p. 38).
+ - **Mechanism, whose goal wins:** acronyms make each row harder to understand, so the user skims and cannot tell what each payment is for. Nobody gains. · **grey**
+-- **Severity 0-4:** M1 GR 3 · M2 EZ 2 · M3 MS 2 · M4 DD 2 · M5 [ ] · agreed [ ] · driver: how often (every row); learn around it (not without opening each page)
++- **Severity 0-4:** M1 GR 3 · M2 EZ 2 · M3 MS 2 · M4 DD 2 · M5 KV 2 · agreed [ ] · driver: how often (every row); learn around it (not without opening each page)
+ - **Repair (what should be true afterwards):** each name keeps its official form and gains one plain line underneath, such as "GST Voucher cash: paid into your bank account in August" (M5).
+ - **Prediction:** the share of testers who can say in their own words what two named schemes are moves from about 30% in A to 75% in B.
+ 
+@@ -97,7 +97,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** the only route to "How to apply?" is the scheme page. The validity dates that matter (CDC Vouchers until 31 Dec 2027; Child LifeSG Credits 12 months from payout) appear only there or in the LifeSG app.
+ - **Principle:** W6 simplify: remove the steps between intention and action, as Singpass Myinfo does by pre-filling forms (Beshears & Gino, 2015; Week 6 briefing, slide 5).
+ - **Mechanism, whose goal wins:** opening and reading a separate page for each item is a hassle the user has to choose to take on, so most stop at the results. The user loses. · **sludge (unintended)**
+-- **Severity 0-4:** M1 GR 2 · M2 EZ 2 · M3 MS 3 · M4 DD 1 · M5 [ ] · agreed [ ] · driver: cost (time); how often
++- **Severity 0-4:** M1 GR 2 · M2 EZ 2 · M3 MS 3 · M4 DD 1 · M5 KV 3 · agreed [ ] · driver: cost (time); how often
+ - **Repair (what should be true afterwards):** for items that need action, a short "What you'll need" list sits on the screen: where to claim, what to have ready (Singpass, the LifeSG app), and the expiry date (M4).
+ - **Prediction:** the share of testers who can say where to claim the vouchers and by when moves from about 10% in A to 60% in B.
+ 
+@@ -106,7 +106,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** the mother's "Up to $1,000" Earn and Save Bonus counts towards "Up to $8,450", but the condition (it "assumes that your average monthly income in preceding Year of Assessment is $500 to $6,000") sits in small italics at the bottom of her box. The same holds for the property conditions on U-Save and the S&CC Rebate.
+ - **Principle:** W7 fluency: small, low-contrast or italic text is harder to read, so it gets skipped (Petrova et al., 2012; Week 7 slides, pp. 13-15, fonts, spacing and contrast).
+ - **Mechanism, whose goal wins:** the condition is technically disclosed but rarely read, so the household keeps a figure it may not get. Nobody gains. · **grey**
+-- **Severity 0-4:** M1 GR 1 · M2 EZ 2 · M3 MS 2 · M4 DD 3 · M5 [ ] · agreed [ ] · driver: trust; how often
++- **Severity 0-4:** M1 GR 1 · M2 EZ 2 · M3 MS 2 · M4 DD 3 · M5 KV 2 · agreed [ ] · driver: trust; how often
+ - **Repair (what should be true afterwards):** the condition sits next to the amount it limits, in body-size roman text, such as "Up to $1,000 · only if she earns $500 to $6,000 a month" (M5).
+ - **Prediction:** the share of testers who mention the income condition when asked about the mother's benefits moves from about 15% in A to 60% in B.
+ 
+@@ -115,7 +115,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** the most prominent action on the page leads off-site to "View benefits paid out this year and in previous years". It does not lead to the items that still need action.
+ - **Principle:** W7 fluency: a choice that is easy to process "just feels right" (Week 7 slides, p. 7), and the biggest, clearest button is the easiest action on this page.
+ - **Mechanism, whose goal wins:** the attention at the end of the page goes to looking back, not to acting. This is mild, and it is useful for checking past payouts. · **grey**
+-- **Severity 0-4:** M1 GR 1 · M2 EZ 1 · M3 MS 1 · M4 DD 3 · M5 [ ] · agreed [ ] · driver: how often
++- **Severity 0-4:** M1 GR 1 · M2 EZ 1 · M3 MS 1 · M4 DD 3 · M5 KV 1 · agreed [ ] · driver: how often
+ - **Repair (what should be true afterwards):** keep the banner below the action items. Not changed in B.
+ - **Prediction:** none, because the element does not change between A and B.
+ 
+@@ -124,7 +124,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** nothing asks when the household will deal with the vouchers or credits. Saving the link does not help: opening the results link in a new tab or a later session sends the user back to the calculator's start (the page checks a one-session ID before showing results, and the site's bookmark feature is switched off). Confirmed on shot S10: the results link opened in a private window lands on the calculator's start page.
+ - **Principle:** W6 planning prompts and reminders: "When will you do it?", with a time the person picks and a reminder at that time (Beshears & Gino, 2015; Week 6 briefing, slide 5). W2 progress: showing what is done (to-date) early and what is left (to-go) late sustains effort (Koo & Fishbach, 2008, in Week 2 slides, pp. 134-140).
+ - **Mechanism, whose goal wins:** good intentions at the screen ("I'll claim those later") have no plan or cue behind them, so they lapse once the tab closes. The user loses, and so does the agency's uptake. · **missed nudge**
+-- **Severity 0-4:** M1 GR 3 · M2 EZ 3 · M3 MS 3 · M4 DD 2 · M5 [ ] · agreed [ ] · driver: how often (every visit); cost (missed claims)
++- **Severity 0-4:** M1 GR 3 · M2 EZ 3 · M3 MS 3 · M4 DD 2 · M5 KV 2 · agreed [ ] · driver: how often (every visit); cost (missed claims)
+ - **Repair (what should be true afterwards):** for items that need action only, "When will you do this? Today / This weekend / Remind me", with "Skip" as visible as the other choices, and a small "0 of 2 done" cue (M4).
+ - **Prediction:** our primary metric. The share of testers who commit to a dated first move for at least one item that needs action moves from about 40% in A to 60% in B (about 97 per arm for α = .05, power = .80). We drop the day picker if more than 10% of B testers report feeling pressured.
+ 
+@@ -133,7 +133,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** the FAQ says any household member can check benefits on behalf of another, but the screen offers no way to bring that person in. An older parent such as P1's mother, or P2, has to find help alone.
+ - **Principle:** W6 accountability: a plan another person can see is more likely to be carried out (Beshears & Gino, 2015; Week 6 briefing, slide 5).
+ - **Mechanism, whose goal wins:** asking for help is left to the user's own initiative. A small loss for users who would accept help if it were offered. · **missed nudge**
+-- **Severity 0-4:** M1 GR 1 · M2 EZ 1 · M3 MS 2 · M4 DD 2 · M5 [ ] · agreed [ ] · driver: how often (older users)
++- **Severity 0-4:** M1 GR 1 · M2 EZ 1 · M3 MS 2 · M4 DD 2 · M5 KV 2 · agreed [ ] · driver: how often (older users)
+ - **Repair (what should be true afterwards):** an optional "Do this with someone" message containing only the scheme name, the chosen day and what to bring. It never contains income or household details, and "Skip" is as visible as "Share" (M4).
+ - **Prediction (one that could fail):** fewer than 15% of B testers use "Do this with someone". If so, we report that any gain in Finding 10 comes from the day picker alone.
+ 
+@@ -142,7 +142,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ - **What the user sees and does:** cash, top-ups to CPF, rebates on bills, vouchers and app credits all look the same. Telling them apart means reading each prefix.
+ - **Principle:** W8 colour carries meaning: it "can shape consumer perceptions such as brand personality, familiarity, likability, and purchase intent" (Labrecque & Milne, 2012, p. 711; Alter, 2014, ch. 7, pp. 125-126). Nielsen heuristic 6, recognition rather than recall (Week 6 briefing, slide 17).
+ - **Mechanism, whose goal wins:** the user has to recall what each prefix means, row by row. A small cost in time. · **missed nudge**
+-- **Severity 0-4:** M1 GR 2 · M2 EZ 1 · M3 MS 1 · M4 DD 0 · M5 [ ] · agreed [ ] · driver: how often
++- **Severity 0-4:** M1 GR 2 · M2 EZ 1 · M3 MS 1 · M4 DD 0 · M5 KV 1 · agreed [ ] · driver: how often
+ - **Repair (what should be true afterwards):** one consistent colour and icon per kind of support, always with its text label (never colour alone), and no alarm red on "Claim it yourself" (M5).
+ - **Prediction:** the median time testers take to find every voucher or credit row drops from about 40 seconds in A to 20 seconds in B.
+ 
+@@ -163,3 +163,4 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
+ [Dated. From the first prompt for B, nothing above this heading changes.]
+ - 2026-10-28: M1 (GR) severity ratings added to Findings 1-12, after variant B was built.
+ - 2026-10-28: M3 (MS) severity ratings added to Findings 1-12, after variant B was built.
++- 2026-10-28: M5 (KV) severity ratings added to Findings 1-12, after variant B was built.
+diff --git a/PROMPTS.md b/PROMPTS.md
+index 40b36d6..7d1be7e 100644
+--- a/PROMPTS.md
++++ b/PROMPTS.md
+@@ -459,3 +459,61 @@ Give M5 a place to build Findings 6 and 12 (an icon and category word per kind o
+ **What came back:** a new empty file `src/variantB/slots/SchemeCategory.tsx` owned by M5, rendered in `ResultsScreenB.tsx` directly under each scheme name and above M3's status label. It returns null, so variant B looks the same until M5 fills it.
+ **Our judgement, and what we changed next:** checked that the build passes and that variant A and variant B render as before.
+ **Principle check:** none: production only.
++
++## Entry KV-1 - M5 colour per kind of support and plain-language lines · 2026-10-28 · sent by KV · Claude (claude.ai)
++```
++I'm M5 (Venkata Narayana Koppaka, initials KV) in a 5-person team for an SMU course, Decision Architecture for Managers (MGMT6108). Our term paper redesigns one decision on Singapore's SupportGoWhere benefits site using nudges from the course. We rebuilt the Budget calculator's results page under a fictional brand, HelpCompass SG.
++
++REPO: https://github.com/GunaalR/support-go-where-singapore (React + Vite + Tailwind, deployed on Vercel)
++- ?v=A = Variant A: the live results page copied as-is.
++- ?v=B = Variant B: the same page plus our nudges. The prof grades A vs B.
++
++MY PART (M5: colour and fluency) comes from AUDIT.md Finding 6 and Finding 12. Read both in full first.
++1. Colour per kind of support (Finding 12). There are 5 kinds, shown by the prefix of each scheme name in src/variantA/resultsDataA.ts:
++   Cash (paid to the bank) · NSF Top-up (savings top-up) · Rebate (taken off bills) · Voucher · Credit (app credits).
++   Give each kind ONE colour and ONE icon (lucide-react icons are already installed), always shown WITH a text word for the kind. Never rely on colour alone.
++   - In src/variantB/slots/styleB.ts, make schemeColour(row) return that kind's colour; variant B draws it as a 4px bar on the left of the row.
++   - In src/variantB/slots/SchemeCategory.tsx, render the icon + the kind's word (e.g. "Cash") in that colour, under the scheme name.
++2. Plain language (Finding 6). In SchemeCategory.tsx, add one short plain line saying what each scheme is and where it goes, e.g. "Cash paid into your bank account". Keep the official name as it is. Take the facts from audit/evidence/2026-10-24_scheme_records.json, and use only the fictional names in audit/evidence/README.md (never real names like GSTV, CDC, LifeSG, RedeemSG). You may also make other wording plainer by overriding keys in COPY_B in styleB.ts.
++
++COURSE PRINCIPLES TO APPLY (Week 8 colour, Week 7 fluency). Choose colours on purpose and explain each choice:
++- Colour carries meaning and shapes judgment (Labrecque & Milne, 2012).
++- Green reads as "healthy/good" even when the facts are the same (Schuldt, 2013). Don't use green to make an amount look better than it is.
++- Red reads as risk and loss (Bazley et al., 2021) and raises vigilance (red pen study). NO alarm red anywhere, especially on "Claim it yourself" (Finding 12 says so).
++- Blue is linked to calm, open thinking.
++- Boundary conditions from the slides: colour effects vanish for colourblind people (so always pair colour with icon + word), and red means prosperity in Chinese culture (relevant in Singapore).
++- Fluency: plain, familiar words and clear contrast make information easier to process and more trusted.
++- Contrast: every text colour at least 4.5:1 on its background, the left bar at least 3:1 on white (WCAG AA). Compute and list the ratios.
++- Keep it calm and consistent with the site's existing style. 5 muted, clearly different colours; no gradients or flashing.
++
++STRICT RULES: DO NOT CHANGE OTHER PEOPLE'S WORK
++Only these files may change:
++- src/variantB/slots/styleB.ts (mine)
++- src/variantB/slots/SchemeCategory.tsx (mine)
++- AUDIT.md: ONLY "M5 [name]" on the Members line and "M5 [ ]" on each Severity line
++- PROMPTS.md: ONLY add one new entry at the very bottom
++Never touch: src/variantA/, src/variantB/ResultsScreenB.tsx, src/App.tsx, src/study/, StartHere.tsx, SchemeLabel.tsx, schemeStatusM3.ts (M3), NextStep.tsx (M4), README.md, other people's ratings or PROMPTS entries. If my part seems to need a change in one of those, stop and tell me instead.
++
++AUDIT.md
++- Members line: "M5 [name]" becomes "M5 Venkata Narayana Koppaka (KV)".
++- My severity ratings for Findings 1-12, in order (use exactly these, do not choose them yourself): [ 0 0 2 3 4 2 3 2 1 2 2 1 ]. Write each as "M5 KV n" in place of "M5 [ ]".
++- Under the "Added after building" heading at the end, add one line: "- 2026-10-28: M5 (KV) severity ratings added to Findings 1-12, after variant B was built."
++
++PROMPTS.md: add one entry at the very bottom in the same format as the others:
++## Entry KV-1 - M5 colour per kind of support and plain-language lines · 2026-10-28 · sent by KV · Claude (claude.ai)
++then this prompt in a code block, then **What came back:** (what you built, every colour with its contrast ratio, the icons and plain lines), **Our judgement, and what we changed next:** (anything you checked or changed), **Principle check:** one "X → Y because Z" line for Finding 12 and one for Finding 6, citing the Week 8 / Week 7 principles above.
++
++STEPS
++1. git clone https://github.com/GunaalR/support-go-where-singapore.git and create a new branch: git checkout -b m5-colour-fluency
++2. Read AUDIT.md (Findings 6 and 12), audit/evidence/README.md, the scheme records file, src/variantA/resultsDataA.ts, and my two slot files.
++3. Build my part as above.
++4. npm install --legacy-peer-deps, then npm run build. It must pass. Do not commit package-lock.json.
++5. Check in a browser: ?v=A must look exactly as before (no colours, no icons); ?v=B shows the colours, icons, words and plain lines; switching the 2026/2027 tabs works.
++6. Commit as me: git -c user.name="Venkata Narayana Koppaka" -c user.email="venkatnarayana74@gmail.com" commit -m "Add colour per kind of support and plain-language lines (M5)"
++7. Push the branch (not main):
++   git push https://[token not recorded]@github.com/GunaalR/support-go-where-singapore.git m5-colour-fluency
++8. Tell me what you built, the colours and contrast ratios, and anything I should decide myself.
++```
++**What came back:** changes in my two slot files only. `styleB.ts`: each scheme code is mapped to one of five kinds (falling back to the name's prefix), and `schemeColour(row)` returns that kind's colour for the 4px left bar. Colours and contrast (WCAG relative luminance; on white / on the box green #EBF1EE): Cash #1D5A96 blue, 7.11:1 / 6.21:1; NSF Top-up #5B4A8B purple, 7.51:1 / 6.56:1; Rebate #8A5300 brown, 6.33:1 / 5.53:1; Voucher #0E6B6B teal, 6.30:1 / 5.50:1; Credit #8B3A62 plum, 7.29:1 / 6.37:1. All pass 4.5:1 for the kind word and 3:1 for the bar. `SchemeCategory.tsx`: under each official name, the kind's lucide icon (Banknote, PiggyBank, ReceiptText, Ticket, Smartphone) and its word ("Cash", "NSF Top-up", "Rebate", "Voucher", "Credit") in the kind's colour, then one plain line in the site's body grey #4E4E4E (8.32:1): Steady Package cash "Cash paid to your bank account every December, up to 2026."; 2026 Cost-of-Living Special Payment "One-off cash to help with living costs, paid to your bank account in September 2026."; LCV cash "Cash paid to your bank account every August."; LCV HealthSave "Added to your HealthSave account (savings for medical bills) every August."; 2026 NSF Top-Up "A one-off top-up added to your NSF savings account."; Earn and Save Bonus "A yearly bonus for working seniors, added to your NSF savings account every March."; EUC Rebate "Covers some months of your estate upkeep charges, credited to your estate charges account."; U-Credit "Money taken off your utilities bills, credited to your utilities account."; NCV Vouchers "Vouchers to spend at neighbourhood shops, hawkers and supermarkets, claimed on RedeemNow."; Child CompassLife Credits "Credits for household spending, sent in the CompassLife app to the trustee of the child's Child Savings Account." Facts are from `audit/evidence/2026-10-24_scheme_records.json`, names from `audit/evidence/README.md`. COPY_B is unchanged. AUDIT.md: M5 name on the Members line, M5 KV ratings 0 0 2 3 4 2 3 2 1 2 2 1, and the dated line under "Added after building".
++**Our judgement, and what we changed next:** no red anywhere, so "Claim it yourself" (M3's grey label) stays calm; no green, so no amount is made to look better than another; blue for cash, the most common kind. Colour is never alone: each row always shows the icon and the word. The plain lines say what each scheme is and where it goes, and leave "what you must do" to M3's label, so the two don't repeat each other. The AI's workspace could not download packages when this was built, so `npm run build` and the browser check (?v=A unchanged, ?v=B with colours, 2026/2027 tabs) must be run before merging.
++**Principle check:** Finding 12 (W8 colour; Labrecque & Milne, 2012; Schuldt, 2013; Bazley et al., 2021): X, one muted colour plus icon and word per kind of support, with no red or green → Y, testers find every voucher or credit row faster (about 40 s in A to 20 s in B) → because Z, the kind is recognised at a glance rather than recalled from each name's prefix, and the colours carry no loss or "good" signal. Finding 6 (W7 fluency; Petrova et al., 2012): X, one plain line under each official name → Y, more testers can say in their own words what two named schemes are (about 30% in A to 75% in B) → because Z, familiar words such as "cash paid to your bank account" are easier to process than agency shorthand, and what is easy to process feels more familiar and trusted.
+diff --git a/src/variantB/slots/SchemeCategory.tsx b/src/variantB/slots/SchemeCategory.tsx
+index 1a6f29f..f901067 100644
+--- a/src/variantB/slots/SchemeCategory.tsx
++++ b/src/variantB/slots/SchemeCategory.tsx
+@@ -1,15 +1,60 @@
++import { Banknote, PiggyBank, ReceiptText, Smartphone, Ticket, type LucideIcon } from 'lucide-react';
+ import type { PayoutRowA } from '../../variantA/resultsDataA';
++import { KIND_STYLE, kindOf, type SupportKind } from './styleB';
+ 
+ // SLOT for M5 (colour and fluency): shown in variant B directly under each
+ // scheme name, above M3's status label.
+-// Use it for AUDIT.md Finding 12 (an icon and a category word per kind of
+-// support: cash, savings top-up, bill rebate, voucher, app credit) and
+-// Finding 6 (one plain-language line saying what the scheme is).
+-// Look the row up by row.schemeCode.
+-// Returning null shows nothing, which is what variant B does until M5 builds it.
++// Finding 12: an icon and a category word per kind of support, in that kind's
++// colour, so the kind is recognised, not recalled (never colour alone).
++// Finding 6: one plain-language line saying what the scheme is and where it
++// goes. The official name above stays as it is. Facts come from
++// audit/evidence/2026-10-24_scheme_records.json, with the fictional names in
++// audit/evidence/README.md.
+ // Owned by M5: only M5 edits this file.
+ 
++const KIND_ICON: Record<SupportKind, LucideIcon> = {
++  cash: Banknote,
++  topup: PiggyBank,
++  rebate: ReceiptText,
++  voucher: Ticket,
++  credit: Smartphone,
++};
++
++const PLAIN_LINE: Record<string, string> = {
++  'STEADY-CASH': 'Cash paid to your bank account every December, up to 2026.',
++  'COL-2026': 'One-off cash to help with living costs, paid to your bank account in September 2026.',
++  'LCV-CASH': 'Cash paid to your bank account every August.',
++  'LCV-HEALTHSAVE': 'Added to your HealthSave account (savings for medical bills) every August.',
++  'NSF-TOPUP-2026': 'A one-off top-up added to your NSF savings account.',
++  'HP-ESB': 'A yearly bonus for working seniors, added to your NSF savings account every March.',
++  EUCR: 'Covers some months of your estate upkeep charges, credited to your estate charges account.',
++  'U-CREDIT': 'Money taken off your utilities bills, credited to your utilities account.',
++  NCV: 'Vouchers to spend at neighbourhood shops, hawkers and supermarkets, claimed on RedeemNow.',
++  'CHILD-CREDITS':
++    "Credits for household spending, sent in the CompassLife app to the trustee of the child's Child Savings Account.",
++};
++
++const PLAIN_TEXT = '#4E4E4E'; // site's body text colour, 8.32:1 on white
++
+ export function SchemeCategory({ row }: { row: PayoutRowA }) {
+-  void row;
+-  return null;
++  const kind = kindOf(row);
++  const plain = PLAIN_LINE[row.schemeCode];
++  if (!kind && !plain) return null;
++  const Icon = kind ? KIND_ICON[kind] : null;
++  const style = kind ? KIND_STYLE[kind] : null;
++  return (
++    <div className="flex flex-col gap-0.5 mt-1" data-kind={kind}>
++      {style && Icon && (
++        <p className="flex items-center gap-1.5 text-base font-semibold" style={{ color: style.colour }}>
++          <Icon className="w-5 h-5 shrink-0" strokeWidth={2} aria-hidden="true" />
++          <span>{style.word}</span>
++        </p>
++      )}
++      {plain && (
++        <p className="text-base" style={{ color: PLAIN_TEXT }}>
++          {plain}
++        </p>
++      )}
++    </div>
++  );
+ }
+diff --git a/src/variantB/slots/styleB.ts b/src/variantB/slots/styleB.ts
+index e907800..020136e 100644
+--- a/src/variantB/slots/styleB.ts
++++ b/src/variantB/slots/styleB.ts
+@@ -10,11 +10,67 @@ export const COPY_B = {
+   ...COPY_A,
+ };
+ 
+-// 2. Colour per support category. Return a colour (e.g. '#2E7D32') for a row
+-//    and variant B draws it as a bar on the left of that scheme; return
+-//    undefined for no colour. Look the row up by row.schemeCode.
+-//    Check every colour against white for contrast (WCAG AA, 3:1 for a bar).
+-export function schemeColour(row: PayoutRowA): string | undefined {
+-  void row;
++// 2. Kind of support (AUDIT.md Finding 12). Five kinds, taken from the prefix
++//    of each scheme name in src/variantA/resultsDataA.ts. Each kind has ONE
++//    colour, always shown with an icon and a word (SchemeCategory.tsx), so the
++//    meaning never rests on colour alone (colour-blind users, Week 8).
++//
++//    Colour choices (Week 8):
++//    - No red anywhere: red reads as risk and loss (Bazley et al., 2021) and
++//      also means prosperity in Chinese culture, so it is ambiguous here.
++//    - No green on money: green reads as "healthy/good" (Schuldt, 2013) and
++//      would make some amounts look better than others for the same facts.
++//    - Blue for cash, the most common kind: calm, open thinking.
++//    - The other four are muted and clearly different from each other and
++//      from the site's pale green boxes. No gradients, no flashing.
++//
++//    Contrast (WCAG AA), computed with the WCAG relative-luminance formula:
++//    kind       colour    on white  on box green #EBF1EE
++//    Cash       #1D5A96   7.11:1    6.21:1
++//    NSF Top-up #5B4A8B   7.51:1    6.56:1
++//    Rebate     #8A5300   6.33:1    5.53:1
++//    Voucher    #0E6B6B   6.30:1    5.50:1
++//    Credit     #8B3A62   7.29:1    6.37:1
++//    All pass 4.5:1 for text (the kind word) and 3:1 for the 4px bar.
++export type SupportKind = 'cash' | 'topup' | 'rebate' | 'voucher' | 'credit';
++
++export const KIND_STYLE: Record<SupportKind, { word: string; colour: string }> = {
++  cash: { word: 'Cash', colour: '#1D5A96' },
++  topup: { word: 'NSF Top-up', colour: '#5B4A8B' },
++  rebate: { word: 'Rebate', colour: '#8A5300' },
++  voucher: { word: 'Voucher', colour: '#0E6B6B' },
++  credit: { word: 'Credit', colour: '#8B3A62' },
++};
++
++const KIND_BY_CODE: Record<string, SupportKind> = {
++  'STEADY-CASH': 'cash',
++  'COL-2026': 'cash',
++  'LCV-CASH': 'cash',
++  'NSF-TOPUP-2026': 'topup',
++  'LCV-HEALTHSAVE': 'topup',
++  'HP-ESB': 'topup',
++  EUCR: 'rebate',
++  'U-CREDIT': 'rebate',
++  NCV: 'voucher',
++  'CHILD-CREDITS': 'credit',
++};
++
++// Look up by scheme code; fall back to the name's prefix for any new row.
++export function kindOf(row: PayoutRowA): SupportKind | undefined {
++  const byCode = KIND_BY_CODE[row.schemeCode];
++  if (byCode) return byCode;
++  const prefix = row.schemeName.split(' - ')[0].trim().toLowerCase();
++  if (prefix === 'cash') return 'cash';
++  if (prefix === 'nsf top-up') return 'topup';
++  if (prefix === 'rebate') return 'rebate';
++  if (prefix === 'voucher') return 'voucher';
++  if (prefix === 'credit') return 'credit';
+   return undefined;
+ }
++
++// Colour per support category. Variant B draws it as a 4px bar on the left
++// of each scheme row; undefined means no bar.
++export function schemeColour(row: PayoutRowA): string | undefined {
++  const kind = kindOf(row);
++  return kind ? KIND_STYLE[kind].colour : undefined;
++}
+-- 
+2.43.0
+
