@@ -1,6 +1,6 @@
 # AUDIT.md - SupportGoWhere, Support For You Calculator results screen · the decision: what, if anything, a household does after it sees its estimated benefits
 
-**Group:** [no.] · **Members:** M1 Gunaal R. · M2 Enhao (Andy) Zhang (EZ) · M3 Maya M. Sukumar (MS) · M4 Dhiksha D.(DD) · M5 Venkata Narayana Koppaka (KV)
+**Group:** 2 · **Members:** M1 Gunaal R. · M2 Enhao (Andy) Zhang (EZ) · M3 Maya M. Sukumar (MS) · M4 Dhiksha D.(DD) · M5 Venkata Narayana Koppaka (KV)
 
 **Product audited:** the live results screen at supportgowhere.life.gov.sg/budget/support-calculator/result, which appears after the calculator form. Our prototype rebuilds it as variant A under the fictional brand HelpCompass SG.
 
@@ -164,6 +164,7 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 - 2026-10-28: M1 (GR) severity ratings added to Findings 1-12, after variant B was built.
 - 2026-10-28: M3 (MS) severity ratings added to Findings 1-12, after variant B was built.
 - 2026-10-28: M5 (KV) severity ratings added to Findings 1-12, after variant B was built.
+- 2026-11-01: group number filled in on line 3 (it was a blank). No finding changed.
 
 ### 2026-11-01 (EZ): correction to Findings 5 and 7
 
