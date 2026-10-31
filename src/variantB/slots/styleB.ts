@@ -8,6 +8,8 @@ import { COPY_A, type PayoutRowA } from '../../variantA/resultsDataA';
 //    e.g. pageTitle: 'What you and your household can get',
 export const COPY_B = {
   ...COPY_A,
+  // GR-5, W7 fluency: plainer, shorter title (the subtitle still says these are estimates)
+  pageTitle: 'What you and your household can get',
 };
 
 // 2. Kind of support (AUDIT.md Finding 12). Five kinds, taken from the prefix
