@@ -14,7 +14,7 @@ export function LanguageBar({ currentLang, onLanguageChange }: LanguageBarProps)
   ];
 
   return (
-    <div className="border-b border-gray-200 bg-[#FCFCFD] text-xs py-2 px-4 sm:px-6 lg:px-8 text-gray-500" data-purpose="language-selector">
+    <div className="border-b border-[#E2E8F0] bg-[#F5F7F9] text-sm py-2 px-4 sm:px-6 lg:px-8 text-[#5B6675]" data-purpose="language-selector">
       <div className="max-w-7xl mx-auto flex items-center gap-2">
         <span className="text-gray-500 font-medium">Read this in:</span>
         <div className="flex items-center gap-2">
@@ -24,7 +24,7 @@ export function LanguageBar({ currentLang, onLanguageChange }: LanguageBarProps)
                 onClick={() => onLanguageChange(lang.code)}
                 className={`cursor-pointer transition-colors ${
                   currentLang === lang.code
-                    ? 'font-bold text-gray-900 underline underline-offset-4 decoration-[#175CD3]'
+                    ? 'font-bold text-[#0F1E2E] underline underline-offset-4 decoration-2 decoration-[#0B5A7A]'
                     : 'hover:text-gray-900 text-gray-600'
                 }`}
               >

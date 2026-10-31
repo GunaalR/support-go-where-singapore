@@ -34,7 +34,7 @@ const PLAIN_LINE: Record<string, string> = {
     "Credits for household spending, sent in the CompassLife app to the trustee of the child's Child Savings Account.",
 };
 
-const PLAIN_TEXT = '#4E4E4E'; // site's body text colour, 8.32:1 on white
+const PLAIN_TEXT = '#334155'; // HelpCompass body text (src/theme/brand.ts), 10.4:1 on white
 
 export function SchemeCategory({ row }: { row: PayoutRowA }) {
   const kind = kindOf(row);
@@ -43,18 +43,18 @@ export function SchemeCategory({ row }: { row: PayoutRowA }) {
   const Icon = kind ? KIND_ICON[kind] : null;
   const style = kind ? KIND_STYLE[kind] : null;
   return (
-    <div className="flex flex-col gap-1.5 mt-1" data-kind={kind}>
+    <div className="flex flex-col gap-2" data-kind={kind}>
       {style && Icon && (
         <p
-          className="flex items-center gap-1.5 w-fit rounded-full px-3 py-0.5 text-base font-semibold"
-          style={{ color: style.colour, backgroundColor: '#FFFFFF', border: `1.5px solid ${style.colour}` }}
+          className="flex items-center gap-1.5 w-fit rounded-full px-2.5 py-0.5 text-sm font-semibold tracking-wide"
+          style={{ color: style.colour, backgroundColor: style.tint }}
         >
-          <Icon className="w-5 h-5 shrink-0" strokeWidth={2} aria-hidden="true" />
+          <Icon className="w-4 h-4 shrink-0" strokeWidth={2.25} aria-hidden="true" />
           <span>{style.word}</span>
         </p>
       )}
       {plain && (
-        <p className="text-base" style={{ color: PLAIN_TEXT }}>
+        <p className="text-base leading-relaxed" style={{ color: PLAIN_TEXT }}>
           {plain}
         </p>
       )}

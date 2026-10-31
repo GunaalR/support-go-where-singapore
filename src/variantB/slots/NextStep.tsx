@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CalendarDays, Check, ClipboardList, Copy, Users } from 'lucide-react';
 import type { YearPanelA } from '../../variantA/resultsDataA';
+import { C, FONT_DISPLAY } from '../../theme/brand';
 import { actionItems } from './schemeStatusM3';
 
 // SLOT for M4 (follow-through), built by M1 (GR-5) after M4 finished her
@@ -19,10 +20,11 @@ const NEEDS: Record<string, string[]> = {
   LCV: ['Your digital ID login for the benefits portal', 'Your bank account details, for the payout'],
 };
 
-const DARK = '#2C2C2C';
-const GREY = '#4E4E4E';
-const LINE = '#CACACA';
-const LINK = '#125EEC';
+// colours from the HelpCompass tokens (src/theme/brand.ts, DESIGN.md)
+const DARK = C.ink;
+const GREY = C.body;
+const LINE = C.line;
+const LINK = C.brand;
 
 const todayIso = () => {
   const d = new Date();
@@ -108,9 +110,19 @@ export function NextStep({ panel }: { panel: YearPanelA }) {
   };
 
   return (
-    <section aria-labelledby={`plan-${panel.year}`} className="mt-2 mb-10">
-      <div className="rounded-2xl p-6 md:p-8" style={{ border: `1px solid ${LINE}`, backgroundColor: '#FFFFFF' }}>
-        <h2 id={`plan-${panel.year}`} className="text-xl md:text-3xl font-bold" style={{ color: DARK }}>
+    <section aria-labelledby={`plan-${panel.year}`} className="mt-4 mb-12">
+      <div
+        className="rounded-3xl p-5 sm:p-7 md:p-9 bg-white shadow-[0_1px_2px_rgba(15,30,46,0.05),0_12px_32px_-16px_rgba(11,90,122,0.3)]"
+        style={{ border: `1px solid ${LINE}` }}
+      >
+        <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: LINK }}>
+          Make it happen
+        </p>
+        <h2
+          id={`plan-${panel.year}`}
+          className="mt-1 text-2xl md:text-4xl font-extrabold tracking-tight"
+          style={{ color: DARK, fontFamily: FONT_DISPLAY }}
+        >
           Plan your next step
         </h2>
         <p className="mt-2 text-lg" style={{ color: GREY }}>
@@ -123,9 +135,20 @@ export function NextStep({ panel }: { panel: YearPanelA }) {
             const needs = NEEDS[it.code] ?? [];
             const dateId = `plan-date-${panel.year}-${i}`;
             return (
-              <li key={it.code} className="rounded-xl p-4 md:p-5" style={{ border: `1px solid ${LINE}`, opacity: c.skipped ? 0.6 : 1 }}>
-                <p className="text-lg font-bold" style={{ color: DARK }}>
-                  {i + 1}. {it.status.shortName}
+              <li
+                key={it.code}
+                className="rounded-2xl p-4 md:p-6"
+                style={{ border: `1px solid ${LINE}`, backgroundColor: C.page, opacity: c.skipped ? 0.6 : 1 }}
+              >
+                <p className="flex items-center gap-3 text-lg md:text-xl font-bold" style={{ color: DARK }}>
+                  <span
+                    aria-hidden="true"
+                    className="shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-base font-extrabold text-white"
+                    style={{ backgroundColor: C.claimSolid }}
+                  >
+                    {i + 1}
+                  </span>
+                  <span>{it.status.shortName}</span>
                 </p>
 
                 {needs.length > 0 && (
@@ -153,16 +176,16 @@ export function NextStep({ panel }: { panel: YearPanelA }) {
                       value={c.date}
                       disabled={c.skipped}
                       onChange={e => set(it.code, { date: e.target.value, skipped: false })}
-                      className="rounded-lg px-3 py-2 text-base"
-                      style={{ border: `1px solid ${LINE}`, color: DARK }}
+                      className="rounded-xl px-4 py-2.5 text-lg bg-white min-h-[48px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                      style={{ border: `1.5px solid #CBD5E1`, color: DARK, outlineColor: LINK }}
                     />
                   </div>
                   <button
                     type="button"
                     onClick={() => set(it.code, { skipped: !c.skipped, date: '' })}
                     aria-pressed={c.skipped}
-                    className="rounded-lg px-4 py-2 text-base font-medium cursor-pointer"
-                    style={{ border: `1px solid ${LINE}`, color: GREY, backgroundColor: '#FFFFFF' }}
+                    className="rounded-xl px-5 py-2.5 text-lg font-semibold cursor-pointer min-h-[48px] transition-colors hover:bg-[#F1F5F9] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                    style={{ border: `1.5px solid #CBD5E1`, color: GREY, backgroundColor: '#FFFFFF', outlineColor: LINK }}
                   >
                     {c.skipped ? 'Undo skip' : 'Skip'}
                   </button>
@@ -172,23 +195,23 @@ export function NextStep({ panel }: { panel: YearPanelA }) {
           })}
         </ol>
 
-        <label className="mt-6 flex items-center gap-3 text-base cursor-pointer" style={{ color: DARK }}>
-          <input type="checkbox" checked={remind} onChange={e => setRemind(e.target.checked)} className="w-5 h-5" />
+        <label className="mt-6 flex items-center gap-3 text-lg cursor-pointer" style={{ color: DARK }}>
+          <input type="checkbox" checked={remind} onChange={e => setRemind(e.target.checked)} className="w-6 h-6" style={{ accentColor: LINK }} />
           Add a reminder to my calendar
         </label>
 
         <button
           type="button"
           onClick={savePlan}
-          className="mt-4 rounded-lg px-5 py-3 text-base font-semibold text-white cursor-pointer"
-          style={{ backgroundColor: LINK }}
+          className="mt-4 rounded-full px-7 py-3.5 text-lg font-bold text-white cursor-pointer transition-[filter] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 shadow-[0_6px_16px_-8px_rgba(11,90,122,0.6)]"
+          style={{ backgroundColor: LINK, outlineColor: LINK }}
         >
           Save my plan
         </button>
 
         <div aria-live="polite">
           {saved && (
-            <div className="mt-4 text-base" style={{ color: DARK }}>
+            <div className="mt-4 rounded-2xl p-4 text-base" style={{ color: DARK, backgroundColor: C.autoTint }}>
               {planned.length > 0 ? (
                 <>
                   <p className="flex items-center gap-2 font-semibold">
@@ -217,13 +240,13 @@ export function NextStep({ panel }: { panel: YearPanelA }) {
           <p className="mt-1 text-base" style={{ color: GREY }}>
             Ask a family member or friend to sit with you. Copy this message and send it to them:
           </p>
-          <p className="mt-3 rounded-lg p-3 text-base" style={{ backgroundColor: '#F5F5F5', color: DARK }}>
+          <p className="mt-3 rounded-2xl p-4 text-lg leading-relaxed" style={{ backgroundColor: C.brandTint, color: DARK }}>
             {message}
           </p>
           <button
             type="button"
             onClick={copyMessage}
-            className="mt-3 flex items-center gap-2 text-base font-medium underline underline-offset-2 cursor-pointer"
+            className="mt-3 flex items-center gap-2 text-lg font-semibold underline underline-offset-4 cursor-pointer"
             style={{ color: LINK }}
           >
             <Copy className="w-4 h-4" aria-hidden="true" /> {copied ? 'Copied' : 'Copy message'}

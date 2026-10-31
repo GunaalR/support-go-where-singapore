@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Shield, FileText, HelpCircle, HeartHandshake, Mail, Eye } from 'lucide-react';
+import { BrandMark } from './BrandMark';
 
 interface FooterProps {
   onScrollToSupport?: () => void;
@@ -16,7 +17,7 @@ export function Footer({
 
   return (
     <>
-      <footer className="bg-white border-t border-gray-200 text-xs text-gray-600 py-12 text-left">
+      <footer className="bg-white border-t border-[#E2E8F0] text-sm text-[#334155] py-12 text-left">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           
           {/* Main Footer Grid */}
@@ -25,11 +26,7 @@ export function Footer({
             {/* HelpCompass SG brand column */}
             <div className="md:col-span-4">
               <div className="flex items-center gap-2.5 mb-3">
-                <div className="relative w-8 h-8 flex items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-rose-500 to-red-500 shadow-xs shadow-red-200">
-                  <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-                  </svg>
-                </div>
+                <BrandMark className="w-9 h-9" />
                 <div className="leading-none text-left">
                   <span className="block text-lg font-bold tracking-tight text-gray-900 font-sans">
                     HelpCompass SG
@@ -55,7 +52,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={onScrollToSupport}
-                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                     >
                       Support
                     </button>
@@ -63,7 +60,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={onScrollToResources}
-                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                     >
                       Resources & Tools
                     </button>
@@ -71,7 +68,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={onOpenCalculator}
-                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                     >
                       Support Calculator
                     </button>
@@ -87,7 +84,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('about')}
-                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                     >
                       About
                     </button>
@@ -95,7 +92,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('contact')}
-                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                     >
                       Contact
                     </button>
@@ -103,7 +100,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('help')}
-                      className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                     >
                       Help
                     </button>
@@ -121,7 +118,7 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('accessibility')}
-                    className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                   >
                     Accessibility
                   </button>
@@ -129,7 +126,7 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('privacy')}
-                    className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                   >
                     Privacy
                   </button>
@@ -137,14 +134,14 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('terms')}
-                    className="text-gray-600 hover:text-[#175CD3] transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#0B5A7A] transition-colors cursor-pointer"
                   >
                     Terms
                   </button>
                 </li>
               </ul>
-              <p className="text-[11px] text-gray-400 leading-relaxed">
-                GovTech Singapore · In collaboration with Ministry of Social and Family Development (MSF).
+              <p className="text-xs text-[#5B6675] leading-relaxed">
+                Student prototype · SMU MGMT6108 Decision Architecture for Managers. Fictional brand and data.
               </p>
             </div>
 
@@ -176,7 +173,7 @@ export function Footer({
 
             {activeModal === 'about' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
+                <div className="flex items-center gap-2.5 mb-3 text-[#0B5A7A]">
                   <HeartHandshake className="w-5 h-5" />
                   <h3 className="text-base font-bold text-gray-900">About HelpCompass SG</h3>
                 </div>
@@ -221,7 +218,7 @@ export function Footer({
 
             {activeModal === 'accessibility' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
+                <div className="flex items-center gap-2.5 mb-3 text-[#0B5A7A]">
                   <Eye className="w-5 h-5" />
                   <h3 className="text-base font-bold text-gray-900">Accessibility</h3>
                 </div>
@@ -235,7 +232,7 @@ export function Footer({
 
             {activeModal === 'contact' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
+                <div className="flex items-center gap-2.5 mb-3 text-[#0B5A7A]">
                   <Mail className="w-5 h-5" />
                   <h3 className="text-base font-bold text-gray-900">Contact HelpCompass SG</h3>
                 </div>
@@ -252,7 +249,7 @@ export function Footer({
 
             {activeModal === 'help' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-[#175CD3]">
+                <div className="flex items-center gap-2.5 mb-3 text-[#0B5A7A]">
                   <HelpCircle className="w-5 h-5" />
                   <h3 className="text-base font-bold text-gray-900">Help & FAQs</h3>
                 </div>

@@ -164,3 +164,4 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 - 2026-10-28: M1 (GR) severity ratings added to Findings 1-12, after variant B was built.
 - 2026-10-28: M3 (MS) severity ratings added to Findings 1-12, after variant B was built.
 - 2026-10-28: M5 (KV) severity ratings added to Findings 1-12, after variant B was built.
+- 2026-10-31: MS-3 visual redesign of variant B and the shared site shell (colour tokens and reasons in DESIGN.md). Variant A unchanged; no finding, severity or prediction above was edited. B now also differs from A in visual polish, which is noted as a limit in DESIGN.md.

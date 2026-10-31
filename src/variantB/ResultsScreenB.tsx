@@ -1,24 +1,36 @@
 import { useState } from 'react';
-import { Calculator, ChevronDown, ChevronLeft, ChevronUp, FileText, Home, Search, User } from 'lucide-react';
+import {
+  CalendarDays,
+  Calculator,
+  ChevronDown,
+  ChevronLeft,
+  ChevronUp,
+  FileText,
+  Home,
+  Info,
+  Search,
+  User,
+  Users,
+} from 'lucide-react';
 import { BenefitBoxA, PayoutRowA, RESULTS_A, YearPanelA } from '../variantA/resultsDataA';
-import { COPY_B, schemeColour, schemeTint } from './slots/styleB';
+import { C, FONT_BODY, FONT_DISPLAY } from '../theme/brand';
+import { COPY_B, KIND_STYLE, kindOf, schemeColour } from './slots/styleB';
 import { StartHere } from './slots/StartHere';
 import { SchemeLabel } from './slots/SchemeLabel';
 import { NextStep } from './slots/NextStep';
 import { SchemeCategory } from './slots/SchemeCategory';
 
 // Variant B: the same results screen as variant A, with our nudges.
-// Starts as an exact copy of src/variantA/ResultsScreenA.tsx (same data, same
-// layout) so the only differences between A and B are the nudges.
-// The nudges live in their own files in ./slots/, one owner each, so pushes
-// don't clash:
-//   slots/StartHere.tsx    M3  "Start here" block, above your own boxes
-//   slots/SchemeLabel.tsx  M3  "Automatic" / "Claim it yourself" under each scheme
-//   slots/NextStep.tsx     M4  plan the next step, after the results
-//   slots/styleB.ts        M5  plain wording (COPY_B) and colour per category
-//   slots/SchemeCategory.tsx M5 icon, category word and plain line under each scheme
-// This file is owned by M1. If your nudge needs a new slot or a change here,
-// ask M1 rather than editing it.
+// Same data, same order of sections and same wording as variant A
+// (src/variantA/ResultsScreenA.tsx); the nudges live in ./slots/:
+//   slots/StartHere.tsx      "Start here" block, above your own boxes
+//   slots/SchemeLabel.tsx    "Automatic" / "Claim it yourself" under each scheme
+//   slots/NextStep.tsx       plan the next step, after the results
+//   slots/styleB.ts          plain wording (COPY_B) and colour per kind of support
+//   slots/SchemeCategory.tsx icon, kind word and plain line under each scheme
+// Visual design (MS-3): HelpCompass tokens from src/theme/brand.ts, with the
+// reasons in DESIGN.md. The cool brand blue carries the page, the one warm
+// colour marks what needs the household, and everything automatic is quiet.
 
 interface ResultsScreenBProps {
   onBack?: () => void;
@@ -27,15 +39,6 @@ interface ResultsScreenBProps {
   onOpenBanner?: () => void;
   onOpenFaq?: () => void;
 }
-
-const GREEN_LIGHTER = '#EBF1EE';
-const ORANGE_LIGHT = '#FEF6F1';
-const ORANGE_REGULAR = '#F2A474';
-const ORANGE_DARK = '#A96237';
-const BORDER_GREY = '#CACACA';
-const TEXT_DARK = '#4E4E4E';
-const LINK_BLUE = '#125EEC';
-const BANNER_BLUE = '#1C76D5';
 
 function money(n: number) {
   return `$${n.toLocaleString('en-SG', { maximumFractionDigits: 2 })}`;
@@ -54,46 +57,107 @@ function boxMonths(box: BenefitBoxA) {
   return box.rows.filter(r => r.unit === 'months').reduce((sum, r) => sum + r.amount, 0);
 }
 
-function totalLabel(panel: YearPanelA) {
+function totalParts(panel: YearPanelA) {
   const boxes = [...panel.ownBoxes, ...panel.memberBoxes];
   const cash = boxes.reduce((sum, b) => sum + boxCash(b), 0);
   const months = boxes.reduce((sum, b) => sum + boxMonths(b), 0);
   const isMax = boxes.some(b => b.rows.some(r => r.isMax));
+  return { cash, months, isMax };
+}
+
+function totalLabel(panel: YearPanelA) {
+  const { cash, months, isMax } = totalParts(panel);
   const amount = money(cash);
   if (months === 0) return isMax ? COPY_B.upTo(amount) : amount;
   const withMonths = `${amount} and ${COPY_B.rebateMonthsLong(months)}`;
   return isMax ? COPY_B.upTo(withMonths) : withMonths;
 }
 
+function SectionHeading({ eyebrow, title, note }: { eyebrow: string; title: string; note?: string }) {
+  return (
+    <div className="mb-5 md:mb-6">
+      <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>
+        {eyebrow}
+      </p>
+      <h2 className="mt-1 text-xl md:text-3xl font-extrabold tracking-tight" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>
+        {title}
+      </h2>
+      {note && (
+        <p className="mt-2 text-base md:text-lg" style={{ color: C.muted }}>
+          {note}
+        </p>
+      )}
+    </div>
+  );
+}
+
 function BoxHeaderTotal({ box }: { box: BenefitBoxA }) {
   const cash = boxCash(box);
   const months = boxMonths(box);
   if (cash === 0 && months === 0) {
-    return <p className="font-semibold text-lg" style={{ color: TEXT_DARK }}>{COPY_B.notEligible}</p>;
+    return <p className="font-semibold text-base md:text-lg" style={{ color: C.muted }}>{COPY_B.notEligible}</p>;
   }
   const isMax = box.rows.some(r => r.isMax);
   return (
-    <div className="font-bold text-lg md:text-xl" style={{ color: TEXT_DARK }}>
+    <div className="font-extrabold text-xl md:text-2xl tabular-nums leading-tight" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>
       {cash > 0 && <p>{isMax ? COPY_B.upTo(money(cash)) : money(cash)}</p>}
-      {months > 0 && <p>{COPY_B.rebateMonthsShort(months)}</p>}
+      {months > 0 && <p className="text-base md:text-lg font-bold" style={{ color: C.body }}>{COPY_B.rebateMonthsShort(months)}</p>}
     </div>
   );
 }
 
 function NoResult({ year }: { year: string }) {
   return (
-    <div className="flex flex-col items-center text-center px-4 py-8">
+    <div className="flex flex-col items-center text-center px-6 py-10">
       <div
-        className="relative w-24 h-24 md:w-32 md:h-32 rounded-full flex items-center justify-center mb-6"
-        style={{ backgroundColor: ORANGE_LIGHT }}
+        className="relative w-20 h-20 md:w-24 md:h-24 rounded-full flex items-center justify-center mb-5"
+        style={{ backgroundColor: C.brandTint }}
         aria-hidden="true"
       >
-        <Calculator className="w-12 h-12 md:w-16 md:h-16 text-[#2C2C2C]" />
-        <Search className="absolute -left-2 top-2 w-10 h-10 md:w-12 md:h-12 text-[#4E6B7A]" />
+        <Calculator className="w-10 h-10 md:w-12 md:h-12" style={{ color: C.brand }} />
+        <Search className="absolute -left-1 top-1 w-8 h-8 md:w-9 md:h-9" style={{ color: C.muted }} />
       </div>
-      <p className="font-bold text-lg md:text-xl" style={{ color: TEXT_DARK }}>{COPY_B.memberNoResultTitle(year)}</p>
-      <p className="mt-2" style={{ color: TEXT_DARK }}>{COPY_B.memberNoResultDesc}</p>
+      <p className="font-bold text-lg md:text-xl max-w-xl" style={{ color: C.ink }}>{COPY_B.memberNoResultTitle(year)}</p>
+      <p className="mt-2 max-w-xl" style={{ color: C.body }}>{COPY_B.memberNoResultDesc}</p>
     </div>
+  );
+}
+
+function SchemeRow({ row, onOpenScheme }: { row: PayoutRowA; onOpenScheme?: (schemeCode: string) => void }) {
+  const kind = kindOf(row);
+  const bar = schemeColour(row) ?? C.line;
+  // M5's kind colour as a left bar and a soft wash that fades into white (GR-4)
+  const wash = kind ? `linear-gradient(90deg, ${KIND_STYLE[kind].tint} 0%, #FFFFFF 55%)` : '#FFFFFF';
+  return (
+    <li
+      className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-6 rounded-xl px-4 py-4 md:px-6 md:py-5"
+      style={{ borderLeft: `5px solid ${bar}`, background: wash, boxShadow: `inset 0 0 0 1px ${C.line}` }}
+    >
+      <div className="flex flex-col gap-2 min-w-0">
+        <button
+          type="button"
+          onClick={() => onOpenScheme?.(row.schemeCode)}
+          className="text-left text-lg md:text-xl font-semibold underline decoration-2 underline-offset-4 cursor-pointer w-fit transition-colors hover:decoration-current focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm"
+          style={{ color: C.brand, textDecorationColor: 'rgba(11,90,122,0.3)', outlineColor: C.brand }}
+        >
+          {row.schemeName}
+        </button>
+        {/* M5 slot: kind icon, word and plain-language line */}
+        <SchemeCategory row={row} />
+        {/* M3 slot: Automatic / Claim it yourself */}
+        <SchemeLabel row={row} />
+        <p className="flex items-center gap-2 text-base" style={{ color: C.muted }}>
+          <CalendarDays className="w-4 h-4 shrink-0" aria-hidden="true" />
+          {row.payoutLine}
+        </p>
+      </div>
+      <p
+        className="shrink-0 text-2xl md:text-[28px] font-extrabold tabular-nums leading-none sm:pt-1 sm:text-right"
+        style={{ color: C.ink, fontFamily: FONT_DISPLAY }}
+      >
+        {rowAmount(row)}
+      </p>
+    </li>
   );
 }
 
@@ -111,84 +175,70 @@ function BenefitBox({
 
   return (
     <div
-      className="mb-6"
-      style={{ border: `1px solid ${BORDER_GREY}`, borderRadius: open ? '8px 8px 0 0' : 8 }}
+      className="mb-6 rounded-2xl bg-white overflow-hidden shadow-[0_1px_2px_rgba(15,30,46,0.05),0_6px_20px_-12px_rgba(15,30,46,0.18)]"
+      style={{ border: `1px solid ${C.line}` }}
     >
       <button
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="w-full flex items-center justify-between gap-3 p-4 text-left cursor-pointer"
-        style={{ backgroundColor: GREEN_LIGHTER, borderRadius: open ? '8px 8px 0 0' : 8 }}
+        className="w-full flex items-center justify-between gap-3 p-4 md:p-6 text-left cursor-pointer transition-colors hover:bg-[#FAFCFD] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
+        style={{ outlineColor: C.brand }}
       >
         <div className="flex items-start gap-4 w-full">
-          <Icon className="w-7 h-7 shrink-0 mt-1" style={{ color: ORANGE_DARK }} strokeWidth={1.5} aria-hidden="true" />
+          <span
+            className="shrink-0 w-11 h-11 md:w-12 md:h-12 rounded-full flex items-center justify-center"
+            style={{ backgroundColor: C.brandTint }}
+            aria-hidden="true"
+          >
+            <Icon className="w-6 h-6" style={{ color: C.brand }} strokeWidth={2} />
+          </span>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-2">
             <div>
-              <p className="font-semibold text-lg md:text-xl" style={{ color: TEXT_DARK }}>{box.title}</p>
-              <p className="mt-0.5 max-w-[690px]" style={{ color: TEXT_DARK }}>{box.profile}</p>
+              <p className="font-bold text-lg md:text-xl" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>{box.title}</p>
+              <p className="mt-0.5 max-w-[690px] text-base" style={{ color: C.muted }}>{box.profile}</p>
             </div>
             <div className="md:text-right">
               <BoxHeaderTotal box={box} />
             </div>
           </div>
         </div>
-        {open ? (
-          <ChevronUp className="w-6 h-6 shrink-0 text-gray-500" strokeWidth={1.5} aria-hidden="true" />
-        ) : (
-          <ChevronDown className="w-6 h-6 shrink-0 text-gray-500" strokeWidth={1.5} aria-hidden="true" />
-        )}
+        <span
+          className="shrink-0 w-9 h-9 rounded-full flex items-center justify-center"
+          style={{ backgroundColor: C.page }}
+          aria-hidden="true"
+        >
+          {open ? (
+            <ChevronUp className="w-5 h-5" style={{ color: C.body }} strokeWidth={2} />
+          ) : (
+            <ChevronDown className="w-5 h-5" style={{ color: C.body }} strokeWidth={2} />
+          )}
+        </span>
       </button>
 
       {open && (
-        <div className="pb-2">
+        <div className="px-3 pb-4 md:px-6 md:pb-6" style={{ borderTop: `1px solid ${C.line}` }}>
           {box.rows.length === 0 ? (
             <NoResult year={year} />
           ) : (
-            box.rows.map((row, i) => (
-              <div
-                key={`${row.schemeCode}-${i}`}
-                className="flex flex-col gap-2 mt-2 md:mt-4 mb-5"
-                // M5 slot: colour per category, a bar on the left and a pale tint behind the row
-                style={
-                  schemeColour(row)
-                    ? {
-                        borderLeft: `6px solid ${schemeColour(row)}`,
-                        backgroundColor: schemeTint(row),
-                        padding: '12px 16px',
-                        borderRadius: '0 8px 8px 0',
-                      }
-                    : undefined
-                }
-              >
-                <div className="flex flex-col pt-2 pl-4 md:pl-6 pr-2 pb-2">
-                  <button
-                    type="button"
-                    onClick={() => onOpenScheme?.(row.schemeCode)}
-                    className="text-left text-lg font-medium underline underline-offset-2 cursor-pointer w-fit"
-                    style={{ color: LINK_BLUE }}
-                  >
-                    {row.schemeName}
-                  </button>
-                  {/* M5 slot: category icon and plain-language line */}
-                  <SchemeCategory row={row} />
-                  {/* M3 slot: Automatic / Claim it yourself */}
-                  <SchemeLabel row={row} />
-                  <p className="text-lg" style={{ color: TEXT_DARK }}>{row.payoutLine}</p>
-                </div>
-                <p className="pl-4 md:pl-6 text-lg font-bold" style={{ color: TEXT_DARK }}>{rowAmount(row)}</p>
-              </div>
-            ))
+            <ul className="mt-4 flex flex-col gap-3">
+              {box.rows.map((row, i) => (
+                <SchemeRow key={`${row.schemeCode}-${i}`} row={row} onOpenScheme={onOpenScheme} />
+              ))}
+            </ul>
           )}
 
           {box.notes.length > 0 && (
-            <div className="ml-2 md:ml-4 mr-4 mb-4">
-              <p className="italic ml-3" style={{ color: TEXT_DARK }}>{COPY_B.toNote}</p>
-              <ul className="list-disc mt-0 ml-8">
-                {box.notes.map(note => (
-                  <li key={note} className="italic" style={{ color: TEXT_DARK }}>{note}</li>
-                ))}
-              </ul>
+            <div className="mt-4 flex gap-3 rounded-xl p-4" style={{ backgroundColor: C.page }}>
+              <Info className="w-5 h-5 mt-0.5 shrink-0" style={{ color: C.brand }} aria-hidden="true" />
+              <div>
+                <p className="font-bold" style={{ color: C.ink }}>{COPY_B.toNote}</p>
+                <ul className="mt-1 flex flex-col gap-1 list-disc ml-5">
+                  {box.notes.map(note => (
+                    <li key={note} className="text-base leading-relaxed" style={{ color: C.body }}>{note}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
           )}
         </div>
@@ -202,89 +252,144 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
   const defaultIndex = Math.max(0, RESULTS_A.findIndex(p => p.year === thisYear));
   const [tab, setTab] = useState(defaultIndex);
   const panel = RESULTS_A[tab];
+  const total = totalParts(panel);
 
   return (
-    <div className="bg-white" style={{ color: TEXT_DARK }} data-variant="B">
+    <div style={{ color: C.body, backgroundColor: C.page, fontFamily: FONT_BODY }} data-variant="B">
       {/* Page title */}
-      <div style={{ background: 'linear-gradient(to bottom, #FAFAFA, #ECF0EF)' }}>
-        <div className="max-w-6xl mx-auto px-4 pt-6 pb-12 md:pt-8 md:pb-20">
+      <div
+        className="relative overflow-hidden"
+        style={{ background: `linear-gradient(135deg, ${C.brandDeep} 0%, ${C.brand} 70%, #127FA8 100%)` }}
+      >
+        {/* soft compass rings, decoration only */}
+        <svg
+          className="absolute -right-24 -top-24 w-[420px] h-[420px] md:w-[560px] md:h-[560px] opacity-[0.09]"
+          viewBox="0 0 200 200"
+          aria-hidden="true"
+        >
+          <g fill="none" stroke="#FFFFFF" strokeWidth="1.2">
+            <circle cx="100" cy="100" r="96" />
+            <circle cx="100" cy="100" r="70" />
+            <circle cx="100" cy="100" r="44" />
+            <path d="M100 4v192M4 100h192" />
+          </g>
+          <path d="M100 40l14 60-14 60-14-60z" fill="#FFFFFF" />
+        </svg>
+        <div className="relative max-w-6xl mx-auto px-4 pt-6 pb-12 md:pt-8 md:pb-16">
           <button
             type="button"
             onClick={onBack}
-            className="inline-flex items-center gap-2 text-lg font-semibold cursor-pointer mb-8 md:mb-12"
-            style={{ color: LINK_BLUE }}
+            className="inline-flex items-center gap-1.5 rounded-full pl-2 pr-4 py-1.5 text-base md:text-lg font-semibold cursor-pointer mb-8 md:mb-10 transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+            style={{ color: '#FFFFFF', border: '1px solid rgba(255,255,255,0.35)' }}
             aria-label="Go back to calculator landing page"
           >
-            <ChevronLeft className="w-5 h-5 text-gray-500" strokeWidth={1.5} aria-hidden="true" />
+            <ChevronLeft className="w-5 h-5" strokeWidth={2} aria-hidden="true" />
             {COPY_B.back}
           </button>
-          <h1 className="text-2xl md:text-4xl font-bold leading-tight">{COPY_B.pageTitle}</h1>
-          <p className="mt-4 text-lg md:text-2xl max-w-5xl">{COPY_B.pageSubtitle}</p>
+          <h1
+            className="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-white max-w-4xl"
+            style={{ fontFamily: FONT_DISPLAY }}
+          >
+            {COPY_B.pageTitle}
+          </h1>
+          <p className="mt-4 text-lg md:text-xl max-w-3xl leading-relaxed" style={{ color: C.brandOnDeep }}>
+            {COPY_B.pageSubtitle}
+          </p>
         </div>
       </div>
 
-      {/* Year tabs, sticky like the live page */}
-      <div className="sticky top-0 z-10 bg-white">
-        <div className="max-w-6xl mx-auto px-4 pt-6 md:pt-10">
-          <div className="flex" role="tablist" style={{ borderBottom: `1px solid ${ORANGE_REGULAR}` }}>
-            {RESULTS_A.map((p, i) => (
-              <button
-                key={p.year}
-                type="button"
-                role="tab"
-                aria-selected={i === tab}
-                onClick={() => setTab(i)}
-                className="flex-1 py-3 text-lg md:text-xl cursor-pointer"
-                style={{
-                  backgroundColor: i === tab ? ORANGE_LIGHT : 'transparent',
-                  borderBottom: i === tab ? `4px solid ${ORANGE_REGULAR}` : '4px solid transparent',
-                  fontWeight: i === tab ? 700 : 400,
-                  color: '#222222',
-                }}
-              >
-                {p.year}
-              </button>
-            ))}
+      {/* Year tabs: sticky under the site header (72px) */}
+      <div
+        className="sticky top-[72px] z-30 backdrop-blur"
+        style={{ backgroundColor: 'rgba(245,247,249,0.92)', borderBottom: `1px solid ${C.line}` }}
+      >
+        <div className="max-w-6xl mx-auto px-4 py-3">
+          <div
+            className="flex w-full sm:w-fit gap-1 rounded-full p-1"
+            role="tablist"
+            aria-label="Payout year"
+            style={{ backgroundColor: '#FFFFFF', boxShadow: `inset 0 0 0 1px ${C.line}` }}
+          >
+            {RESULTS_A.map((p, i) => {
+              const active = i === tab;
+              return (
+                <button
+                  key={p.year}
+                  type="button"
+                  role="tab"
+                  aria-selected={active}
+                  onClick={() => setTab(i)}
+                  className="flex-1 sm:flex-none sm:min-w-[140px] rounded-full px-6 py-2.5 text-lg font-bold cursor-pointer transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                  style={
+                    active
+                      ? { backgroundColor: C.brand, color: '#FFFFFF', outlineColor: C.brand }
+                      : { backgroundColor: 'transparent', color: C.body, outlineColor: C.brand }
+                  }
+                >
+                  {p.year}
+                </button>
+              );
+            })}
           </div>
         </div>
       </div>
 
-      <div className="max-w-6xl mx-auto px-4 mt-6 md:mt-8 mb-6 md:mb-8" role="tabpanel">
-        {/* Total box */}
+      <div className="max-w-6xl mx-auto px-4 mt-6 md:mt-10 mb-6 md:mb-8" role="tabpanel">
+        {/* Total box: the hedged total is kept (AUDIT.md Finding 1) */}
         <div
-          className="relative flex flex-col p-6 md:p-8 mb-10 overflow-hidden rounded-2xl shadow-sm"
-          style={{ backgroundColor: GREEN_LIGHTER }}
+          className="relative overflow-hidden rounded-3xl p-6 md:p-9 mb-10 bg-white shadow-[0_1px_2px_rgba(15,30,46,0.05),0_12px_32px_-16px_rgba(11,90,122,0.35)]"
+          style={{ border: `1px solid ${C.line}` }}
         >
           <span
-            className="absolute rounded-full w-[1200px] h-[1200px] -right-[800px] -top-[50px] md:-right-[490px] md:-top-[40px]"
-            style={{ backgroundColor: ORANGE_LIGHT }}
+            className="absolute inset-y-0 left-0 w-1.5"
+            style={{ background: `linear-gradient(180deg, ${C.brand}, #127FA8)` }}
             aria-hidden="true"
           />
-          <p className="relative text-xl md:text-3xl font-bold">{COPY_B.totalTitle}</p>
-          <p className="relative text-xl md:text-3xl mt-1" id={`${panel.year}-aggregate`}>
+          <p className="text-base md:text-lg font-semibold" style={{ color: C.muted }}>
+            {COPY_B.totalTitle}
+          </p>
+          <p className="sr-only" id={`${panel.year}-aggregate`}>
             {totalLabel(panel)}
           </p>
+          <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1" aria-hidden="true">
+            {total.isMax && (
+              <span className="text-xl md:text-2xl font-bold" style={{ color: C.body }}>
+                Up to
+              </span>
+            )}
+            <span
+              className="text-5xl md:text-7xl font-extrabold tracking-tight tabular-nums leading-none"
+              style={{ color: C.ink, fontFamily: FONT_DISPLAY }}
+            >
+              {money(total.cash)}
+            </span>
+            {total.months > 0 && (
+              <span className="text-xl md:text-2xl font-bold" style={{ color: C.body }}>
+                and {COPY_B.rebateMonthsLong(total.months)}
+              </span>
+            )}
+          </div>
         </div>
 
         {/* M3 slot: Start here */}
         <StartHere panel={panel} />
 
-        <h2 className="text-xl md:text-3xl mb-6">{COPY_B.ownSectionTitle}</h2>
+        <SectionHeading eyebrow="You and your home" title={COPY_B.ownSectionTitle} />
         {panel.ownBoxes.map(box => (
           <BenefitBox key={`${panel.year}-${box.id}`} box={box} year={panel.year} onOpenScheme={onOpenScheme} />
         ))}
 
         {panel.memberBoxes.length > 0 && (
-          <>
-            <hr className="border-t mb-10 mt-4" style={{ borderColor: BORDER_GREY }} />
-            <div className="flex flex-col mb-6">
-              <h2 className="text-xl md:text-3xl">{COPY_B.membersSectionTitle}</h2>
-              <p className="py-2">{COPY_B.membersSectionNote}</p>
-            </div>
+          <div className="mt-12">
+            <SectionHeading
+              eyebrow="Your household"
+              title={COPY_B.membersSectionTitle}
+              note={COPY_B.membersSectionNote}
+            />
             {panel.memberBoxes.map(box => (
               <BenefitBox key={`${panel.year}-${box.id}`} box={box} year={panel.year} onOpenScheme={onOpenScheme} />
             ))}
-          </>
+          </div>
         )}
       </div>
 
@@ -293,34 +398,41 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
         <NextStep panel={panel} />
       </div>
 
-      {/* Banner and FAQ link, below the tabbed results */}
-      <div className="max-w-6xl mx-auto px-4">
+      {/* Banner and FAQ link, below the tabbed results (Finding 9: kept below the action items) */}
+      <div className="max-w-6xl mx-auto px-4 pb-6">
         <div
-          className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-6 md:p-8 rounded-xl shadow-sm mb-10"
-          style={{ background: 'linear-gradient(to left, #F3F7E8, #EEF6FA)' }}
+          className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-6 md:p-8 rounded-3xl mb-10 bg-white"
+          style={{ border: `1px solid ${C.line}` }}
         >
-          <FileText className="w-12 h-12 shrink-0 hidden md:block" style={{ color: BANNER_BLUE }} strokeWidth={1.25} aria-hidden="true" />
+          <span
+            className="hidden md:flex shrink-0 w-14 h-14 rounded-2xl items-center justify-center"
+            style={{ backgroundColor: C.brandTint }}
+            aria-hidden="true"
+          >
+            <FileText className="w-7 h-7" style={{ color: C.brand }} strokeWidth={1.75} />
+          </span>
           <div className="flex-1">
-            <p className="text-sm md:text-base font-semibold uppercase tracking-widest" style={{ color: BANNER_BLUE }}>{COPY_B.bannerTitle}</p>
-            <p className="mt-1 md:mt-2 text-lg font-semibold">{COPY_B.bannerDesc}</p>
+            <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>{COPY_B.bannerTitle}</p>
+            <p className="mt-1 md:mt-2 text-lg font-semibold" style={{ color: C.ink }}>{COPY_B.bannerDesc}</p>
           </div>
           <button
             type="button"
             onClick={onOpenBanner}
-            className="rounded-lg px-5 py-3 text-lg font-semibold text-white cursor-pointer w-full md:w-[284px]"
-            style={{ backgroundColor: BANNER_BLUE }}
+            className="rounded-full px-6 py-3 text-lg font-semibold text-white cursor-pointer w-full md:w-auto md:min-w-[220px] transition-colors hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ backgroundColor: C.brand, outlineColor: C.brand }}
           >
             {COPY_B.bannerButton}
           </button>
         </div>
 
-        <p className="text-center text-lg mb-10 md:mb-16">
+        <p className="flex flex-wrap items-center justify-center gap-x-2 text-center text-lg mb-10 md:mb-16" style={{ color: C.body }}>
+          <Users className="w-5 h-5" style={{ color: C.muted }} aria-hidden="true" />
           {COPY_B.unsure}
           <button
             type="button"
             onClick={onOpenFaq}
-            className="inline-block font-semibold underline cursor-pointer"
-            style={{ color: LINK_BLUE }}
+            className="inline-block font-semibold underline underline-offset-4 cursor-pointer"
+            style={{ color: C.brand }}
           >
             {COPY_B.faqLink}
           </button>

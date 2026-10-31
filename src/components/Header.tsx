@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronDown, Search, LogIn, ExternalLink } from 'lucide-react';
+import { BrandMark } from './BrandMark';
 
 interface HeaderProps {
   onOpenCalculator: () => void;
@@ -36,29 +37,25 @@ export function Header({
   }, []);
 
   return (
-    <header className="bg-white border-b border-gray-200 sticky top-0 z-40">
+    <header className="bg-white/95 backdrop-blur border-b border-[#E2E8F0] sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
         
         {/* HelpCompass SG logo (fictional brand, layout kept from the live site) */}
         <div className="flex items-center gap-8 lg:gap-10">
           <a href="#" className="flex items-center gap-2.5 group cursor-pointer" aria-label="HelpCompass SG home">
-            <div className="relative w-9 h-9 flex items-center justify-center rounded-xl bg-gradient-to-tr from-amber-400 via-rose-500 to-red-500 shadow-xs shadow-red-200">
-              <svg className="w-5 h-5 text-white" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-              </svg>
-            </div>
+            <BrandMark className="w-10 h-10" />
             <div className="leading-none text-left">
-              <span className="block text-xl font-bold tracking-tight text-gray-900 font-sans">
+              <span className="block text-xl font-extrabold tracking-tight text-[#0F1E2E]" style={{ fontFamily: "'Plus Jakarta Sans', Inter, sans-serif" }}>
                 HelpCompass
               </span>
-              <span className="block text-[10px] font-bold text-gray-500 tracking-wider uppercase">
+              <span className="block text-[10px] font-bold text-[#0B5A7A] tracking-[0.2em] uppercase">
                 SG
               </span>
             </div>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-6 text-sm font-medium text-gray-700">
+          <nav className="hidden md:flex items-center gap-6 text-[15px] font-semibold text-[#334155]">
             
             {/* Support Dropdown */}
             <div className="relative" ref={supportRef}>
@@ -67,7 +64,7 @@ export function Header({
                   setSupportMenuOpen(!supportMenuOpen);
                   setResourcesMenuOpen(false);
                 }}
-                className="inline-flex items-center gap-1.5 hover:text-[#175CD3] transition-colors cursor-pointer py-2 text-gray-800"
+                className="inline-flex items-center gap-1.5 hover:text-[#0B5A7A] transition-colors cursor-pointer py-2 text-gray-800"
                 aria-expanded={supportMenuOpen}
               >
                 <span>Support</span>
@@ -84,7 +81,7 @@ export function Header({
                       onSelectTopic('financial');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Financial Support & Benefits</span>
                     <span className="text-[10px] text-gray-400">14 schemes</span>
@@ -94,7 +91,7 @@ export function Header({
                       onSelectTopic('caregiving');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Caregiving Support</span>
                     <span className="text-[10px] text-gray-400">8 schemes</span>
@@ -104,7 +101,7 @@ export function Header({
                       onSelectTopic('work');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Work & Employment</span>
                     <span className="text-[10px] text-gray-400">10 schemes</span>
@@ -114,7 +111,7 @@ export function Header({
                       onSelectTopic('housing');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Housing & Shelters</span>
                     <span className="text-[10px] text-gray-400">6 schemes</span>
@@ -124,7 +121,7 @@ export function Header({
                       onSelectTopic('healthcare');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Healthcare & Well-being</span>
                     <span className="text-[10px] text-gray-400">12 schemes</span>
@@ -140,7 +137,7 @@ export function Header({
                   setResourcesMenuOpen(!resourcesMenuOpen);
                   setSupportMenuOpen(false);
                 }}
-                className="inline-flex items-center gap-1.5 hover:text-[#175CD3] transition-colors cursor-pointer py-2 text-gray-800"
+                className="inline-flex items-center gap-1.5 hover:text-[#0B5A7A] transition-colors cursor-pointer py-2 text-gray-800"
                 aria-expanded={resourcesMenuOpen}
               >
                 <span>Resources & Tools</span>
@@ -160,14 +157,14 @@ export function Header({
                     className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors cursor-pointer flex flex-col"
                   >
                     <span className="font-semibold text-gray-900">Budget 2026 Calculator</span>
-                    <span className="text-[11px] text-gray-500">Calculate CDC vouchers & AP payouts</span>
+                    <span className="text-[11px] text-gray-500">Estimate your vouchers, rebates and cash payouts</span>
                   </button>
                   <button
                     onClick={() => {
                       onScrollToResources();
                       setResourcesMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-blue-50 hover:text-blue-700 rounded-lg transition-colors cursor-pointer flex flex-col"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex flex-col"
                   >
                     <span className="font-semibold text-gray-900">Directory of SSOs</span>
                     <span className="text-[11px] text-gray-500">Find your nearest Social Service Office</span>
@@ -183,16 +180,16 @@ export function Header({
         <div className="flex items-center gap-3">
           <button 
             onClick={onOpenSearch}
-            className="w-9 h-9 rounded-full border border-gray-300 flex items-center justify-center text-gray-600 hover:border-gray-400 hover:text-gray-900 transition-colors cursor-pointer"
+            className="w-10 h-10 rounded-full border border-[#CBD5E1] flex items-center justify-center text-[#334155] hover:border-[#0B5A7A] hover:bg-[#E8F3F7] transition-colors cursor-pointer"
             aria-label="Search schemes"
             title="Search schemes"
           >
-            <Search className="w-4 h-4 text-[#175CD3]" />
+            <Search className="w-4 h-4 text-[#0B5A7A]" />
           </button>
 
           <button 
             onClick={onOpenLogin || onOpenCalculator}
-            className="px-4 py-1.5 text-sm font-semibold text-[#175CD3] border border-[#175CD3] rounded-md hover:bg-blue-50 transition-colors cursor-pointer"
+            className="px-5 py-2 text-sm font-bold text-white bg-[#0B5A7A] rounded-full hover:bg-[#083D54] transition-colors cursor-pointer shadow-[0_4px_12px_-6px_rgba(11,90,122,0.6)]"
           >
             Log in
           </button>
