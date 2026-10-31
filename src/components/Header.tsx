@@ -48,7 +48,7 @@ export function Header({
               <span className="block text-xl font-extrabold tracking-tight text-[#0F1E2E]" style={{ fontFamily: "'Plus Jakarta Sans', Inter, sans-serif" }}>
                 HelpCompass
               </span>
-              <span className="block text-[10px] font-bold text-[#0B5A7A] tracking-[0.2em] uppercase">
+              <span className="block text-[10px] font-bold text-[#BE123C] tracking-[0.2em] uppercase">
                 SG
               </span>
             </div>
@@ -64,7 +64,7 @@ export function Header({
                   setSupportMenuOpen(!supportMenuOpen);
                   setResourcesMenuOpen(false);
                 }}
-                className="inline-flex items-center gap-1.5 hover:text-[#0B5A7A] transition-colors cursor-pointer py-2 text-gray-800"
+                className="inline-flex items-center gap-1.5 hover:text-[#BE123C] transition-colors cursor-pointer py-2 text-gray-800"
                 aria-expanded={supportMenuOpen}
               >
                 <span>Support</span>
@@ -81,7 +81,7 @@ export function Header({
                       onSelectTopic('financial');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#FFF1F3] hover:text-[#BE123C] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Financial Support & Benefits</span>
                     <span className="text-[10px] text-gray-400">14 schemes</span>
@@ -91,7 +91,7 @@ export function Header({
                       onSelectTopic('caregiving');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#FFF1F3] hover:text-[#BE123C] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Caregiving Support</span>
                     <span className="text-[10px] text-gray-400">8 schemes</span>
@@ -101,7 +101,7 @@ export function Header({
                       onSelectTopic('work');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#FFF1F3] hover:text-[#BE123C] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Work & Employment</span>
                     <span className="text-[10px] text-gray-400">10 schemes</span>
@@ -111,7 +111,7 @@ export function Header({
                       onSelectTopic('housing');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#FFF1F3] hover:text-[#BE123C] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Housing & Shelters</span>
                     <span className="text-[10px] text-gray-400">6 schemes</span>
@@ -121,7 +121,7 @@ export function Header({
                       onSelectTopic('healthcare');
                       setSupportMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#FFF1F3] hover:text-[#BE123C] rounded-lg transition-colors cursor-pointer flex items-center justify-between"
                   >
                     <span>Healthcare & Well-being</span>
                     <span className="text-[10px] text-gray-400">12 schemes</span>
@@ -137,7 +137,7 @@ export function Header({
                   setResourcesMenuOpen(!resourcesMenuOpen);
                   setSupportMenuOpen(false);
                 }}
-                className="inline-flex items-center gap-1.5 hover:text-[#0B5A7A] transition-colors cursor-pointer py-2 text-gray-800"
+                className="inline-flex items-center gap-1.5 hover:text-[#BE123C] transition-colors cursor-pointer py-2 text-gray-800"
                 aria-expanded={resourcesMenuOpen}
               >
                 <span>Resources & Tools</span>
@@ -164,7 +164,7 @@ export function Header({
                       onScrollToResources();
                       setResourcesMenuOpen(false);
                     }}
-                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#E8F3F7] hover:text-[#0B5A7A] rounded-lg transition-colors cursor-pointer flex flex-col"
+                    className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#FFF1F3] hover:text-[#BE123C] rounded-lg transition-colors cursor-pointer flex flex-col"
                   >
                     <span className="font-semibold text-gray-900">Directory of SSOs</span>
                     <span className="text-[11px] text-gray-500">Find your nearest Social Service Office</span>
@@ -180,16 +180,16 @@ export function Header({
         <div className="flex items-center gap-3">
           <button 
             onClick={onOpenSearch}
-            className="w-10 h-10 rounded-full border border-[#CBD5E1] flex items-center justify-center text-[#334155] hover:border-[#0B5A7A] hover:bg-[#E8F3F7] transition-colors cursor-pointer"
+            className="w-10 h-10 rounded-full border border-[#CBD5E1] flex items-center justify-center text-[#334155] hover:border-[#BE123C] hover:bg-[#FFF1F3] transition-colors cursor-pointer"
             aria-label="Search schemes"
             title="Search schemes"
           >
-            <Search className="w-4 h-4 text-[#0B5A7A]" />
+            <Search className="w-4 h-4 text-[#BE123C]" />
           </button>
 
           <button 
             onClick={onOpenLogin || onOpenCalculator}
-            className="px-5 py-2 text-sm font-bold text-white bg-[#0B5A7A] rounded-full hover:bg-[#083D54] transition-colors cursor-pointer shadow-[0_4px_12px_-6px_rgba(11,90,122,0.6)]"
+            className="px-5 py-2 text-sm font-bold text-white bg-[#BE123C] rounded-full hover:bg-[#881337] transition-colors cursor-pointer shadow-[0_4px_12px_-6px_rgba(190,18,60,0.6)]"
           >
             Log in
           </button>

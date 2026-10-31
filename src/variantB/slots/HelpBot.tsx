@@ -93,6 +93,13 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
     logRef.current?.scrollTo({ top: logRef.current.scrollHeight, behavior: 'smooth' });
   }, [msgs]);
 
+  // the sidebar's "Ask Compass" button opens the helper
+  useEffect(() => {
+    const openIt = () => setOpen(true);
+    window.addEventListener('helpcompass:open-bot', openIt);
+    return () => window.removeEventListener('helpcompass:open-bot', openIt);
+  }, []);
+
   // a new year tab starts a new conversation
   useEffect(() => setMsgs([]), [panel.year]);
 
@@ -213,8 +220,8 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
           onClick={() => setOpen(true)}
           aria-expanded={open}
           aria-controls="help-bot"
-          className="fixed right-3 md:right-6 bottom-[84px] md:bottom-6 z-50 inline-flex items-center gap-2 rounded-full pl-4 pr-5 py-3.5 text-base md:text-lg font-bold text-white cursor-pointer shadow-[0_10px_30px_-8px_rgba(11,90,122,0.7)] transition-transform hover:-translate-y-0.5 motion-reduce:transition-none focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2"
-          style={{ background: `linear-gradient(135deg, ${C.brand}, #127FA8)`, outlineColor: C.claimSolid }}
+          className="hc-ring lg:hidden fixed right-3 md:right-6 bottom-[84px] md:bottom-6 z-50 inline-flex items-center gap-2 rounded-full pl-4 pr-5 py-3.5 text-base md:text-lg font-bold text-white cursor-pointer shadow-[0_10px_30px_-8px_rgba(190,18,60,0.7)] transition-transform hover:-translate-y-0.5 motion-reduce:transition-none focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2"
+          style={{ background: `linear-gradient(135deg, ${C.brand}, #E11D48)`, outlineColor: C.claimSolid }}
         >
           <MessageCircleQuestion className="w-6 h-6" aria-hidden="true" />
           Ask Compass
@@ -228,7 +235,7 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
           aria-modal="false"
           aria-labelledby="help-bot-title"
           onKeyDown={e => e.key === 'Escape' && close()}
-          className="fixed z-50 inset-x-2 bottom-[76px] md:inset-x-auto md:right-6 md:bottom-6 md:w-[400px] flex flex-col rounded-3xl bg-white overflow-hidden shadow-[0_24px_64px_-16px_rgba(15,30,46,0.45)]"
+          className="hc-rise fixed z-50 inset-x-2 bottom-[76px] md:inset-x-auto md:right-6 md:bottom-6 md:w-[400px] flex flex-col rounded-3xl bg-white overflow-hidden shadow-[0_24px_64px_-16px_rgba(15,30,46,0.45)]"
           // on phones it sits above the A/B switch at the bottom of the screen
           style={{ maxHeight: 'min(640px, calc(100vh - 170px))', border: `1px solid ${C.line}` }}
         >
@@ -283,7 +290,7 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                           key={a.label}
                           type="button"
                           onClick={() => (a.target ? goTo(a.target) : ask(a.label, a.topic ?? null, a.scheme))}
-                          className="rounded-full px-3 py-1.5 text-sm font-semibold cursor-pointer transition-colors hover:bg-[#E8F3F7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1"
+                          className="rounded-full px-3 py-1.5 text-sm font-semibold cursor-pointer transition-colors hover:bg-[#FFF1F3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1"
                           style={{ color: C.brand, border: `1.5px solid ${C.brand}`, outlineColor: C.brand }}
                         >
                           {a.label}

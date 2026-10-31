@@ -281,7 +281,7 @@ export function HeroSection({
   ];
 
   return (
-    <section className="relative bg-gradient-to-b from-[#DCEEF5] via-[#EEF6F9] to-[#F5F7F9] border-b border-[#E2E8F0] pt-14 pb-16 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
+    <section className="relative bg-gradient-to-b from-[#FFE4E8] via-[#FFF5F6] to-[#F8F6F5] border-b border-[#E2E8F0] pt-14 pb-16 px-4 sm:px-6 lg:px-8 text-center overflow-hidden">
       
       {/* Container */}
       <div className="relative max-w-3xl mx-auto z-10">
@@ -289,7 +289,7 @@ export function HeroSection({
         {/* Floating background illustrations */}
         <div className="hidden lg:block absolute -left-52 top-4 pointer-events-none select-none">
           <div className="relative w-44 h-44">
-            <div className="absolute top-2 left-4 bg-white p-3 rounded-2xl shadow-sm border border-[#D5E6EE] w-36 -rotate-6">
+            <div className="absolute top-2 left-4 bg-white p-3 rounded-2xl shadow-sm border border-[#FFE4E8] w-36 -rotate-6">
               <div className="flex items-center gap-1.5 mb-2">
                 <span className="w-2 h-2 rounded-full bg-[#F59E42]"></span>
                 <div className="h-2 w-16 bg-gray-200 rounded"></div>
@@ -303,13 +303,13 @@ export function HeroSection({
 
         <div className="hidden lg:block absolute -right-52 top-4 pointer-events-none select-none">
           <div className="relative w-44 h-44">
-            <div className="absolute top-0 right-4 bg-white p-3 rounded-2xl shadow-sm border border-[#D5E6EE] w-36 rotate-6">
-              <div className="w-full h-12 bg-[#E8F3F7]/80 rounded-lg flex items-center justify-center relative overflow-hidden">
-                <Compass className="w-6 h-6 text-[#5FA9C6]" />
+            <div className="absolute top-0 right-4 bg-white p-3 rounded-2xl shadow-sm border border-[#FFE4E8] w-36 rotate-6">
+              <div className="w-full h-12 bg-[#FFF1F3]/80 rounded-lg flex items-center justify-center relative overflow-hidden">
+                <Compass className="w-6 h-6 text-[#FB7185]" />
                 <div className="absolute top-1.5 right-2 w-2 h-2 rounded-full bg-[#F59E42]"></div>
               </div>
             </div>
-            <div className="absolute -left-2 bottom-6 text-[#0B5A7A] text-base">✦</div>
+            <div className="absolute -left-2 bottom-6 text-[#BE123C] text-base">✦</div>
           </div>
         </div>
 
@@ -328,12 +328,12 @@ export function HeroSection({
         {/* ======================================================================= */}
         {/* GUIDED AI ASSISTANT (Change 3: Behavioral Redesign)                      */}
         {/* ======================================================================= */}
-        <div className="bg-white rounded-3xl shadow-[0_1px_2px_rgba(15,30,46,0.05),0_20px_48px_-24px_rgba(11,90,122,0.45)] border border-[#D5E6EE] p-6 sm:p-8 text-left transition-all relative">
+        <div className="bg-white rounded-3xl shadow-[0_1px_2px_rgba(15,30,46,0.05),0_20px_48px_-24px_rgba(190,18,60,0.45)] border border-[#FFE4E8] p-6 sm:p-8 text-left transition-all relative">
           
           {/* Top Assistant Header Indicator */}
           <div className="flex items-center justify-between pb-3.5 border-b border-gray-100 mb-5">
             <div className="flex items-center gap-2">
-              <div className="w-6 h-6 rounded-full bg-[#D5E6EE] text-[#0B5A7A] flex items-center justify-center">
+              <div className="w-6 h-6 rounded-full bg-[#FFE4E8] text-[#BE123C] flex items-center justify-center">
                 <Sparkles className="w-3.5 h-3.5" />
               </div>
               <span className="text-xs font-bold text-gray-900">
@@ -344,7 +344,7 @@ export function HeroSection({
             {currentStep !== 'initial' && (
               <button
                 onClick={handleStartOver}
-                className="text-xs text-gray-500 hover:text-[#0B5A7A] inline-flex items-center gap-1 cursor-pointer transition-colors"
+                className="text-xs text-gray-500 hover:text-[#BE123C] inline-flex items-center gap-1 cursor-pointer transition-colors"
               >
                 <RotateCcw className="w-3 h-3" />
                 <span>Start over</span>
@@ -371,24 +371,24 @@ export function HeroSection({
                   <button
                     key={sit.id}
                     onClick={() => handleSelectSituation(sit)}
-                    className="p-3.5 rounded-xl border border-gray-200 hover:border-[#0B5A7A] hover:bg-[#E8F3F7]/50 text-left transition-all cursor-pointer flex items-center justify-between group"
+                    className="p-3.5 rounded-xl border border-gray-200 hover:border-[#BE123C] hover:bg-[#FFF1F3]/50 text-left transition-all cursor-pointer flex items-center justify-between group"
                   >
-                    <span className="text-xs sm:text-sm font-semibold text-gray-800 group-hover:text-[#0B5A7A]">
+                    <span className="text-xs sm:text-sm font-semibold text-gray-800 group-hover:text-[#BE123C]">
                       {sit.label}
                     </span>
-                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#0B5A7A] group-hover:translate-x-0.5 transition-transform" />
+                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#BE123C] group-hover:translate-x-0.5 transition-transform" />
                   </button>
                 ))}
 
                 {/* Something Else */}
                 <button
                   onClick={() => handleSelectSituation(somethingElseSituation)}
-                  className="p-3.5 rounded-xl border border-gray-200 hover:border-[#0B5A7A] hover:bg-[#E8F3F7]/50 text-left transition-all cursor-pointer flex items-center justify-between group sm:col-span-2"
+                  className="p-3.5 rounded-xl border border-gray-200 hover:border-[#BE123C] hover:bg-[#FFF1F3]/50 text-left transition-all cursor-pointer flex items-center justify-between group sm:col-span-2"
                 >
-                  <span className="text-xs sm:text-sm font-semibold text-gray-700 group-hover:text-[#0B5A7A]">
+                  <span className="text-xs sm:text-sm font-semibold text-gray-700 group-hover:text-[#BE123C]">
                     Something else
                   </span>
-                  <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#0B5A7A] group-hover:translate-x-0.5 transition-transform" />
+                  <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#BE123C] group-hover:translate-x-0.5 transition-transform" />
                 </button>
               </div>
 
@@ -404,11 +404,11 @@ export function HeroSection({
                     value={freeTextQuery}
                     onChange={(e) => setFreeTextQuery(e.target.value)}
                     placeholder="Type your situation..."
-                    className="w-full text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-xl py-3 pl-3.5 pr-20 focus:bg-white focus:ring-2 focus:ring-[#0B5A7A] outline-none transition-all placeholder:text-gray-400"
+                    className="w-full text-xs sm:text-sm bg-gray-50 border border-gray-200 rounded-xl py-3 pl-3.5 pr-20 focus:bg-white focus:ring-2 focus:ring-[#BE123C] outline-none transition-all placeholder:text-gray-400"
                   />
                   <button
                     type="submit"
-                    className="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-[#0B5A7A] hover:bg-[#0B5A7A] text-white rounded-lg text-xs font-semibold flex items-center gap-1 cursor-pointer transition-colors shadow-2xs"
+                    className="absolute right-1.5 top-1.5 bottom-1.5 px-4 bg-[#BE123C] hover:bg-[#BE123C] text-white rounded-lg text-xs font-semibold flex items-center gap-1 cursor-pointer transition-colors shadow-2xs"
                   >
                     <span>Ask</span>
                     <ArrowUp className="w-3.5 h-3.5 stroke-[2.5]" />
@@ -430,9 +430,9 @@ export function HeroSection({
               </div>
 
               {/* Conversational AI Response */}
-              <div className="p-3.5 rounded-xl bg-[#E8F3F7]/70 border border-[#C4DDE8]/80 mb-5">
+              <div className="p-3.5 rounded-xl bg-[#FFF1F3]/70 border border-[#FECDD6]/80 mb-5">
                 <div className="flex items-start gap-2.5">
-                  <Bot className="w-4 h-4 text-[#0B5A7A] mt-0.5 shrink-0" />
+                  <Bot className="w-4 h-4 text-[#BE123C] mt-0.5 shrink-0" />
                   <p className="text-xs sm:text-sm text-gray-800 leading-relaxed font-normal">
                     {selectedSituation.aiIntro}
                   </p>
@@ -451,12 +451,12 @@ export function HeroSection({
                   <button
                     key={opt.id}
                     onClick={() => handleSelectFollowup1(opt.id)}
-                    className="w-full p-3 rounded-xl border border-gray-200 hover:border-[#0B5A7A] hover:bg-[#E8F3F7]/50 text-left transition-all cursor-pointer flex items-center justify-between group"
+                    className="w-full p-3 rounded-xl border border-gray-200 hover:border-[#BE123C] hover:bg-[#FFF1F3]/50 text-left transition-all cursor-pointer flex items-center justify-between group"
                   >
-                    <span className="text-xs sm:text-sm text-gray-800 group-hover:text-[#0B5A7A] font-medium">
+                    <span className="text-xs sm:text-sm text-gray-800 group-hover:text-[#BE123C] font-medium">
                       {opt.label}
                     </span>
-                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#0B5A7A] transition-transform group-hover:translate-x-0.5" />
+                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#BE123C] transition-transform group-hover:translate-x-0.5" />
                   </button>
                 ))}
               </div>
@@ -488,12 +488,12 @@ export function HeroSection({
                   <button
                     key={opt.id}
                     onClick={() => handleSelectFollowup2(opt.id)}
-                    className="w-full p-3 rounded-xl border border-gray-200 hover:border-[#0B5A7A] hover:bg-[#E8F3F7]/50 text-left transition-all cursor-pointer flex items-center justify-between group"
+                    className="w-full p-3 rounded-xl border border-gray-200 hover:border-[#BE123C] hover:bg-[#FFF1F3]/50 text-left transition-all cursor-pointer flex items-center justify-between group"
                   >
-                    <span className="text-xs sm:text-sm text-gray-800 group-hover:text-[#0B5A7A] font-medium">
+                    <span className="text-xs sm:text-sm text-gray-800 group-hover:text-[#BE123C] font-medium">
                       {opt.label}
                     </span>
-                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#0B5A7A] transition-transform group-hover:translate-x-0.5" />
+                    <ChevronRight className="w-4 h-4 text-gray-400 group-hover:text-[#BE123C] transition-transform group-hover:translate-x-0.5" />
                   </button>
                 ))}
               </div>
@@ -505,9 +505,9 @@ export function HeroSection({
           {currentStep === 'result' && (
             <div className="animate-in fade-in duration-150">
               
-              <div className="p-4 sm:p-5 rounded-2xl bg-[#E8F3F7]/80 border border-[#C4DDE8] text-left mb-6">
-                <div className="flex items-center gap-2 text-xs font-bold text-[#083D54] mb-1.5">
-                  <Sparkles className="w-4 h-4 text-[#0B5A7A]" />
+              <div className="p-4 sm:p-5 rounded-2xl bg-[#FFF1F3]/80 border border-[#FECDD6] text-left mb-6">
+                <div className="flex items-center gap-2 text-xs font-bold text-[#881337] mb-1.5">
+                  <Sparkles className="w-4 h-4 text-[#BE123C]" />
                   <span>Support Recommendation</span>
                 </div>
                 <p className="text-xs sm:text-sm text-gray-800 leading-relaxed font-normal">
@@ -519,7 +519,7 @@ export function HeroSection({
               <div className="flex flex-col sm:flex-row items-center gap-3">
                 <button
                   onClick={() => onExploreCategory(targetCategory)}
-                  className="w-full sm:w-auto px-5 py-2.5 bg-[#0B5A7A] hover:bg-[#0B5A7A] text-white rounded-xl text-xs font-semibold inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
+                  className="w-full sm:w-auto px-5 py-2.5 bg-[#BE123C] hover:bg-[#BE123C] text-white rounded-xl text-xs font-semibold inline-flex items-center justify-center gap-1.5 transition-colors cursor-pointer shadow-xs"
                 >
                   <span>Explore relevant support</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -544,7 +544,7 @@ export function HeroSection({
             <button
               key={idx}
               onClick={() => handlePillClick(pill)}
-              className="text-xs bg-white hover:bg-gray-50 hover:border-[#8FC3D6] text-gray-700 border border-gray-200 rounded-full px-3.5 py-1.5 shadow-2xs transition-colors cursor-pointer"
+              className="text-xs bg-white hover:bg-gray-50 hover:border-[#FDA4B4] text-gray-700 border border-gray-200 rounded-full px-3.5 py-1.5 shadow-2xs transition-colors cursor-pointer"
             >
               "{pill}"
             </button>

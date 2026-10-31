@@ -11,6 +11,7 @@ import {
   Hand,
   Home,
   Info,
+  MessageCircleQuestion,
   Search,
   Square,
   User,
@@ -27,6 +28,7 @@ import { SchemeCategory } from './slots/SchemeCategory';
 import { HelpBot } from './slots/HelpBot';
 import { statusFor } from './slots/schemeStatusM3';
 import { needsYou, nextPayout, progressWithPlan, usePlan, who } from './slots/taskGuide';
+import { CountUp, Reveal } from './motion';
 
 // Variant B: the same results screen as variant A, with our nudges.
 // Same data, same order of sections and same wording as variant A
@@ -37,8 +39,10 @@ import { needsYou, nextPayout, progressWithPlan, usePlan, who } from './slots/ta
 //   slots/styleB.ts          plain wording (COPY_B) and colour per kind of support
 //   slots/SchemeCategory.tsx icon, kind word and plain line under each scheme
 // Visual design (MS-3): HelpCompass tokens from src/theme/brand.ts, with the
-// reasons in DESIGN.md. The cool brand blue carries the page, the one warm
-// colour marks what needs the household, and everything automatic is quiet.
+// reasons in DESIGN.md. MS-5: the brand is the heart logo's rose-red; the
+// amber card and chips mark what needs the household; everything automatic
+// is quiet. On wide screens a sticky sidebar keeps the summary, the finder
+// and help in view, and calm motion (src/index.css) shows what changed.
 // Usability (MS-4), from the visitor's side of the screen:
 //   - "At a glance" tiles: what to do, what is automatic, the next payout month
 //   - one to-do list instead of the same items twice (StartHere + NextStep)
@@ -146,7 +150,7 @@ function SchemeRow({ row, onOpenScheme }: { row: PayoutRowA; onOpenScheme?: (sch
   const wash = kind ? `linear-gradient(90deg, ${KIND_STYLE[kind].tint} 0%, #FFFFFF 55%)` : '#FFFFFF';
   return (
     <li
-      className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-6 rounded-xl px-4 py-4 md:px-6 md:py-5"
+      className="hc-lift flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-6 rounded-xl px-4 py-4 md:px-6 md:py-5"
       style={{ borderLeft: `5px solid ${bar}`, background: wash, boxShadow: `inset 0 0 0 1px ${C.line}` }}
     >
       <div className="flex flex-col gap-2 min-w-0">
@@ -154,7 +158,7 @@ function SchemeRow({ row, onOpenScheme }: { row: PayoutRowA; onOpenScheme?: (sch
           type="button"
           onClick={() => onOpenScheme?.(row.schemeCode)}
           className="text-left text-lg md:text-xl font-semibold underline decoration-2 underline-offset-4 cursor-pointer w-fit transition-colors hover:decoration-current focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm"
-          style={{ color: C.brand, textDecorationColor: 'rgba(11,90,122,0.3)', outlineColor: C.brand }}
+          style={{ color: C.brand, textDecorationColor: 'rgba(190,18,60,0.3)', outlineColor: C.brand }}
         >
           {row.schemeName}
         </button>
@@ -202,7 +206,7 @@ function BenefitBox({
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="w-full flex items-center justify-between gap-3 p-4 md:p-6 text-left cursor-pointer transition-colors hover:bg-[#FAFCFD] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
+        className="w-full flex items-center justify-between gap-3 p-4 md:p-6 text-left cursor-pointer transition-colors hover:bg-[#FFFAFA] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
         style={{ outlineColor: C.brand }}
       >
         <div className="flex items-start gap-4 w-full">
@@ -246,7 +250,7 @@ function BenefitBox({
               Nothing needed here: {box.rows.length === 1 ? 'this one is' : `all ${box.rows.length} are`} automatic.
             </p>
           ) : (
-            <ul className="mt-4 grid gap-3 lg:grid-cols-2">
+            <ul className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2">
               {rows.map((row, i) => (
                 <SchemeRow key={`${row.schemeCode}-${i}`} row={row} onOpenScheme={onOpenScheme} />
               ))}
@@ -286,6 +290,8 @@ function StatTile({
   fg,
   bg,
   onClick,
+  className = '',
+  compact = false,
 }: {
   icon: typeof Hand;
   label: string;
@@ -294,6 +300,8 @@ function StatTile({
   fg: string;
   bg: string;
   onClick?: () => void;
+  className?: string;
+  compact?: boolean;
 }) {
   const body = (
     <>
@@ -302,17 +310,17 @@ function StatTile({
       </span>
       <span className="min-w-0 text-left">
         <span className="block text-sm font-bold uppercase tracking-[0.1em]" style={{ color: C.muted }}>{label}</span>
-        <span className="block text-xl md:text-2xl font-extrabold leading-tight" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>{value}</span>
-        <span className="block text-base" style={{ color: C.body }}>{note}</span>
+        <span className="block text-xl font-extrabold leading-tight" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>{value}</span>
+        {!compact && <span className="block text-base" style={{ color: C.body }}>{note}</span>}
       </span>
     </>
   );
-  const cls = 'flex items-start gap-3 rounded-2xl bg-white p-4 md:p-5 text-left';
+  const cls = `hc-lift flex items-start gap-3 rounded-2xl bg-white text-left ${compact ? 'p-3' : 'p-4'} ${className}`;
   return onClick ? (
     <button
       type="button"
       onClick={onClick}
-      className={`${cls} cursor-pointer transition-shadow hover:shadow-md focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
+      className={`${cls} cursor-pointer focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2`}
       style={{ border: `1.5px solid ${C.claimLine}`, outlineColor: C.brand }}
     >
       {body}
@@ -322,6 +330,10 @@ function StatTile({
       {body}
     </div>
   );
+}
+
+function openHelper() {
+  window.dispatchEvent(new Event('helpcompass:open-bot'));
 }
 
 export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }: ResultsScreenBProps) {
@@ -339,7 +351,7 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
   const allRows = [...panel.ownBoxes, ...panel.memberBoxes].flatMap(b => b.rows);
   const automaticCount = allRows.filter(r => statusFor(r)?.kind === 'automatic' || statusFor(r)?.kind === 'employee').length;
   const mineCount = allRows.filter(needsYou).length;
-  const { left, items } = progressWithPlan(panel, plan);
+  const { left, items, done, total: rowTotal, percent } = progressWithPlan(panel, plan);
   const next = nextPayout(panel);
   const boxes = [...panel.ownBoxes, ...panel.memberBoxes];
 
@@ -372,17 +384,193 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
 
   const goTo = (id: string) => document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
+  const tiles = (stacked: boolean) => (
+    <div className={`grid gap-3 ${stacked ? '' : 'md:grid-cols-3'}`}>
+      <StatTile
+        icon={Hand}
+        label="Needs you"
+        value={left === 0 ? 'All done' : `${left} ${left === 1 ? 'thing' : 'things'} to do`}
+        note={left === 0 ? 'Nothing left on your list' : 'Tap to see your to-do list'}
+        fg={C.claim}
+        bg={C.claimTint}
+        onClick={() => goTo('todo')}
+        className="hc-rise hc-d1"
+        compact={stacked}
+      />
+      <StatTile
+        icon={CheckCircle2}
+        label="Automatic"
+        value={`${automaticCount} of ${allRows.length}`}
+        note="Paid to you with nothing to do"
+        fg={C.auto}
+        bg={C.autoTint}
+        className="hc-rise hc-d2"
+        compact={stacked}
+      />
+      <StatTile
+        icon={CalendarClock}
+        label="Next payout"
+        value={next ? next.label : 'None left'}
+        note={next ? next.schemes.slice(0, 2).join(', ') + (next.schemes.length > 2 ? ' and more' : '') : `All ${panel.year} payouts are in the past`}
+        fg={C.brand}
+        bg={C.brandTint}
+        className="hc-rise hc-d3"
+        compact={stacked}
+      />
+    </div>
+  );
+
+  // The hedged total (Finding 1); "compact" is the sidebar version
+  const totalCard = (compact: boolean) => (
+    <div
+      className={`relative overflow-hidden rounded-3xl bg-white shadow-[0_1px_2px_rgba(15,30,46,0.05),0_12px_32px_-16px_rgba(190,18,60,0.35)] ${
+        compact ? 'p-5' : 'p-6 md:p-9'
+      }`}
+      style={{ border: `1px solid ${C.line}` }}
+    >
+      <span className="absolute inset-y-0 left-0 w-1.5" style={{ background: `linear-gradient(180deg, ${C.brand}, ${C.brandMid})` }} aria-hidden="true" />
+      <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>
+        At a glance · {panel.year}
+      </p>
+      <p className={`mt-1 font-semibold ${compact ? 'text-base' : 'text-base md:text-lg'}`} style={{ color: C.muted }}>
+        {COPY_B.totalTitle}
+      </p>
+      <div className="mt-2 flex flex-wrap items-baseline gap-x-2.5 gap-y-1" aria-hidden="true">
+        {total.isMax && (
+          <span className={`font-bold ${compact ? 'text-lg' : 'text-xl md:text-2xl'}`} style={{ color: C.body }}>
+            Up to
+          </span>
+        )}
+        <span
+          className={`font-extrabold tracking-tight tabular-nums leading-none ${compact ? 'text-5xl' : 'text-5xl md:text-7xl'}`}
+          style={{ color: C.ink, fontFamily: FONT_DISPLAY }}
+        >
+          <CountUp value={total.cash} format={money} />
+        </span>
+        {total.months > 0 && (
+          <span className={`font-bold ${compact ? 'text-base' : 'text-xl md:text-2xl'}`} style={{ color: C.body }}>
+            and {COPY_B.rebateMonthsLong(total.months)}
+          </span>
+        )}
+      </div>
+      {compact && (
+        <div className="mt-4">
+          <p className="text-sm font-semibold" style={{ color: C.body }}>
+            {done} of {rowTotal} benefits taken care of
+          </p>
+          <div className="mt-1.5 h-2.5 w-full rounded-full overflow-hidden" style={{ backgroundColor: C.brandTint }} aria-hidden="true">
+            <div
+              className="h-full rounded-full transition-[width] duration-500 ease-out motion-reduce:transition-none"
+              style={{ width: `${percent}%`, background: `linear-gradient(90deg, ${C.brand}, ${C.brandMid})` }}
+            />
+          </div>
+        </div>
+      )}
+      <div className={compact ? 'mt-5' : 'mt-7'}>{tiles(compact)}</div>
+    </div>
+  );
+
+  // Jump-to-person chips and the filter
+  const finder = (inSidebar: boolean) => (
+    <div className={inSidebar ? 'rounded-3xl bg-white p-5' : 'mb-6'} style={inSidebar ? { border: `1px solid ${C.line}` } : undefined}>
+      <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>
+        Find your benefits
+      </p>
+      <div role="group" aria-label="Which schemes to show" className="mt-3 flex flex-wrap w-fit rounded-3xl p-1 bg-white" style={{ boxShadow: `inset 0 0 0 1px ${C.line}` }}>
+        {[
+          { mine: false, label: `All (${allRows.length})` },
+          { mine: true, label: `Only ones that need me (${mineCount})` },
+        ].map(o => (
+          <button
+            key={o.label}
+            type="button"
+            onClick={() => setOnlyMine(o.mine)}
+            aria-pressed={onlyMine === o.mine}
+            className="rounded-full px-4 py-2 text-base font-semibold whitespace-nowrap cursor-pointer transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={onlyMine === o.mine ? { backgroundColor: C.brand, color: '#FFFFFF', outlineColor: C.brand } : { color: C.body, outlineColor: C.brand }}
+          >
+            {o.label}
+          </button>
+        ))}
+      </div>
+      <nav aria-label="Jump to a person" className={`mt-3 flex flex-wrap gap-2 ${inSidebar ? 'flex-col' : ''}`}>
+        {boxes.map(box => {
+          const cash = box.rows.filter(r => r.unit === 'currency').reduce((s, r) => s + r.amount, 0);
+          return (
+            <button
+              key={box.id}
+              type="button"
+              onClick={() => goTo(`box-${panel.year}-${box.id}`)}
+              className="group inline-flex items-center justify-between gap-3 rounded-2xl bg-white px-4 py-2.5 text-base font-semibold cursor-pointer transition-colors hover:bg-[#FFF1F3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              style={{ color: C.ink, border: `1px solid ${C.line}`, outlineColor: C.brand }}
+            >
+              <span className="inline-flex items-center gap-2">
+                {box.kind === 'household' ? (
+                  <Home className="w-4 h-4" style={{ color: C.brand }} aria-hidden="true" />
+                ) : (
+                  <User className="w-4 h-4" style={{ color: C.brand }} aria-hidden="true" />
+                )}
+                {who(box)}
+              </span>
+              {inSidebar && (
+                <span className="text-sm font-bold tabular-nums" style={{ color: box.rows.length ? C.body : C.muted }}>
+                  {box.rows.length ? (cash ? money(cash) : `${box.rows.length} items`) : 'None'}
+                </span>
+              )}
+            </button>
+          );
+        })}
+      </nav>
+    </div>
+  );
+
+  const helpCard = (
+    <div
+      className="relative overflow-hidden rounded-3xl p-5 text-white"
+      style={{ background: `linear-gradient(140deg, ${C.brandDeep}, ${C.brand} 60%, ${C.brandMid})` }}
+    >
+      <svg className="absolute -right-10 -bottom-10 w-40 h-40 opacity-15 hc-spin-slow" viewBox="0 0 100 100" aria-hidden="true">
+        <circle cx="50" cy="50" r="46" fill="none" stroke="#FFF" strokeWidth="2" />
+        <path d="M50 10l8 40-8 40-8-40z" fill="#FFF" />
+      </svg>
+      <p className="relative flex items-center gap-2 text-lg font-extrabold" style={{ fontFamily: FONT_DISPLAY }}>
+        <MessageCircleQuestion className="w-6 h-6" aria-hidden="true" /> Not sure what to do?
+      </p>
+      <p className="relative mt-1 text-base" style={{ color: C.brandOnDeep }}>
+        Ask in plain words, or bring in someone you trust.
+      </p>
+      <div className="relative mt-4 flex flex-col gap-2">
+        <button
+          type="button"
+          onClick={openHelper}
+          className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-5 py-2.5 text-base font-bold cursor-pointer transition-transform hover:-translate-y-0.5 motion-reduce:transition-none focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+          style={{ color: C.brand }}
+        >
+          Ask Compass
+        </button>
+        <button
+          type="button"
+          onClick={() => goTo(`plan-${panel.year}`)}
+          className="inline-flex items-center justify-center gap-2 rounded-full px-5 py-2.5 text-base font-semibold cursor-pointer transition-colors hover:bg-white/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-white"
+          style={{ border: '1.5px solid rgba(255,255,255,0.6)' }}
+        >
+          <Users className="w-5 h-5" aria-hidden="true" /> Do this with someone
+        </button>
+      </div>
+    </div>
+  );
+
   return (
     <div style={{ color: C.body, backgroundColor: C.page, fontFamily: FONT_BODY }} data-variant="B">
       <div style={{ zoom }}>
         {/* Page title */}
         <div
           className="relative overflow-hidden"
-          style={{ background: `linear-gradient(135deg, ${C.brandDeep} 0%, ${C.brand} 70%, #127FA8 100%)` }}
+          style={{ background: `linear-gradient(135deg, ${C.brandDeep} 0%, ${C.brand} 65%, ${C.brandMid} 100%)` }}
         >
-          {/* soft compass rings, decoration only */}
+          {/* slowly turning compass, decoration only */}
           <svg
-            className="absolute -right-24 -top-24 w-[420px] h-[420px] md:w-[560px] md:h-[560px] opacity-[0.09]"
+            className="hc-spin-slow absolute -right-24 -top-24 w-[420px] h-[420px] md:w-[560px] md:h-[560px] opacity-[0.1]"
             viewBox="0 0 200 200"
             aria-hidden="true"
           >
@@ -394,7 +582,8 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
             </g>
             <path d="M100 40l14 60-14 60-14-60z" fill="#FFFFFF" />
           </svg>
-          <div className="relative max-w-6xl mx-auto px-4 pt-6 pb-12 md:pt-8 md:pb-16">
+          <span className="absolute -left-20 bottom-[-120px] w-80 h-80 rounded-full opacity-20 blur-3xl" style={{ backgroundColor: '#F59E0B' }} aria-hidden="true" />
+          <div className="relative max-w-7xl mx-auto px-4 lg:px-8 pt-6 pb-12 md:pt-8 md:pb-16">
             <div className="flex flex-wrap items-center justify-between gap-3 mb-8 md:mb-10">
               <button
                 type="button"
@@ -444,12 +633,12 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
               </div>
             </div>
             <h1
-              className="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-white max-w-4xl"
+              className="hc-rise text-3xl md:text-5xl font-extrabold leading-tight tracking-tight text-white max-w-4xl"
               style={{ fontFamily: FONT_DISPLAY }}
             >
               {COPY_B.pageTitle}
             </h1>
-            <p className="mt-4 text-lg md:text-xl max-w-3xl leading-relaxed" style={{ color: C.brandOnDeep }}>
+            <p className="hc-rise hc-d1 mt-4 text-lg md:text-xl max-w-3xl leading-relaxed" style={{ color: C.brandOnDeep }}>
               {COPY_B.pageSubtitle}
             </p>
           </div>
@@ -458,9 +647,9 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
         {/* Year tabs: sticky under the site header (72px, outside the zoom) */}
         <div
           className="sticky z-30 backdrop-blur"
-          style={{ top: 72 / zoom, backgroundColor: 'rgba(245,247,249,0.92)', borderBottom: `1px solid ${C.line}` }}
+          style={{ top: 72 / zoom, backgroundColor: 'rgba(248,246,245,0.92)', borderBottom: `1px solid ${C.line}` }}
         >
-          <div className="max-w-6xl mx-auto px-4 py-3 flex items-center gap-4">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex items-center gap-4">
             <div
               className="flex w-full sm:w-fit gap-1 rounded-full p-1"
               role="tablist"
@@ -494,178 +683,107 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 mt-6 md:mt-10 mb-6 md:mb-8" role="tabpanel">
-          {/* At a glance: the hedged total (Finding 1) and three answers */}
-          <div
-            className="relative overflow-hidden rounded-3xl p-6 md:p-9 mb-10 bg-white shadow-[0_1px_2px_rgba(15,30,46,0.05),0_12px_32px_-16px_rgba(11,90,122,0.35)]"
-            style={{ border: `1px solid ${C.line}` }}
-          >
-            <span
-              className="absolute inset-y-0 left-0 w-1.5"
-              style={{ background: `linear-gradient(180deg, ${C.brand}, #127FA8)` }}
-              aria-hidden="true"
-            />
-            <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>
-              At a glance
-            </p>
-            <p className="mt-1 text-base md:text-lg font-semibold" style={{ color: C.muted }}>
-              {COPY_B.totalTitle}
-            </p>
-            <p className="sr-only" id={`${panel.year}-aggregate`}>
-              {totalLabel(panel)}
-            </p>
-            <div className="mt-2 flex flex-wrap items-baseline gap-x-3 gap-y-1" aria-hidden="true">
-              {total.isMax && (
-                <span className="text-xl md:text-2xl font-bold" style={{ color: C.body }}>
-                  Up to
-                </span>
-              )}
-              <span
-                className="text-5xl md:text-7xl font-extrabold tracking-tight tabular-nums leading-none"
-                style={{ color: C.ink, fontFamily: FONT_DISPLAY }}
-              >
-                {money(total.cash)}
-              </span>
-              {total.months > 0 && (
-                <span className="text-xl md:text-2xl font-bold" style={{ color: C.body }}>
-                  and {COPY_B.rebateMonthsLong(total.months)}
-                </span>
-              )}
+        <p className="sr-only" id={`${panel.year}-aggregate`}>
+          {COPY_B.totalTitle}: {totalLabel(panel)}
+        </p>
+
+        {/* Two columns on wide screens: the work on the left, a sticky summary on the right */}
+        <div
+          key={panel.year}
+          className="max-w-7xl mx-auto px-4 lg:px-8 mt-6 md:mt-10 mb-6 md:mb-8 lg:grid lg:grid-cols-[minmax(0,1fr)_340px] lg:gap-8 xl:gap-10"
+          role="tabpanel"
+        >
+          <div className="min-w-0">
+            {/* Narrow screens: the summary sits on top instead of in the sidebar */}
+            <div className="lg:hidden mb-10 hc-rise">{totalCard(false)}</div>
+
+            {/* M3 slot: Start here, the to-do list */}
+            <div className="hc-rise hc-d1">
+              <StartHere panel={panel} plan={plan} />
             </div>
 
-            <div className="mt-7 grid gap-3 md:grid-cols-3">
-              <StatTile
-                icon={Hand}
-                label="Needs you"
-                value={left === 0 ? 'All done' : `${left} ${left === 1 ? 'thing' : 'things'} to do`}
-                note={left === 0 ? 'Nothing left on your list' : 'Tap to see your to-do list'}
-                fg={C.claim}
-                bg={C.claimTint}
-                onClick={() => goTo('todo')}
-              />
-              <StatTile
-                icon={CheckCircle2}
-                label="Automatic"
-                value={`${automaticCount} of ${allRows.length}`}
-                note="Paid to you with nothing to do"
-                fg={C.auto}
-                bg={C.autoTint}
-              />
-              <StatTile
-                icon={CalendarClock}
-                label="Next payout"
-                value={next ? next.label : 'None left'}
-                note={next ? next.schemes.slice(0, 2).join(', ') + (next.schemes.length > 2 ? ' and more' : '') : `All ${panel.year} payouts are in the past`}
-                fg={C.brand}
-                bg={C.brandTint}
-              />
-            </div>
-          </div>
+            <Reveal>
+              <div className="mb-6">
+                <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>
+                  Every scheme
+                </p>
+                <h2 className="mt-1 text-xl md:text-3xl font-extrabold tracking-tight" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>
+                  All your benefits
+                </h2>
+              </div>
+              <div className="lg:hidden">{finder(false)}</div>
+            </Reveal>
 
-          {/* M3 slot: Start here, now the one to-do list */}
-          <StartHere panel={panel} plan={plan} />
+            <Reveal>
+              <SectionHeading eyebrow="You and your home" title={COPY_B.ownSectionTitle} />
+            </Reveal>
+            {panel.ownBoxes.map(box => (
+              <Reveal key={`${panel.year}-${box.id}`}>
+                <BenefitBox box={box} year={panel.year} onlyMine={onlyMine} onOpenScheme={onOpenScheme} />
+              </Reveal>
+            ))}
 
-          {/* Every scheme, with quick ways to find your own */}
-          <div className="mb-6">
-            <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>
-              Every scheme
-            </p>
-            <h2 className="mt-1 text-xl md:text-3xl font-extrabold tracking-tight" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>
-              All your benefits
-            </h2>
-            <div className="mt-4 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <nav aria-label="Jump to a person" className="flex flex-wrap gap-2">
-                {boxes.map(box => (
-                  <button
-                    key={box.id}
-                    type="button"
-                    onClick={() => goTo(`box-${panel.year}-${box.id}`)}
-                    className="inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-base font-semibold cursor-pointer transition-colors hover:bg-[#E8F3F7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                    style={{ color: C.ink, border: `1px solid ${C.line}`, outlineColor: C.brand }}
-                  >
-                    {box.kind === 'household' ? (
-                      <Home className="w-4 h-4" style={{ color: C.brand }} aria-hidden="true" />
-                    ) : (
-                      <User className="w-4 h-4" style={{ color: C.brand }} aria-hidden="true" />
-                    )}
-                    {who(box)}
-                  </button>
-                ))}
-              </nav>
-              <div role="group" aria-label="Which schemes to show" className="flex flex-wrap w-fit rounded-3xl sm:rounded-full p-1 bg-white" style={{ boxShadow: `inset 0 0 0 1px ${C.line}` }}>
-                {[
-                  { mine: false, label: `All (${allRows.length})` },
-                  { mine: true, label: `Only ones that need me (${mineCount})` },
-                ].map(o => (
-                  <button
-                    key={o.label}
-                    type="button"
-                    onClick={() => setOnlyMine(o.mine)}
-                    aria-pressed={onlyMine === o.mine}
-                    className="rounded-full px-4 py-2 text-base font-semibold whitespace-nowrap cursor-pointer transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                    style={
-                      onlyMine === o.mine
-                        ? { backgroundColor: C.brand, color: '#FFFFFF', outlineColor: C.brand }
-                        : { color: C.body, outlineColor: C.brand }
-                    }
-                  >
-                    {o.label}
-                  </button>
+            {panel.memberBoxes.length > 0 && (
+              <div className="mt-12">
+                <Reveal>
+                  <SectionHeading eyebrow="Your household" title={COPY_B.membersSectionTitle} note={COPY_B.membersSectionNote} />
+                </Reveal>
+                {panel.memberBoxes.map(box => (
+                  <Reveal key={`${panel.year}-${box.id}`}>
+                    <BenefitBox box={box} year={panel.year} onlyMine={onlyMine} onOpenScheme={onOpenScheme} />
+                  </Reveal>
                 ))}
               </div>
-            </div>
+            )}
+
+            {/* M4 slot: the plan, reminders and "Do this with someone" */}
+            <Reveal>
+              <NextStep panel={panel} plan={plan} />
+            </Reveal>
           </div>
 
-          <SectionHeading eyebrow="You and your home" title={COPY_B.ownSectionTitle} />
-          {panel.ownBoxes.map(box => (
-            <BenefitBox key={`${panel.year}-${box.id}`} box={box} year={panel.year} onlyMine={onlyMine} onOpenScheme={onOpenScheme} />
-          ))}
-
-          {panel.memberBoxes.length > 0 && (
-            <div className="mt-12">
-              <SectionHeading
-                eyebrow="Your household"
-                title={COPY_B.membersSectionTitle}
-                note={COPY_B.membersSectionNote}
-              />
-              {panel.memberBoxes.map(box => (
-                <BenefitBox key={`${panel.year}-${box.id}`} box={box} year={panel.year} onlyMine={onlyMine} onOpenScheme={onOpenScheme} />
-              ))}
+          {/* Sidebar (wide screens): summary, finder and help stay in view */}
+          <aside className="hidden lg:block" aria-label="Summary and shortcuts">
+            {/* scrolls on its own if the window is short, so nothing is cut off */}
+            <div
+              className="sticky flex flex-col gap-4 pb-6 pr-1 overflow-y-auto"
+              style={{ top: 150 / zoom, maxHeight: `calc(${100 / zoom}vh - ${170 / zoom}px)` }}
+            >
+              <div className="hc-rise">{totalCard(true)}</div>
+              <div className="hc-rise hc-d2">{helpCard}</div>
+              <div className="hc-rise hc-d3">{finder(true)}</div>
             </div>
-          )}
+          </aside>
         </div>
 
-        {/* M4 slot: the plan, reminders and "Do this with someone" */}
-        <div className="max-w-6xl mx-auto px-4">
-          <NextStep panel={panel} plan={plan} />
-        </div>
-
-        {/* Banner and FAQ link, below the tabbed results (Finding 9: kept below the action items) */}
-        <div className="max-w-6xl mx-auto px-4 pb-6">
-          <div
-            className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-6 md:p-8 rounded-3xl mb-10 bg-white"
-            style={{ border: `1px solid ${C.line}` }}
-          >
-            <span
-              className="hidden md:flex shrink-0 w-14 h-14 rounded-2xl items-center justify-center"
-              style={{ backgroundColor: C.brandTint }}
-              aria-hidden="true"
+        {/* Banner and FAQ link, below the results (Finding 9: kept below the action items) */}
+        <div className="max-w-7xl mx-auto px-4 lg:px-8 pb-6">
+          <Reveal>
+            <div
+              className="flex flex-col md:flex-row md:items-center gap-4 md:gap-8 p-6 md:p-8 rounded-3xl mb-10 bg-white"
+              style={{ border: `1px solid ${C.line}` }}
             >
-              <FileText className="w-7 h-7" style={{ color: C.brand }} strokeWidth={1.75} />
-            </span>
-            <div className="flex-1">
-              <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>{COPY_B.bannerTitle}</p>
-              <p className="mt-1 md:mt-2 text-lg font-semibold" style={{ color: C.ink }}>{COPY_B.bannerDesc}</p>
+              <span
+                className="hidden md:flex shrink-0 w-14 h-14 rounded-2xl items-center justify-center"
+                style={{ backgroundColor: C.brandTint }}
+                aria-hidden="true"
+              >
+                <FileText className="w-7 h-7" style={{ color: C.brand }} strokeWidth={1.75} />
+              </span>
+              <div className="flex-1">
+                <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>{COPY_B.bannerTitle}</p>
+                <p className="mt-1 md:mt-2 text-lg font-semibold" style={{ color: C.ink }}>{COPY_B.bannerDesc}</p>
+              </div>
+              <button
+                type="button"
+                onClick={onOpenBanner}
+                className="rounded-full px-6 py-3 text-lg font-semibold text-white cursor-pointer w-full md:w-auto md:min-w-[220px] transition-colors hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                style={{ backgroundColor: C.brand, outlineColor: C.brand }}
+              >
+                {COPY_B.bannerButton}
+              </button>
             </div>
-            <button
-              type="button"
-              onClick={onOpenBanner}
-              className="rounded-full px-6 py-3 text-lg font-semibold text-white cursor-pointer w-full md:w-auto md:min-w-[220px] transition-colors hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-              style={{ backgroundColor: C.brand, outlineColor: C.brand }}
-            >
-              {COPY_B.bannerButton}
-            </button>
-          </div>
+          </Reveal>
 
           <p className="flex flex-wrap items-center justify-center gap-x-2 text-center text-lg mb-10 md:mb-16" style={{ color: C.body }}>
             <Users className="w-5 h-5" style={{ color: C.muted }} aria-hidden="true" />

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowDown, CalendarDays, Check, ChevronDown, ClipboardList, Clock, ListOrdered, Wallet } from 'lucide-react';
 import { C, FONT_DISPLAY } from '../../theme/brand';
+import { Burst } from '../motion';
 import type { YearPanelA } from '../../variantA/resultsDataA';
 import {
   DEADLINE,
@@ -112,13 +113,18 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
             style={{ backgroundColor: C.brandTint }}
           >
             <div
-              className="h-full rounded-full transition-[width] duration-500 ease-out motion-reduce:transition-none"
-              style={{ width: `${percent}%`, background: `linear-gradient(90deg, ${C.brand}, #127FA8)` }}
-            />
+              className="relative h-full rounded-full overflow-hidden transition-[width] duration-700 ease-out motion-reduce:transition-none"
+              style={{ width: `${percent}%`, background: `linear-gradient(90deg, ${C.brand}, ${C.brandMid})` }}
+            >
+              <span className="hc-shine absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-transparent via-white/50 to-transparent" aria-hidden="true" />
+            </div>
           </div>
           {left === 0 && (
-            <p className="mt-3 flex items-center gap-2 text-lg font-semibold" style={{ color: C.auto }}>
-              <Check className="w-5 h-5" strokeWidth={2.5} aria-hidden="true" />
+            <p className="hc-pop mt-3 flex items-center gap-2 text-lg font-semibold" style={{ color: C.auto }}>
+              <span className="relative inline-flex w-7 h-7 items-center justify-center rounded-full" style={{ backgroundColor: C.autoTint }}>
+                <Check className="w-5 h-5" strokeWidth={2.5} aria-hidden="true" />
+                <Burst />
+              </span>
               All done for {panel.year}.
             </p>
           )}
@@ -159,7 +165,7 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                         : { backgroundColor: C.claimSolid, color: '#FFFFFF' }
                     }
                   >
-                    {isDone ? '✓' : i + 1}
+                    {isDone ? <span className="hc-pop">✓</span> : i + 1}
                   </span>
                   <div className="min-w-0 flex-1">
                     <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-2">
@@ -223,7 +229,7 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                         onClick={() => toggleOpen(item.code)}
                         aria-expanded={expanded}
                         aria-controls={panelId}
-                        className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-base font-semibold cursor-pointer transition-colors hover:bg-[#E8F3F7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                        className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-base font-semibold cursor-pointer transition-colors hover:bg-[#FFF1F3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                         style={{ color: C.brand, border: `1.5px solid ${C.brand}`, outlineColor: C.brand }}
                       >
                         {expanded ? 'Hide steps' : 'How to do it'}
@@ -239,7 +245,7 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                 {expanded && (
                   <div
                     id={panelId}
-                    className="grid gap-5 md:grid-cols-2 px-4 pb-5 md:px-6 md:pb-6 pt-5 md:ml-14"
+                    className="hc-rise grid gap-5 md:grid-cols-2 px-4 pb-5 md:px-6 md:pb-6 pt-5 md:ml-14"
                     style={{ borderTop: `1px dashed ${C.claimLine}` }}
                   >
                     {steps.length > 0 && (

@@ -6,31 +6,36 @@
 //
 // Contrast (WCAG 2.x relative luminance), text on its usual background:
 //   ink #0F1E2E on white 16.9:1 · body #334155 10.4:1 · muted #5B6675 5.8:1
-//   brand #0B5A7A on white 7.6:1 · white on brandDeep #083D54 11.6:1
+//   brand #BE123C on white 6.3:1 · white on brandDeep #881337 9.6:1
+//   white on brandMid #E11D48 4.7:1 (large text and decoration only)
 //   claim text #9A4A00 on claim tint #FFF4E5 5.8:1 · auto #2F6F5E on #EDF6F2 5.4:1
 //   signup #1E5A8A on #EAF3FB 6.5:1 · employee #475569 on #F1F5F9 6.9:1
 
 export const C = {
-  // neutrals: cool slate, so the one warm colour (claim) stands out
+  // neutrals: slate text on a warm off-white page
   ink: '#0F1E2E', // headings and amounts
   body: '#334155', // body text
   muted: '#5B6675', // secondary text
   line: '#E2E8F0', // borders and dividers
-  page: '#F5F7F9', // page background
+  page: '#F8F6F5', // page background, a warm off-white that sits with the red
   surface: '#FFFFFF', // cards
 
-  // brand: deep teal-blue. Blue signals trust and calm, open thinking
-  // (Mehta & Zhu, 2009, Week 8); the teal shift keeps it warmer and less
-  // "corporate bank" for a public-service audience.
-  brand: '#0B5A7A',
-  brandDeep: '#083D54', // hero background
-  brandTint: '#E8F3F7', // soft brand surface
-  brandOnDeep: '#CFE6EF', // secondary text on brandDeep
+  // brand: rose-red, taken from the heart logo (MS-5). It carries the
+  // brand (hero, buttons, tabs, links) and never marks amounts, labels or
+  // warnings, so it reads as "care" and "help", not as risk or loss
+  // (Bazley et al., 2021, Week 8). Red is also Singapore's national colour and
+  // a lucky colour in Chinese culture (Week 10, culture).
+  brand: '#BE123C',
+  brandDeep: '#881337', // hero background
+  brandTint: '#FFF1F3', // soft brand surface
+  brandOnDeep: '#FFE4E8', // secondary text on brandDeep (8.0:1)
+  brandMid: '#E11D48', // gradients and decoration
+  brandSoft: '#FFE4E8', // chips and hover surfaces
+  brandLine: '#FECDD6', // soft borders
 
-  // "needs you": warm apricot, the complement of the brand blue, so the few
-  // items that need action are the only warm thing on a cool page
-  // (complementary contrast). Not red: red reads as risk and loss
-  // (Bazley et al., 2021, Week 8).
+  // "needs you": warm apricot/amber, set apart from the brand red by hue and
+  // by its own card, chip and icon (a hand), so the few items that need
+  // action stand out without using red for them.
   claim: '#9A4A00',
   claimDeep: '#7A3B00',
   claimTint: '#FFF4E5',

@@ -636,3 +636,31 @@ The push from the AI's workspace was refused again (403, no GitHub access), so t
 **Our judgement, and what we changed next:** the AI found two problems in its own first build: the bot listed "NSF Top-up - 2026 NSF Top-Up" (the hyphen in "Top-up" broke the name clean-up), and on phones the A/B switch covered the bot's typing box. Both were fixed before committing. We dropped the pre-ticked "Add a reminder" box: a pre-ticked default is what the course flags as possible sludge (Week 4 defaults), so the visitor now presses a button instead. The "Next payout" tile shows only the next month, not the full paid/coming split of Finding 3, which stays the next test. The bot is a fixed script on purpose: the guardrails rule out AI model and network calls, and a scripted helper cannot invent an eligibility rule. All of this widens B's difference from A beyond the audited nudges; DESIGN.md records it as a limit.
 
 **Principle check:** Finding 4 and W6 simplify: X, one to-do list in place of the same items in two places → Y, more testers name a correct first step (35% in A to 65% in B) → because Z, the task, its steps and its day picker are in one place, so nothing has to be matched up across the page. Finding 7 and W6 simplify: X, numbered "How to do it" steps inside each task → Y, more testers can say where to claim the vouchers and by when (10% in A to 60% in B) → because Z, the how-to moves from another page to the moment of choice. Finding 10, W6 planning prompts and W2 feedback: X, a day picker and a To do / Planned / Done status on each task → Y, more testers commit to a dated first move (40% to 60%, our primary metric) → because Z, a plan the person picks, and visible progress after each step, make following through more likely. Findings 7 and 11, Nielsen heuristic 10: X, "Ask Compass" answering in plain words for this household → Y, fewer testers leave without knowing what to do → because Z, help moves from one FAQ link to the place where the question comes up, with no pressure and nothing hidden. W7 fluency, for older readers: X, text size A / A+ / A++ and Listen → Y, testers aged 60+ find their own items as fast as younger testers → because Z, larger or spoken text is easier to process.
+
+## Entry MS-5 - red theme, two-column layout with sticky sidebar, motion · 2026-10-31 · sent by MS · Claude Code
+```
+can you make it look more better, change back the logo and color theme to red (like the original), i like the way the interface looks now. in the webppage , i feel like there's too much space in the sides, maybe utilize those space, make the webite look more organized (i only see that majorly fonts and colors have been changed), maybe add more animated and make it look interesting and not dull
+```
+(Sent with two screenshots of the m3-ux-redesign preview.)
+
+**What came back:**
+- **Red theme:** the brand colour moved from teal-blue to the heart logo's rose-red (`#BE123C`, deep `#881337`, mid `#E11D48`) in `src/theme/brand.ts` and every shell and variant B file. The page background became a warm off-white (`#F8F6F5`). Variant A was excluded from the swap.
+- **Two-column layout:** on wide screens, variant B now has two columns: the to-do list and the benefits on the left, and a sticky sidebar on the right. The sidebar holds At a glance (total, a small progress bar, compact tiles), a "Not sure what to do?" card (Ask Compass, Do this with someone) and the finder (filter, and jump-to-person with each person's amount). It scrolls on its own if the window is short. On phones the summary sits on top.
+- **Rows:** one column beside the sidebar, two on very wide screens.
+- **Motion:** a new `src/variantB/motion.tsx` (Reveal, CountUp, Burst) and keyframes in `src/index.css`:
+  - sections rise into view as they scroll in;
+  - the total counts up;
+  - cards lift under the pointer;
+  - task steps unfold;
+  - the progress bar has one soft shine;
+  - an "All done" burst when the list is finished;
+  - the hero compass turns slowly;
+  - the Ask Compass button pulses three times.
+
+  All motion is off under reduced-motion settings. On wide screens the floating Ask Compass button is hidden, because the sidebar has its own.
+
+`npm run build` passes with no console errors at 1440px and 390px. Checked: the sidebar's Ask Compass opens the helper; ticking all three tasks shows 14 of 14 and "All done" in both the list and the sidebar; ?v=A is unchanged.
+
+**Our judgement, and what we changed next:** the first two-column build had two problems the AI caught in its own screenshots. The sidebar was taller than the screen, so the help card and finder were cut off; the tiles were made compact, the help card moved up, and the sidebar now scrolls on its own. And rows in two columns beside the sidebar were cramped; they became one column there. We accepted a known risk with red: Bazley et al. (2021) found that red made people more risk-averse about money. So red stays on the brand only, and every amount, status and warning keeps its own non-red colour, words and icon. The motion is for orientation and feedback only. Nothing moves to rush the visitor, which would turn a nudge into sludge.
+
+**Principle check:** W10 culture and W8 colour (Bazley et al., 2021): X, a rose-red brand that matches the heart logo, kept off amounts and labels → Y, testers rate the site as trustworthy and caring at least as highly as A, without reading the amounts as risky → because Z, red signals care and luck in a Singapore context when it is the brand, while the money itself carries no red. Nielsen #1, visibility of status, and W2 goal gradient: X, a sticky sidebar with the total, the progress bar and the tasks left → Y, more testers finish all their to-do items → because Z, progress stays in sight while they work through the detail. W2 feedback: X, a short "All done" burst and a filling progress bar → Y, testers who tick one task go on to the next → because Z, an immediate, visible response confirms that the effort counted.

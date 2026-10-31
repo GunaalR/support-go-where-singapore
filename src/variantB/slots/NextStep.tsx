@@ -61,7 +61,7 @@ export function NextStep({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
   return (
     <section aria-labelledby={`plan-${panel.year}`} className="mt-4 mb-12">
       <div
-        className="rounded-3xl p-5 sm:p-7 md:p-9 bg-white shadow-[0_1px_2px_rgba(15,30,46,0.05),0_12px_32px_-16px_rgba(11,90,122,0.3)]"
+        className="rounded-3xl p-5 sm:p-7 md:p-9 bg-white shadow-[0_1px_2px_rgba(15,30,46,0.05),0_12px_32px_-16px_rgba(190,18,60,0.3)]"
         style={{ border: `1px solid ${LINE}` }}
       >
         <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: LINK }}>
@@ -96,7 +96,7 @@ export function NextStep({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                 <button
                   type="button"
                   onClick={downloadReminders}
-                  className="mt-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-lg font-bold text-white cursor-pointer transition-[filter] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 shadow-[0_6px_16px_-8px_rgba(11,90,122,0.6)]"
+                  className="mt-4 inline-flex items-center gap-2 rounded-full px-6 py-3 text-lg font-bold text-white cursor-pointer transition-[filter] hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 shadow-[0_6px_16px_-8px_rgba(190,18,60,0.6)]"
                   style={{ backgroundColor: LINK, outlineColor: LINK }}
                 >
                   <Download className="w-5 h-5" aria-hidden="true" />
@@ -141,7 +141,7 @@ export function NextStep({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
             <button
               type="button"
               onClick={copyMessage}
-              className="mt-3 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-lg font-semibold cursor-pointer transition-colors hover:bg-[#E8F3F7] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="mt-3 inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-lg font-semibold cursor-pointer transition-colors hover:bg-[#FFF1F3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               style={{ color: LINK, border: `1.5px solid ${LINK}`, outlineColor: LINK }}
             >
               {copied ? <Check className="w-5 h-5" aria-hidden="true" /> : <Copy className="w-5 h-5" aria-hidden="true" />}
