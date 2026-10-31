@@ -144,7 +144,7 @@ export function Footer({
                 </li>
               </ul>
               <p className="text-[11px] text-gray-400 leading-relaxed">
-                GovTech Singapore · In collaboration with Ministry of Social and Family Development (MSF).
+                A student project at Singapore Management University. Not a government service.
               </p>
             </div>
 

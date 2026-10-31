@@ -49,7 +49,7 @@ export default function App() {
   return (
     <div className="min-h-screen bg-[#FDFDFD] text-gray-900 font-sans antialiased flex flex-col selection:bg-blue-100 selection:text-blue-900">
       
-      {/* 1. Singapore Government Agency Masthead (Service identification bar, NOT a language selector) */}
+      {/* 1. Prototype notice bar (Service identification bar, NOT a language selector) */}
       <GovMasthead />
 
       {/* 2. Original SupportGoWhere Header (Logo, Support, Resources & Tools, Search, Log in) */}

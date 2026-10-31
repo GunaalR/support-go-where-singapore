@@ -3,7 +3,6 @@ import {
   Sparkles, 
   ArrowRight, 
   RotateCcw, 
-  ExternalLink, 
   Compass, 
   HelpCircle, 
   ArrowUp,
@@ -126,7 +125,7 @@ export function HeroSection({
       ],
       secondQuestion: 'What best describes your housing situation?',
       secondOptions: [
-        { id: 'existing_flat', label: 'Currently renting / owning an HDB flat' },
+        { id: 'existing_flat', label: 'Currently renting / owning a public flat' },
         { id: 'need_home', label: 'Seeking urgent shelter / rental aid' },
         { id: 'bill_arrears', label: 'Need help managing housing fees' },
         { id: 'not_sure', label: "I'm not sure" }
@@ -186,7 +185,7 @@ export function HeroSection({
     followupOptions: [
       { id: 'crisis_help', label: 'Emergency crisis or community support' },
       { id: 'mental_health', label: 'Mental health and youth counselling' },
-      { id: 'cpf_retirement', label: 'Retirement and CPF planning' },
+      { id: 'cpf_retirement', label: 'Retirement and NSF planning' },
       { id: 'not_sure', label: "I'm not sure" }
     ],
     secondQuestion: 'Would you prefer community support or government grants?',
@@ -264,7 +263,7 @@ export function HeroSection({
     const q = text.toLowerCase();
     if (q.includes('job')) {
       handleSelectSituation(situations.find(s => s.id === 'job_loss') || situations[1]);
-    } else if (q.includes('cpf')) {
+    } else if (q.includes('nsf')) {
       handleSelectSituation(somethingElseSituation);
     } else if (q.includes('family')) {
       handleSelectSituation(situations.find(s => s.id === 'family') || situations[5]);
@@ -275,7 +274,7 @@ export function HeroSection({
 
   const quickPills = [
     "Any assistance for job loss?",
-    "When can I withdraw my CPF?",
+    "When can I withdraw my NSF savings?",
     "How do I apply for family support?",
     "Support for senior healthcare expenses"
   ];
@@ -319,16 +318,7 @@ export function HeroSection({
         </h1>
         
         <p className="text-xs sm:text-sm text-[#475467] font-medium flex items-center justify-center gap-1 mb-8">
-          <span>Part of</span>
-          <a
-            href="https://www.life.gov.sg"
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center font-bold text-gray-900 hover:text-red-600 transition-colors"
-          >
-            Life<span className="text-[#E63946]">SG</span>
-            <ExternalLink className="w-3.5 h-3.5 text-gray-400 ml-1 inline" />
-          </a>
+          <span>A fictional class prototype</span>
         </p>
 
         {/* ======================================================================= */}

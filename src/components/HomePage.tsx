@@ -8,8 +8,7 @@ import {
   MapPin, 
   Building2, 
   Users, 
-  HeartHandshake,
-  ExternalLink
+  HeartHandshake
 } from 'lucide-react';
 import { Scheme } from '../types';
 import { HeroSection } from './HeroSection';
@@ -31,14 +30,14 @@ export function HomePage({
 
   // 12 Illustrated Topic Categories matching original SupportGoWhere
   const topicCategories = [
-    { id: 'financial', name: 'Financial support & benefits', desc: 'Grocery vouchers, CDC vouchers & cash grants' },
+    { id: 'financial', name: 'Financial support & benefits', desc: 'Grocery vouchers, NCV Vouchers & cash grants' },
     { id: 'work', name: 'Work & employment', desc: 'Career matching, training allowances & retrenchment aid' },
     { id: 'caregiving', name: 'Caregiving support', desc: 'Respite care, caregiver allowances & home assistance' },
-    { id: 'housing', name: 'Housing & shelters', desc: 'Rental assistance, HDB rebates & public housing' },
+    { id: 'housing', name: 'Housing & shelters', desc: 'Rental assistance, flat rebates & public housing' },
     { id: 'healthcare', name: 'Healthcare & well-being', desc: 'Polyclinic subsidies, medical aid & eldercare wellness' },
     { id: 'family', name: 'Family, parenting & relationships', desc: 'Childcare subsidies, infant grants & family services' },
     { id: 'education', name: 'Education & learning', desc: 'School bursaries, tuition subsidies & transport concessions' },
-    { id: 'retirement', name: 'Retirement & legacy planning', desc: 'Silver support, CPF planning & senior wellness' },
+    { id: 'retirement', name: 'Retirement & legacy planning', desc: 'Senior support, NSF planning & senior wellness' },
     { id: 'disability', name: 'Disability support', desc: 'Assistive tech, transport subsidies & care grants' },
     { id: 'mentalhealth', name: 'Mental health', desc: 'Youth counselling, peer support & clinic subsidies' },
     { id: 'citizenship', name: 'Citizenship & residency', desc: 'Passports, identity cards & community registration' },
@@ -135,13 +134,13 @@ export function HomePage({
         <div className="bg-gradient-to-r from-[#1570EF] via-[#175CD3] to-blue-800 rounded-3xl p-6 sm:p-8 text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
           <div>
             <div className="text-xs font-bold uppercase tracking-wider text-blue-200 mb-1">
-              Budget 2026 Support
+              2026 Support
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
               Check what support you qualify for
             </h2>
             <p className="text-xs sm:text-sm text-blue-100 mt-2 max-w-xl leading-relaxed">
-              Find out your estimated CDC vouchers, Assurance Package cost-of-living payouts, and utility rebates with our interactive calculator.
+              Find out your estimated NCV Vouchers, Steady Package payouts, and utility rebates with our interactive calculator.
             </p>
           </div>
 
@@ -151,7 +150,7 @@ export function HomePage({
               className="px-5 py-3 bg-white text-[#175CD3] hover:bg-blue-50 font-bold text-xs rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
             >
               <Calculator className="w-4 h-4 text-[#175CD3]" />
-              <span>Launch Budget 2026 Calculator</span>
+              <span>Launch 2026 Support Calculator</span>
             </button>
           </div>
         </div>
@@ -235,21 +234,19 @@ export function HomePage({
               <div className="w-9 h-9 rounded-xl bg-blue-50 text-[#175CD3] flex items-center justify-center mb-3">
                 <MapPin className="w-5 h-5 stroke-[2.2]" />
               </div>
-              <h3 className="text-sm font-bold text-gray-900">Social Service Offices</h3>
+              <h3 className="text-sm font-bold text-gray-900">Neighbourhood Support Offices</h3>
               <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">
-                24 SSOs islandwide providing ComCare assistance and localized social support.
+                Local offices providing financial assistance and neighbourhood social support.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-gray-100">
-              <a
-                href="https://www.msf.gov.sg"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs font-semibold text-[#175CD3] hover:text-blue-800 inline-flex items-center gap-1"
+              <button
+                onClick={() => handleExploreCategory('financial')}
+                className="text-xs font-semibold text-[#175CD3] hover:text-blue-800 inline-flex items-center gap-1 cursor-pointer"
               >
-                <span>Find nearest SSO</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
+                <span>Find nearest office</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
 
@@ -258,21 +255,19 @@ export function HomePage({
               <div className="w-9 h-9 rounded-xl bg-rose-50 text-rose-600 flex items-center justify-center mb-3">
                 <Building2 className="w-5 h-5 stroke-[2.2]" />
               </div>
-              <h3 className="text-sm font-bold text-gray-900">Community Development Councils</h3>
+              <h3 className="text-sm font-bold text-gray-900">Neighbourhood Councils</h3>
               <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">
-                Administering CDC Vouchers for heartland merchants and supermarkets.
+                Administering NCV Vouchers for neighbourhood shops and supermarkets.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-gray-100">
-              <a
-                href="https://vouchers.cdc.gov.sg"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs font-semibold text-[#175CD3] hover:text-blue-800 inline-flex items-center gap-1"
+              <button
+                onClick={() => handleExploreCategory('financial')}
+                className="text-xs font-semibold text-[#175CD3] hover:text-blue-800 inline-flex items-center gap-1 cursor-pointer"
               >
-                <span>Claim CDC vouchers</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
+                <span>About NCV Vouchers</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
 
@@ -302,21 +297,19 @@ export function HomePage({
               <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center mb-3">
                 <Compass className="w-5 h-5 stroke-[2.2]" />
               </div>
-              <h3 className="text-sm font-bold text-gray-900">LifeSG Digital Services</h3>
+              <h3 className="text-sm font-bold text-gray-900">CompassLife Digital Services</h3>
               <p className="text-xs text-gray-600 mt-1.5 leading-relaxed">
-                Access government digital services tailored across personal life moments.
+                Access digital services tailored across personal life moments.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-gray-100">
-              <a
-                href="https://www.life.gov.sg"
-                target="_blank"
-                rel="noreferrer"
-                className="text-xs font-semibold text-[#175CD3] hover:text-blue-800 inline-flex items-center gap-1"
+              <button
+                onClick={() => handleExploreCategory('financial')}
+                className="text-xs font-semibold text-[#175CD3] hover:text-blue-800 inline-flex items-center gap-1 cursor-pointer"
               >
-                <span>Visit LifeSG</span>
-                <ExternalLink className="w-3 h-3" />
-              </a>
+                <span>About CompassLife</span>
+                <ArrowRight className="w-3 h-3" />
+              </button>
             </div>
           </div>
 
