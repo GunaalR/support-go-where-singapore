@@ -24,6 +24,9 @@ export interface SchemeStatus {
   reason?: string; // one-line reason
   rank?: number; // order in Start here: earliest deadline first
   group?: string; // rows with the same group are one action, shown as one item
+  // Only for 'claim' items: the amount framed as already the household's, with
+  // the deadline from the record (Week 4 loss aversion and endowment effect).
+  ownedLine?: (amount: string) => string;
 }
 
 const AUTOMATIC: SchemeStatus = { kind: 'automatic', label: 'Automatic: nothing to do' };
@@ -58,6 +61,8 @@ export const SCHEME_STATUS: Record<string, SchemeStatus> = {
     shortName: 'NCV Vouchers',
     reason: 'Claim them on the RedeemNow website, as they do not arrive by themselves. They can be used until 31 December 2027.',
     rank: 2,
+    ownedLine: amount =>
+      `${amount} is already set aside for your household. Unclaimed vouchers expire on 31 December 2027.`,
   },
   // GNAgZJDj: "disbursed to the CDA trustee of the child via the LifeSG mobile
   // app", "valid for 12 months from disbursement, with the expiry date
@@ -69,6 +74,7 @@ export const SCHEME_STATUS: Record<string, SchemeStatus> = {
     reason:
       'They are not paid into a bank account. The child’s trustee uses them in the CompassLife app, and they expire 12 months after they arrive (the app shows the date).',
     rank: 1,
+    ownedLine: amount => `${amount} is already set aside. Credits expire 12 months after they arrive.`,
   },
   // GSTV-CASH and GSTV-MEDISAVE: "No application needed if you have previously
   // signed-up for past GSTV payouts / If you have never signed-up ... the
@@ -87,11 +93,17 @@ export function statusFor(row: PayoutRowA): SchemeStatus | undefined {
   return SCHEME_STATUS[row.schemeCode];
 }
 
+// "Taken care of" for the progress count: nothing to do, or automatic for
+// employees (the Earn and Save Bonus).
+export const isTakenCareOf = (status: SchemeStatus | undefined) =>
+  status?.kind === 'automatic' || status?.kind === 'employee';
+
 export interface ActionItem {
   code: string;
   status: SchemeStatus;
   total: number; // sum across the household, in dollars
-  whoFor: string[]; // box titles the rows appear in
+  rows: number; // payout rows this item covers, for the progress count
+  whoFor: { title: string; profile: string }[]; // boxes the rows appear in
 }
 
 // Items the household must act on in the year shown, earliest deadline first,
@@ -104,13 +116,21 @@ export function actionItems(panel: YearPanelA): ActionItem[] {
       const status = statusFor(row);
       if (!status || !status.reason) continue;
       const key = status.group ?? row.schemeCode;
-      const item = byKey.get(key) ?? { code: key, status, total: 0, whoFor: [] };
+      const item = byKey.get(key) ?? { code: key, status, total: 0, rows: 0, whoFor: [] };
       if (row.unit === 'currency') item.total += row.amount;
-      if (!item.whoFor.includes(box.title)) item.whoFor.push(box.title);
+      item.rows += 1;
+      if (!item.whoFor.some(w => w.title === box.title)) item.whoFor.push({ title: box.title, profile: box.profile });
       byKey.set(key, item);
     }
   }
   return [...byKey.values()]
     .sort((a, b) => (a.status.rank ?? 99) - (b.status.rank ?? 99))
     .slice(0, 3);
+}
+
+// Progress for the year shown (Week 2 endowed progress): every payout row
+// counts once; rows that are taken care of start the count.
+export function progress(panel: YearPanelA): { done: number; total: number } {
+  const rows = [...panel.ownBoxes, ...panel.memberBoxes].flatMap(box => box.rows);
+  return { done: rows.filter(row => isTakenCareOf(statusFor(row))).length, total: rows.length };
 }
