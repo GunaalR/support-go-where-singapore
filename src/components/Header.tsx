@@ -43,7 +43,7 @@ export function Header({
         {/* HelpCompass SG logo (fictional brand, layout kept from the live site) */}
         <div className="flex items-center gap-8 lg:gap-10">
           <a href="#" className="flex items-center gap-2.5 group cursor-pointer" aria-label="HelpCompass SG home">
-            <BrandMark className="w-10 h-10" />
+            <BrandMark className="w-9 h-9" />
             <div className="leading-none text-left">
               <span className="block text-xl font-extrabold tracking-tight text-[#0F1E2E]" style={{ fontFamily: "'Plus Jakarta Sans', Inter, sans-serif" }}>
                 HelpCompass

@@ -20,7 +20,7 @@ const KIND_ICON: Record<SupportKind, LucideIcon> = {
   credit: Smartphone,
 };
 
-const PLAIN_LINE: Record<string, string> = {
+export const PLAIN_LINE: Record<string, string> = {
   'STEADY-CASH': 'Cash paid to your bank account every December, until 2026.',
   'COL-2026': 'One-off cash to help with living costs, paid to your bank account in September 2026.',
   'LCV-CASH': 'Cash paid to your bank account every August.',

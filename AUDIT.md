@@ -165,3 +165,4 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 - 2026-10-28: M3 (MS) severity ratings added to Findings 1-12, after variant B was built.
 - 2026-10-28: M5 (KV) severity ratings added to Findings 1-12, after variant B was built.
 - 2026-10-31: MS-3 visual redesign of variant B and the shared site shell (colour tokens and reasons in DESIGN.md). Variant A unchanged; no finding, severity or prediction above was edited. B now also differs from A in visual polish, which is noted as a limit in DESIGN.md.
+- 2026-10-31: MS-4 usability changes to variant B: one to-do list in place of the duplicated Start here / Plan blocks, At a glance tiles, jump-to-person and "only ones that need me" filter, text size and Listen, and the scripted Ask Compass helper (details and the finding behind each in DESIGN.md). Variant A unchanged; nothing above this heading was edited.

@@ -26,7 +26,7 @@ export function Footer({
             {/* HelpCompass SG brand column */}
             <div className="md:col-span-4">
               <div className="flex items-center gap-2.5 mb-3">
-                <BrandMark className="w-9 h-9" />
+                <BrandMark className="w-8 h-8" iconClassName="w-4 h-4" />
                 <div className="leading-none text-left">
                   <span className="block text-lg font-bold tracking-tight text-gray-900 font-sans">
                     HelpCompass SG

@@ -39,10 +39,27 @@ So the design has three jobs, in this order:
 
 - **Variant A is untouched.** `src/variantA/` still copies the live results screen, so the A/B test still compares the live screen with our redesign.
 - **The site shell** (notice bar, header, language bar, footer, homepage) is shared by A and B. Restyling it changes both equally, so it does not enter the comparison.
-- **All wording, data, order of sections and nudges in B are unchanged.** Only their look changed.
-- The notice bar no longer says "A Singapore Government Agency Website", and the footer no longer names GovTech or MSF. The logo is now a compass, not a red heart. The homepage's real names (CDC, LifeSG, HDB, CPF, ComCare) and links to real .gov.sg sites were replaced by the fictional ones in `audit/evidence/README.md` (course rule: fictional brand only).
+- **All wording and data in B are unchanged** (MS-3). MS-4 then changed how B is organised; see below.
+- The notice bar no longer says "A Singapore Government Agency Website", and the footer no longer names GovTech or MSF. The logo keeps the original warm heart (MS-4: it says "help" and "care"; red appears only in the logo, never on amounts, labels or warnings, so it does not signal risk on the results screen). The homepage's real names (CDC, LifeSG, HDB, CPF, ComCare) and links to real .gov.sg sites were replaced by the fictional ones in `audit/evidence/README.md` (course rule: fictional brand only).
 
 ## Where this could turn into sludge (our own check)
 
 - **Variant B now differs from A in visual polish as well as in the audited nudges.** A B-over-A difference could partly come from "looks more modern", not from Start here or the labels. In the paper, B is described as the full redesign package. Separating look from nudges (A, A plus the new look, B) is the next test in section 6.
 - The warm Start here card is meant to draw the eye. If testers report feeling *pressured*, the warmth works against the user. M4's pressure question (Finding 10's guardrail) covers this.
+
+## Usability changes (MS-4, 2026-10-31)
+
+MS-3 changed the look. MS-4 changes how the screen works, from the visitor's side of it. Each change answers a question a household has, and traces to a finding.
+
+| Visitor's question | Before (B after MS-3) | After (MS-4) | Finding / principle |
+|---|---|---|---|
+| "Do I have to do anything?" | The same 2-3 items listed twice: "Start here" at the top, "Plan your next step" at the very bottom | **One to-do list** (the "task list" pattern used by public-service sites such as GOV.UK). Each task shows To do, Planned, Done or Skipped, and opens to "How to do it" (numbered steps from the official record), "What you'll need", a day picker and "Skip for now" | 4, 5, 7, 10; W6 planning prompts; W2 feedback |
+| "What's the short answer?" | Only the total | **At a glance**: the total plus three tiles: things to do, how many are automatic, and the next payout month (worked out from the payout lines and today's date) | 1, 3 (partly: the next month only, no paid/coming split); W3 expectations |
+| "Which ones are mine?" | 14 rows in one long column | **Jump-to-person chips** (with ages), a **"Only ones that need me"** filter (default "All", so every row stays one tap away), and two columns of rows on wide screens | 2, 4; Nielsen #7 flexibility |
+| "I can't read this well" | Fixed text size | **Text size A / A+ / A++** and **Listen**, which reads the summary aloud with the browser's own voice, offline | W7 fluency; older readers |
+| "Can I just ask?" | One FAQ link at the bottom | **Ask Compass**: a scripted helper with fixed answers built from this page's data and the scheme records. It says it is not a person, sends nothing anywhere, and never pushes | 7, 11; Nielsen #10 help |
+| "Remind me" | A pre-ticked "Add a reminder" box that downloaded a file on Save | An explicit **"Add reminders to my calendar"** button under "Your plan", listing the days picked | 10; a pre-ticked box is a default the course flags as possible sludge (W4), so the visitor now chooses |
+
+**Guardrails kept:** no AI model and no network call (the bot is a fixed script); nothing stored or sent; every task can be skipped; the filter defaults to showing everything; variant A is untouched.
+
+**Where this could turn into sludge:** the bot answers only what it was scripted for, and a visitor who trusts it too much could miss a condition. Its answers point back to the page ("Show my to-do list", "See every scheme") and say that the figures are estimates. The text-size and Listen tools are not part of the A/B comparison; they are accessibility features, but they do add to B's "more polished" difference from A (see the limit above).
