@@ -226,3 +226,7 @@ These came after the audit, so no prediction was committed before they were buil
 | Member ages in the "For:" line | W2 identifiable person | The user | nudge |
 | Calendar reminder ticked by default | W4 default | The user: it costs no money, is one click to untick, and the file only downloads on "Save my plan". Pre-ticked boxes are the briefing's own warning, so the paper should defend this one | nudge, with a watch |
 | Page title "can get" | W7 fluency | Mixed: plainer, but it weakens the hedge Finding 1 keeps | grey |
+
+### 2026-11-01, later (EZ): two changes applied to variant B
+
+The voucher line now gives both dates on the 2026 tab, and vouchers move to the top of "Start here" because theirs is now the earliest deadline. The page title reads "may get", which restores the hedge. Both tables above show the state before these two changes.

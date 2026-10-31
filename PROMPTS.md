@@ -602,3 +602,12 @@ STEPS
 **What came back:** the AI's audit had said CDC Vouchers are valid until 31 Dec 2027, copied from the scheme page. Checked against the CDC's own page, the January 2026 $300 expires on 31 Dec 2026. It also compared the five solo ratings, checked every repair against variant B, rechecked the live results (identical to 24 Oct), rendered A and B for the first time at laptop and phone width, and replaced the government bar and real names in the site shell (the item GR-2 left for the team).
 **Our judgement, and what we changed next:** the error is corrected under "Added after building", not edited in place, so the pre-registered text stands. Its rename of a homepage question from CPF to NSF would have broken that button's routing, which was fixed before the push. The "agreed" numbers are given as medians and marked unsettled, because the group has not yet discussed the six two-point gaps. Claims about why members disagreed were removed from the paper: we do not know their reasons.
 **Principle check:** W4 loss framing: a wrong deadline inside a loss frame would be sludge, so B's voucher line needs the corrected date.
+
+## Entry EZ-8 - voucher date and page title applied to variant B; REFLECTION.md started · 2026-11-01 · sent by EZ · Claude Code
+```
+把所有这些文件，看看除了venkata还有没有其他人的 ，直接放进去他们的部分，然后群里跟他们说一声就行。
+```
+(English: "Take all these, see if anyone besides Venkata has parts too, put them straight into their parts, and tell them in the group.")
+**What came back:** `schemeStatusM3.ts` (M3): the voucher line gives both dates on the 2026 tab and one on the 2027 tab, and vouchers rank first in Start here. `styleB.ts`: the title reads "may get". New `REFLECTION.md` from the briefing template, with EZ's A1 and A2 filled in and the rest left for the group.
+**Our judgement, and what we changed next:** these files have other owners, so the changes are small and the group was told. Consent and debrief were not built: that is M1's call and depends on what Prof said. Checked by rendering Start here for both year tabs, then `tsc` and `vite build`.
+**Principle check:** W4 loss framing with a true deadline; W3 expectations (Finding 1, keep the hedge).
