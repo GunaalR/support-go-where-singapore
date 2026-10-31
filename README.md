@@ -26,7 +26,7 @@ We audited the live page before designing anything. The audit is committed ahead
 
 ## What the audit found
 
-| | |
+| Area | What we found |
 |:--|:--|
 | **What already works** | The page leads with an honest, hedged total ("Up to $8,450 and 2.5 months of rebate" for our main persona). The redesign keeps it. |
 | **The central problem** | All 10 schemes our persona receives are officially "no application needed", yet three still need the household to act: claim vouchers, open an app, or sign up once. On screen they look exactly like the automatic ones. |
