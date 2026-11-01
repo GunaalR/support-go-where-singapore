@@ -32,7 +32,9 @@ The second call was a default. The AI built the calendar reminder as a box ticke
 
 ### B2 What would you test next, and what result would change your mind?
 
-[...] (initials)
+The test we would run next is the three-version test named in DESIGN.md: A, A with B's new look but none of the nudges, and B. Our current comparison cannot separate the nudges from the polish. B is calmer, clearer and better laid out as well as nudged, so a win for B could simply mean "looks more modern". Keeping the primary metric from Finding 10 (the share of testers who commit to a dated first move, about 40% in A and 60% in B) and about 97 testers per version, the three-way split tells us where any gain comes from.
+
+Two results would change our minds. If A with the new look scores within five points of B, the polish did the work and our nudges added little; we would then credit the design, not the behavioural principles, and cut the nudges that cost the most screen space. If B scores well above both, the nudges earn their place. A second check is Finding 5's guardrail: if more than 10% of B testers mark an automatic item as needing action, the status labels are creating confusion rather than removing it, and we would drop or reword them. We would also re-run the voucher loss line with the corrected December 2026 date, since a wrong deadline inside a loss frame is the quickest route from nudge to sludge. (GR)
 
 ### B3 How did AI change who did what in your group?
 

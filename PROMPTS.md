@@ -803,3 +803,11 @@ hey, Gunaal has merged the above into the main. Now if anything needs to be chan
 **Our judgement, and what we changed next:** the tempting fix was to fill in the "Agreed" column and update the summary table, but that would quietly edit the pre-registration, so everything new goes below the line. The AI also did not invent agreed numbers: they need the group's discussion. The false ticks in the sprint plan are left visible on purpose, with a note, because they are an AI error the group caught (REFLECTION.md, A1).
 
 **Principle check:** none: documentation only (W1 pre-registration kept).
+
+## Entry GR-6 - B2 of REFLECTION.md · 2026-11-01 · sent by GR · Claude (claude.ai)
+```
+Write my B2 part of REFLECTION.md, 150-250 words: what we'd test next and what result would change our minds, using the three-version test in DESIGN.md.
+```
+**What came back:** a draft built on the three-version test in DESIGN.md (A, A with the new look, B), the Finding 10 primary metric and sample size from AUDIT.md, the Finding 5 guardrail, and EZ's corrected voucher expiry date.
+**Our judgement, and what we changed next:** GR read and approved the draft before it was pushed; it is about 210 words and sits only under the B2 heading.
+**Principle check:** none: reflection text only.
