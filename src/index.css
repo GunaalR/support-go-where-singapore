@@ -1,1 +1,63 @@
 @import "tailwindcss";
+
+/* ---- HelpCompass motion (MS-5) --------------------------------------------
+   Small, calm movements that show what changed or where to look. Never used
+   to create urgency. All of it switches off for visitors who ask their
+   device for reduced motion. */
+@keyframes hc-rise {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes hc-pop {
+  0% { opacity: 0; transform: scale(0.6); }
+  60% { opacity: 1; transform: scale(1.12); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes hc-spin-slow {
+  to { transform: rotate(360deg); }
+}
+@keyframes hc-ring {
+  0% { box-shadow: 0 0 0 0 rgba(13, 148, 136, 0.45); }
+  100% { box-shadow: 0 0 0 18px rgba(13, 148, 136, 0); }
+}
+@keyframes hc-shine {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(250%); }
+}
+@keyframes hc-burst {
+  0% { opacity: 1; transform: translate(0, 0) scale(1); }
+  100% { opacity: 0; transform: translate(var(--hc-x), var(--hc-y)) scale(0.4); }
+}
+
+.hc-rise { animation: hc-rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hc-pop { animation: hc-pop 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.hc-spin-slow { animation: hc-spin-slow 120s linear infinite; }
+.hc-ring { animation: hc-ring 1.6s ease-out 3; }
+.hc-shine { animation: hc-shine 2.4s ease-in-out 0.6s 2 both; }
+.hc-burst { animation: hc-burst 0.9s ease-out both; }
+.hc-d1 { animation-delay: 0.06s; }
+.hc-d2 { animation-delay: 0.12s; }
+.hc-d3 { animation-delay: 0.18s; }
+.hc-d4 { animation-delay: 0.24s; }
+
+/* scroll reveal: elements start low and faded, and rise when they enter view */
+.hc-reveal { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.2, 0.7, 0.2, 1); }
+.hc-reveal.hc-in { opacity: 1; transform: none; }
+
+/* cards that lift slightly under the pointer */
+.hc-lift { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.hc-lift:hover { transform: translateY(-2px); box-shadow: 0 14px 30px -18px rgba(15, 30, 46, 0.35); }
+
+@media (prefers-reduced-motion: reduce) {
+  .hc-rise, .hc-pop, .hc-spin-slow, .hc-ring, .hc-shine, .hc-burst { animation: none !important; }
+  .hc-reveal { opacity: 1; transform: none; transition: none; }
+  .hc-lift, .hc-lift:hover { transition: none; transform: none; }
+}
+
+/* ---- Print: only the plan (MS-7) -----------------------------------------
+   The plan lives outside #root, hidden on screen; printing hides the app. */
+.hc-print-root { display: none; }
+@media print {
+  #root { display: none !important; }
+  .hc-print-root { display: block; padding: 8px; color: #000; font-family: Inter, Arial, sans-serif; }
+}

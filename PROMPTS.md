@@ -580,6 +580,91 @@ STEPS
 **Our judgement, and what we changed next:** the prompt's example "11 of 14 ... 3 to go" does not match the data: only 8 of P1's 14 rows are 'automatic' or 'employee', because the LCV rows (3) and the claim rows (3) are not. We kept the count truthful at 8 of 14 rather than forcing the example. The browser's default blue checkbox counted as a new colour, so it was set to the site's existing dark grey (#2C2C2C); the bar uses the site's existing #2C2C2C on #EBF1EE. The loss lines use no red, no alarm words and no exclamation marks. Two points for the group to check: "already set aside" is a stretch for the $300 of NCV Vouchers that only becomes claimable in January 2027, and the ages come from profiles that say "(in 2026)", so on the 2027 tab Member 1 still shows age 71.
 **Principle check:** W2 endowed progress and goal gradient (Kivetz, Urminsky & Zheng, 2006, loyalty-card study): X, a count and bar that start at the 8 of 14 benefits already taken care of → Y, more testers act on at least one Start here item → because Z, a task that already looks partly done feels closer to the finish, and effort rises as the goal gets near. W2 feedback: X, an "I've done this" tick that moves the count and fills the bar → Y, testers who tick one item go on to the next → because Z, visible progress after each step confirms the effort counted and shows how little is left. W4 loss aversion and endowment effect (Kahneman, ch. 26-27, prospect theory): X, "$800 is already set aside for your household. Unclaimed vouchers expire on 31 December 2027." → Y, more testers say they will claim the vouchers or credits → because Z, money framed as already theirs makes not claiming it feel like a loss, and losses weigh more than equal gains; it stays a nudge because the amount and deadline are true and the tone is calm (no red, W8). W2 identifiable person: X, "Member 2 (age 12), Member 3 (age 9)" instead of "Member 2, Member 3" → Y, more testers act on the items for other household members → because Z, a specific person is more motivating than an anonymous label, and the age is taken from the data without guessing a relationship.
 
+## Entry MS-3 - visual redesign of variant B and the site shell, with colour theory · 2026-10-31 · sent by MS · Claude Code
+```
+Hey, my team mate pushed the above. The whole website looks very dull and boring and I feel like even If i were the Prof, i wouldnt give marks to our team. Use color theory (Wrt to the website and who the customers are and what we need for them to see), literally I wanna make it look like its the best when comapred to the orginial live website. Do nit categorise by team mates, ill just change everything now , wherever needed (including others parts). Dont say this is only my part and not to do other part, we just split it for not o verlapping with each other, but prof didnt mention anything like that. so give me a master code to chnage everything and make sure it looks the best and modern (which would cater to the people who would visit the webiste in 2026, like tht I mean).  Give the code and ill ask my friend to push it. I dont wanna keep doing it, so make it look the best in each and every single component and area when comapred to the original live website. It should fetch us full marks.
+```
+**What came back:** one set of colour tokens (`src/theme/brand.ts`), with every colour, its contrast ratio and its reason in a new `DESIGN.md`. Variant B (`ResultsScreenB.tsx`) was rebuilt visually and its data, wording, section order and nudges are unchanged:
+- a deep teal-blue hero for the title;
+- sticky pill-shaped year tabs under the header;
+- a large total card that keeps "Up to" and the rebate months;
+- benefit boxes as white cards with a person icon and right-aligned totals;
+- each scheme row with M5's kind bar, a soft wash, its amount right-aligned in large figures and a calendar icon on the payout line;
+- "To note" as body-size text in an info panel instead of small italics.
+
+`StartHere.tsx` became the one warm (apricot) card on the page, with a white progress panel, numbered step badges, the loss line in a tinted strip with a wallet icon, bigger checkboxes and a "See all schemes" pill. `SchemeLabel.tsx` now shows each status as a chip with an icon: sage check for automatic, apricot hand for "Claim it yourself", blue person for sign-up, slate briefcase for employees. `SchemeCategory.tsx` (tinted kind pill) and `NextStep.tsx` (tokens, larger date and Skip controls of equal size, a rounded primary button) were restyled with their logic unchanged.
+
+Shell, shared by A and B:
+- The notice bar now says "HelpCompass SG is a class prototype. Not a government website." instead of claiming to be a government agency site.
+- A new compass logo (`BrandMark.tsx`) replaces the red heart.
+- The header, language bar and footer use the tokens. The footer no longer names GovTech or MSF, and its low-contrast grey text was darkened.
+- The homepage hero and the calculator banner use the brand. Homepage text is larger, "Part of LifeSG" and the links to real .gov.sg sites were removed, and real names (CDC, LifeSG, HDB, CPF, ComCare) were swapped for the fictional ones.
+
+`npm run build` passes. Screenshots on desktop (1280px) and phone (390px): the homepage, A and B all render, and A's results screen is unchanged.
+
+**Our judgement, and what we changed next:** the request was to make the whole site look its best. We kept `src/variantA/` untouched, because A must stay a copy of the live screen for the A/B comparison to mean anything. We restyled only the shared shell and B. We kept M5's five kind colours and their no-red, no-green-on-money rule, and changed only how they are drawn. The risk is the "a prettier B" trap from the Week 6 briefing: B now differs from A in polish as well as in the nudges, so a B-over-A result cannot be credited to the nudges alone. This is written into DESIGN.md as a limit, and a three-arm next test (A, A plus the new look, B) is proposed for paper section 6. A dated line was added under "Added after building" in AUDIT.md; nothing above it changed.
+
+**Principle check:** W8 colour, complementary contrast (Mehta & Zhu, 2009; Bazley et al., 2021): X, a cool teal-blue page in which the only warm surface is the Start here card and the "Claim it yourself" chip → Y, testers find the items that need their action faster and more often than in A (Findings 4 and 5) → because Z, a single warm area on a cool field is the most salient spot on the screen, and apricot draws attention without red's risk and loss meaning. W8 colour, quiet defaults: X, automatic rows labelled with a low-saturation sage chip and a check icon → Y, fewer testers mark an automatic item as needing action (Finding 5's guardrail) → because Z, low-salience "settled" cues let those rows recede while the words still say "nothing to do". W7 processing fluency (Petrova et al., 2012): X, 16-18px body text at 10.4:1 contrast, right-aligned tabular amounts and "To note" in roman body text → Y, more testers can state the total and the income condition (Findings 1 and 8) → because Z, text that is easier to read and compare is processed faster and judged more trustworthy. Course rule, fictional brand: X, no "Government Agency" claim and no real agency names or links → Y, no tester mistakes the prototype for an official service → because Z, a real brand would borrow trust the prototype has not earned.
+
+## Entry MS-4 - usability redesign of variant B, scripted helper bot, original logo · 2026-10-31 · sent by MS · Claude Code
+```
+https://support-go-where-singapore-git-m3-visual-redesign-winner-0575.vercel.app/?v=B
+
+hey, let the original color of the logo be there as its catering to "help" aspect. I want to change the whole interface into a more user friendly one. make it more easily acccesible. Include a bot. for example, let's say im using the website, i would want it to be more user frienly in every way (maybe refer to a similar website and build it similary like that). It still looks the same, i feel like u only changed the colors. I want to make it more userfriendly as the whole point of this project is to ehance the interface by making it more user friendly to the users. think from the users point of view and from their place and what all you think will have to be changed frim the original website so that its more easily accessible and used. try to push the code by yourself this time
+```
+**What came back:**
+- **Original logo:** the warm heart logo was restored (`BrandMark.tsx`).
+- **One to-do list:** in variant B, "Start here" and "Plan your next step" listed the same 2-3 items twice. They became one list (`StartHere.tsx`) in the task-list pattern public-service sites use (GOV.UK). Each task shows To do / Planned / Done / Skipped, a deadline line and the "already set aside" line, and opens to numbered "How to do it" steps taken from the scheme records, "What you'll need", a day picker and "Skip for now".
+- **Your plan:** "Plan your next step" became "Your plan" (`NextStep.tsx`): the days picked, one "Add reminders to my calendar" button, and "Do this with someone".
+- **Shared logic:** a new `taskGuide.ts` holds the steps, deadlines, plan state and payout-date logic, so the list, the plan and the bot never disagree.
+- **Main screen:** `ResultsScreenB.tsx` gained:
+  - "At a glance" tiles: things to do, automatic count, next payout month;
+  - text size A / A+ / A++ and a "Listen" button using the browser's built-in speech;
+  - jump-to-person chips and an "All / Only ones that need me" filter;
+  - two columns of rows on wide screens.
+- **Ask Compass** (`HelpBot.tsx`): a scripted helper with quick questions ("What do I need to do?", "How much will we get?", "When is the next payout?", "Do I need to apply?", "What do these schemes mean?", "Can someone help me?") and free-text keyword matching. Every answer is built from the page's data. It is a dialog with a labelled input, a live log, Escape to close, and focus returned to its button.
+
+`npm run build` passes and there were no console errors. Browser test on desktop (1280px) and phone (390px):
+- picking a day sets the task to "Planned" and lists it under "Your plan";
+- ticking a task moves the count from 8 to 9 of 14;
+- the filter shows 6 rows instead of 14;
+- the bot answers the to-do, vouchers and next-payout questions correctly;
+- ?v=A shows no bot and no labels.
+
+The push from the AI's workspace was refused again (403, no GitHub access), so the patch was handed over to push by hand.
+
+**Our judgement, and what we changed next:** the AI found two problems in its own first build: the bot listed "NSF Top-up - 2026 NSF Top-Up" (the hyphen in "Top-up" broke the name clean-up), and on phones the A/B switch covered the bot's typing box. Both were fixed before committing. We dropped the pre-ticked "Add a reminder" box: a pre-ticked default is what the course flags as possible sludge (Week 4 defaults), so the visitor now presses a button instead. The "Next payout" tile shows only the next month, not the full paid/coming split of Finding 3, which stays the next test. The bot is a fixed script on purpose: the guardrails rule out AI model and network calls, and a scripted helper cannot invent an eligibility rule. All of this widens B's difference from A beyond the audited nudges; DESIGN.md records it as a limit.
+
+**Principle check:** Finding 4 and W6 simplify: X, one to-do list in place of the same items in two places → Y, more testers name a correct first step (35% in A to 65% in B) → because Z, the task, its steps and its day picker are in one place, so nothing has to be matched up across the page. Finding 7 and W6 simplify: X, numbered "How to do it" steps inside each task → Y, more testers can say where to claim the vouchers and by when (10% in A to 60% in B) → because Z, the how-to moves from another page to the moment of choice. Finding 10, W6 planning prompts and W2 feedback: X, a day picker and a To do / Planned / Done status on each task → Y, more testers commit to a dated first move (40% to 60%, our primary metric) → because Z, a plan the person picks, and visible progress after each step, make following through more likely. Findings 7 and 11, Nielsen heuristic 10: X, "Ask Compass" answering in plain words for this household → Y, fewer testers leave without knowing what to do → because Z, help moves from one FAQ link to the place where the question comes up, with no pressure and nothing hidden. W7 fluency, for older readers: X, text size A / A+ / A++ and Listen → Y, testers aged 60+ find their own items as fast as younger testers → because Z, larger or spoken text is easier to process.
+
+## Entry MS-5 - red theme, two-column layout with sticky sidebar, motion · 2026-10-31 · sent by MS · Claude Code
+```
+can you make it look more better, change back the logo and color theme to red (like the original), i like the way the interface looks now. in the webppage , i feel like there's too much space in the sides, maybe utilize those space, make the webite look more organized (i only see that majorly fonts and colors have been changed), maybe add more animated and make it look interesting and not dull
+```
+(Sent with two screenshots of the m3-ux-redesign preview.)
+
+**What came back:**
+- **Red theme:** the brand colour moved from teal-blue to the heart logo's rose-red (`#BE123C`, deep `#881337`, mid `#E11D48`) in `src/theme/brand.ts` and every shell and variant B file. The page background became a warm off-white (`#F8F6F5`). Variant A was excluded from the swap.
+- **Two-column layout:** on wide screens, variant B now has two columns: the to-do list and the benefits on the left, and a sticky sidebar on the right. The sidebar holds At a glance (total, a small progress bar, compact tiles), a "Not sure what to do?" card (Ask Compass, Do this with someone) and the finder (filter, and jump-to-person with each person's amount). It scrolls on its own if the window is short. On phones the summary sits on top.
+- **Rows:** one column beside the sidebar, two on very wide screens.
+- **Motion:** a new `src/variantB/motion.tsx` (Reveal, CountUp, Burst) and keyframes in `src/index.css`:
+  - sections rise into view as they scroll in;
+  - the total counts up;
+  - cards lift under the pointer;
+  - task steps unfold;
+  - the progress bar has one soft shine;
+  - an "All done" burst when the list is finished;
+  - the hero compass turns slowly;
+  - the Ask Compass button pulses three times.
+
+  All motion is off under reduced-motion settings. On wide screens the floating Ask Compass button is hidden, because the sidebar has its own.
+
+`npm run build` passes with no console errors at 1440px and 390px. Checked: the sidebar's Ask Compass opens the helper; ticking all three tasks shows 14 of 14 and "All done" in both the list and the sidebar; ?v=A is unchanged.
+
+**Our judgement, and what we changed next:** the first two-column build had two problems the AI caught in its own screenshots. The sidebar was taller than the screen, so the help card and finder were cut off; the tiles were made compact, the help card moved up, and the sidebar now scrolls on its own. And rows in two columns beside the sidebar were cramped; they became one column there. We accepted a known risk with red: Bazley et al. (2021) found that red made people more risk-averse about money. So red stays on the brand only, and every amount, status and warning keeps its own non-red colour, words and icon. The motion is for orientation and feedback only. Nothing moves to rush the visitor, which would turn a nudge into sludge.
+
+**Principle check:** W10 culture and W8 colour (Bazley et al., 2021): X, a rose-red brand that matches the heart logo, kept off amounts and labels → Y, testers rate the site as trustworthy and caring at least as highly as A, without reading the amounts as risky → because Z, red signals care and luck in a Singapore context when it is the brand, while the money itself carries no red. Nielsen #1, visibility of status, and W2 goal gradient: X, a sticky sidebar with the total, the progress bar and the tasks left → Y, more testers finish all their to-do items → because Z, progress stays in sight while they work through the detail. W2 feedback: X, a short "All done" burst and a filling progress bar → Y, testers who tick one task go on to the next → because Z, an immediate, visible response confirms that the effort counted.
+
 ## Entry EZ-5 - README · 2026-10-24, 22:40 SGT · sent by EZ · Claude Code
 ```
 直接推，但是要搞的美观大气，要有"高级感"。，如果需要图片你就直接加，如果需要更适合且此刻可以做的，你跟我说。
@@ -611,3 +696,85 @@ STEPS
 **What came back:** `schemeStatusM3.ts` (M3): the voucher line gives both dates on the 2026 tab and one on the 2027 tab, and vouchers rank first in Start here. `styleB.ts`: the title reads "may get". New `REFLECTION.md` from the briefing template, with EZ's A1 and A2 filled in and the rest left for the group.
 **Our judgement, and what we changed next:** these files have other owners, so the changes are small and the group was told. Consent and debrief were not built: that is M1's call and depends on what Prof said. Checked by rendering Start here for both year tabs, then `tsc` and `vite build`.
 **Principle check:** W4 loss framing with a true deadline; W3 expectations (Finding 1, keep the hedge).
+
+## Entry MS-6 - merge EZ's main into the redesign, care-teal brand, both voucher dates · 2026-11-01 · sent by MS · Claude Code
+```
+okay, lets go back to working on the website. So, someone from my team pushed a change so we have a merge conflict, we need to resolve that first, add our chnage on top of EZ's change (if any confilt is there) and then push it to the branch. 
+
+Also, the red apparently is about danger/risk, so we can keep a few components of red (As in the, let keep the original logo) and maybe use some other color in other parts.  As, its a help realted app, use resonating colors. 
+
+The interface looks good, so lets leave it as it is. If you have some other ideas about the interfcae, do let me know as we can maybe change it if it looks good
+```
+**What came back:**
+- **The merge:** `main` (7 commits from EZ) was merged into `m3-red-layout` with a normal merge commit (no rebase, no force-push). Seven files conflicted.
+  - AUDIT.md and PROMPTS.md: both sides only added dated entries, so both were kept, ours (31 Oct) before EZ's (1 Nov).
+  - The five shell components: both sides had replaced the real brand names. Our restyled layout was kept, with EZ's wording (e.g. "2026 Support Calculator", "Neighbourhood Support Offices"), EZ's in-page resource buttons in place of our self-linking anchors, and EZ's fix to the homepage helper (it searched for "cpf", which no longer appears).
+  - Checked: every EZ text change is in the result; no conflict markers left; it builds.
+- **Voucher dates:** EZ's audit correction (the January 2026 $300 of NCV Vouchers expires 31 Dec 2026, not 2027) had reached `schemeStatusM3.ts`, but not our newer to-do steps, deadline line and helper answers. A new `stepsFor()` / `deadlineFor()` in `taskGuide.ts` now gives two dates on the 2026 tab ($300 by 31 Dec 2026, $500 by 31 Dec 2027) and one on the 2027 tab.
+- **Colour:** red stays only in the heart logo. The brand became care teal (`#0F766E`, deep `#134E4A`). "Needs you" stays amber. "Automatic" became a quiet grey with a check, and "done" states use teal.
+
+`npm run build` passes, with no console errors. Browser check: the 2026 NCV task shows both dates, the 2027 task one date, and the helper's to-do answer uses the same dates; ?v=A is unchanged.
+
+**Our judgement, and what we changed next:** the merge kept both teammates' work instead of overwriting either side. The voucher fix shows why: the date was wrong in our new code even though EZ had fixed it in the shared status file, so a later layer had to be checked against the evidence again. The red brand was undone: a colour that also signals danger and risk (Bazley et al., 2021) works against a site meant to feel safe to ask for help. Teal keeps the logo's red visible as a single accent.
+
+**Principle check:** W8 colour, complementary contrast: X, a cool teal brand with the warm amber kept only for the items that need the household → Y, testers find their to-do items faster than in A (Findings 4 and 5) → because Z, the one warm area on a cool page is the most salient. W8 colour, red as risk (Bazley et al., 2021): X, red kept off everything except the logo → Y, testers do not read the amounts or tasks as risky or urgent → because Z, red carries danger and loss meanings that a help site should not attach to money. Finding 5 and W3 expectations: X, both real voucher expiry dates in the task and in the helper → Y, fewer testers miss the 31 Dec 2026 deadline → because Z, a single later date would set a wrong expectation for the $300 that expires first.
+
+## Entry MS-7 - conditions next to amounts, paid/coming, payout calendar, printable plan, consent and debrief · 2026-11-01 · sent by MS · Claude Code
+```
+i like evetyhing, add all the 5 ideads and push it. If i push this change, do other also have to interefere in the audit.md?
+```
+(The five ideas, as the AI offered them in reply to MS-6: show each condition next to its amount (Finding 8); "Paid" and "Coming" marks with a split total (Finding 3); consent and debrief screens with random A/B assignment; a payout timeline; a printable plan.)
+
+**What came back:**
+- **Conditions next to amounts:** `CONDITION` in `taskGuide.ts`, shown under the amount in each row of `ResultsScreenB.tsx`. Three conditions: the Earn and Save Bonus income range, the EUC Rebate property rule and the U-Credit property rule.
+- **Paid / still to come:** `payStatus()` and `paidSplit()` compare each payout line with today's date. Each row has an "Already paid" / "Still to come" / "Partly paid" badge, and the total card and sidebar say "$6,450 already paid · $2,000 still to come (as of 1 Nov 2026)" with a two-part bar.
+- **Payout calendar:** `PayoutTimeline.tsx`, a 12-month strip with a detail panel for the month tapped.
+- **Printable plan:** `PrintPlan.tsx`, rendered outside the app so the print is one clean page, behind a "Print my plan" button in `NextStep.tsx`.
+- **Study screens:** `src/study/StudyScreens.tsx` (consent, debrief, an "I'm finished" bar), random assignment in `useVariant.ts`, and the flow in `App.tsx`.
+- **Ask Compass** now gives the paid/to-come split and a scheme's condition.
+
+`npm run build` passes. Browser test at 1440px and 390px, with no console errors:
+- the consent screen shows first and hides the A/B switch;
+- with no `?v=`, the visitor was assigned an arm that survived a reload, and `?v=B` overrode it;
+- B showed 11 "Already paid" and 3 "Still to come" badges and 3 conditions;
+- the calendar's default month was December 2026 (Steady Package ×2 and the 2026 NSF Top-Up, $2,000), and March showed the Earn and Save Bonus;
+- print preview showed only the plan, with the chosen day;
+- "I'm finished" opened the debrief, "See version A" switched to A, and "Clear and start over" returned to consent.
+
+**Our judgement, and what we changed next:** the first print build hid the app with `visibility`, which would have printed about 20 blank pages, because the long page keeps its height. The plan now renders outside the app and printing hides the app entirely. The paid/coming split matches the figures in AUDIT.md ($6,450 paid and $2,000 to come, checked on 24 Oct and again on 1 Nov). Amounts in the calendar are shown only where a payout falls in one month, so no figure is invented by splitting. Findings 3 and 8 were audited repairs that had not been built, so building them closes gaps the audit itself named. The consent and debrief screens are shared by A and B, so they do not enter the comparison.
+
+**Principle check:** Finding 8 and W7 fluency: X, the condition in body-size text beside the amount it limits → Y, more testers mention the income condition when asked about Member 1's benefits (15% in A to 60% in B) → because Z, a condition read at the moment the amount is read is processed, while small italics at the foot of a box are skipped. Finding 3, W3 expectations and W4 reference point: X, "Already paid / Still to come" marks and a split total → Y, more testers can say how much P1 still gets in 2026 (15% in A to 60% in B) → because Z, the reference point becomes the $2,000 still to come, not the $8,450 total, so later payouts are not felt as a loss. W6 accountability (Finding 11): X, a printable one-page plan → Y, testers who have a helper share or keep the plan → because Z, a plan on paper can be handed to the person who will help. W1 random assignment: X, A or B given at random and kept per browser, with consent and debrief → Y, a pilot comparison that is fair and ethical → because Z, chance, not choice, decides who sees which version.
+
+## Entry MS-8 - README brought up to date with the current build · 2026-11-01 · sent by MS · Claude Code
+```
+You yourself push this change and add what's changed in README.md in my name and wherever needed
+```
+**What came back:** README.md (EZ's layout and wording kept) updated to the build on `m3-red-layout`:
+- a "Design" link to DESIGN.md;
+- the variant B row rewritten, and a new "What variant B adds" table: each change as the visitor's question, what B shows, and the finding it answers;
+- the Switch row now describes random assignment with `?v=` overriding;
+- the Test row says the consent and debrief screens are built;
+- the repository map lists DESIGN.md, `src/theme/` and the study screens;
+- one ground rule added on readability (WCAG AA, never colour alone, reduced motion).
+
+The commit is authored by MS and was pushed to `m3-red-layout`.
+
+**Our judgement, and what we changed next:** the README is what a marker reads first, so it must match what the live prototype does. The old text still described "Plan your next step" as a separate block and the test screens as not built. Every row of the new table points to the finding it answers, so the README states the same traceability as AUDIT.md. Nothing in AUDIT.md changed for this.
+
+**Principle check:** none: documentation only.
+
+## Entry MS-9 - alignment pass across the site · 2026-11-01 · sent by MS · Claude Code
+```
+hey, the whole website loooks somewhat misaligned, make sure its properly aligned and mainly the attached one and push it
+```
+(Sent with a screenshot of the household box in variant B at about 1536px wide, with the scheme text squeezed into narrow columns.)
+
+**What came back:**
+- **Cause:** at the widest breakpoint the rows went two-across, and each row also kept a fixed right-hand column (up to 240px) for the amount, badge and condition, so the scheme text was left with a strip about 100px wide.
+- **Scheme rows:** each row in `ResultsScreenB.tsx` is now one left-aligned column (name with the amount on its line, kind and plain line, a chip row with status and paid/to come, the condition in its own note, the payout date). Rows are one column everywhere. On phones the amount drops under the name.
+- **Other fixes:** box totals no longer wrap; the sidebar filter is two equal halves; the homepage resource grid goes four-across only on wide screens.
+- **Automated check:** every page (B, A, home) at 1920, 1536, 1280, 1024, 820 and 390px, looking for sideways scroll and for any text block under 140px wide but more than four lines tall. The first run found two cramped spots: the homepage resource cards at 820px, and a long scheme name beside its amount at 390px. Both were fixed, and the rerun found none.
+
+**Our judgement, and what we changed next:** the two-column rows came from MS-4 and survived MS-5, because at the widths checked then the rows had room. The fixed amount column added in MS-7 made them collapse at 1536px. A check of every width was added so a later change cannot quietly break one. Variant A was not touched.
+
+**Principle check:** W7 processing fluency: X, each row read in one column with the name and amount on the same line → Y, testers find a scheme's amount and condition faster → because Z, text in normal line lengths is processed quickly, while one or two words per line is effortful and gets skipped.

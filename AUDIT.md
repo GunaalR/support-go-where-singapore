@@ -164,6 +164,10 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 - 2026-10-28: M1 (GR) severity ratings added to Findings 1-12, after variant B was built.
 - 2026-10-28: M3 (MS) severity ratings added to Findings 1-12, after variant B was built.
 - 2026-10-28: M5 (KV) severity ratings added to Findings 1-12, after variant B was built.
+- 2026-10-31: MS-3 visual redesign of variant B and the shared site shell (colour tokens and reasons in DESIGN.md). Variant A unchanged; no finding, severity or prediction above was edited. B now also differs from A in visual polish, which is noted as a limit in DESIGN.md.
+- 2026-10-31: MS-4 usability changes to variant B: one to-do list in place of the duplicated Start here / Plan blocks, At a glance tiles, jump-to-person and "only ones that need me" filter, text size and Listen, and the scripted Ask Compass helper (details and the finding behind each in DESIGN.md). Variant A unchanged; nothing above this heading was edited.
+- 2026-10-31: MS-5 brand colour changed back to the heart logo's red across the shell and variant B, a two-column layout with a sticky summary sidebar on wide screens, and calm motion that switches off under reduced-motion settings (DESIGN.md). Variant A unchanged; nothing above this heading was edited.
+
 - 2026-11-01: group number filled in on line 3 (it was a blank). No finding changed.
 
 ### 2026-11-01 (EZ): correction to Findings 5 and 7
@@ -230,3 +234,5 @@ These came after the audit, so no prediction was committed before they were buil
 ### 2026-11-01, later (EZ): two changes applied to variant B
 
 The voucher line now gives both dates on the 2026 tab, and vouchers move to the top of "Start here" because theirs is now the earliest deadline. The page title reads "may get", which restores the hedge. Both tables above show the state before these two changes.
+- 2026-11-01: MS-6 merged main (EZ's corrections) into the redesign branch; brand colour changed from red to care teal, with red kept for the heart logo only; the NCV task and the helper now give both voucher dates from EZ's correction (DESIGN.md). Variant A unchanged; nothing above this heading was edited.
+- 2026-11-01: MS-7 built two repairs that the check above lists as not built: Finding 8 (each condition now sits next to the amount it limits, in body-size roman text) and Finding 3 (each row is marked "Already paid" or "Still to come" as of today, the total is split into paid and to come, and a month-by-month payout calendar was added). Also added: a printable plan, and the brief's consent screen, random A/B assignment (kept in localStorage; `?v=` overrides) and debrief screen. Finding 3's prediction above was written for "a future B"; any result for it is now testable but exploratory. Variant A unchanged; nothing above this heading was edited.

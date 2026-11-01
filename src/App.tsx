@@ -11,7 +11,8 @@ import { SearchModal } from './components/SearchModal';
 import { Footer } from './components/Footer';
 import { ResultsScreenA } from './variantA/ResultsScreenA';
 import { ResultsScreenB } from './variantB/ResultsScreenB';
-import { useVariant } from './study/useVariant';
+import { clearArm, useVariant } from './study/useVariant';
+import { ConsentScreen, DebriefScreen, FinishBar, CONSENT_KEY, hasConsented } from './study/StudyScreens';
 import { VariantToggle } from './study/VariantToggle';
 
 // ?v=A (or no ?v=) shows variant A, ?v=B shows variant B, ?v=home the homepage.
@@ -23,6 +24,13 @@ export default function App() {
   const [isCalculatorOpen, setIsCalculatorOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const { view, setView } = useVariant();
+  // A/B study flow (MS-7): consent once, then the version, then a debrief
+  const [consented, setConsented] = useState(hasConsented);
+  const [debrief, setDebrief] = useState(false);
+  const showStudy = (next: typeof view) => {
+    setDebrief(false);
+    setView(next);
+  };
 
   // homepage sections only exist on the homepage, so go there first
   const scrollOnHome = (id: string) => {
@@ -69,15 +77,44 @@ export default function App() {
       {/* 4. Original SupportGoWhere Homepage with Guided AI Assistant */}
       {/* pb-24 keeps the floating A/B switch from covering the last line */}
       <main className="flex-1 pb-24">
-        {view === 'home' && (
+        {consented && view === 'home' && (
           <HomePage
             schemes={FICTIONAL_SCHEMES}
             onSelectScheme={(scheme) => setSelectedScheme(scheme)}
             onOpenCalculator={() => setIsCalculatorOpen(true)}
           />
         )}
-        {view === 'A' && <ResultsScreenA onBack={() => setView('home')} />}
-        {view === 'B' && <ResultsScreenB onBack={() => setView('home')} />}
+        {!consented ? (
+          <ConsentScreen onAgree={() => setConsented(true)} />
+        ) : debrief && view !== 'home' ? (
+          <DebriefScreen
+            view={view}
+            onSeeOther={() => showStudy(view === 'B' ? 'A' : 'B')}
+            onBack={() => showStudy(view)}
+            onRestart={() => {
+              clearArm();
+              try {
+                window.localStorage.removeItem(CONSENT_KEY);
+              } catch {
+                // nothing stored
+              }
+              window.location.href = window.location.pathname;
+            }}
+          />
+        ) : (
+          <>
+            {view === 'A' && <ResultsScreenA onBack={() => setView('home')} />}
+            {view === 'B' && <ResultsScreenB onBack={() => setView('home')} />}
+            {view !== 'home' && (
+              <FinishBar
+                onFinish={() => {
+                  setDebrief(true);
+                  window.scrollTo({ top: 0 });
+                }}
+              />
+            )}
+          </>
+        )}
       </main>
 
       {/* 5. SupportGoWhere Footer (No duplicate language selector) */}
@@ -108,7 +145,7 @@ export default function App() {
         onSelectScheme={(scheme) => setSelectedScheme(scheme)}
       />
 
-      <VariantToggle view={view} onChange={setView} />
+      {consented && <VariantToggle view={view} onChange={showStudy} />}
 
     </div>
   );
