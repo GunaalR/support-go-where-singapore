@@ -207,6 +207,7 @@ function PayBadge({ row }: { row: PayoutRowA }) {
   if (!s) return null;
   const look = {
     paid: { text: 'Already paid', Icon: CheckCircle2, fg: C.auto, bg: C.autoTint },
+    claim: { text: 'Ready to claim', Icon: Hand, fg: C.claim, bg: C.claimTint },
     now: { text: 'Paying this month', Icon: CalendarClock, fg: C.brand, bg: C.brandSoft },
     coming: { text: 'Still to come', Icon: CalendarClock, fg: C.brand, bg: C.brandTint },
     partly: { text: 'Partly paid', Icon: CalendarClock, fg: C.signup, bg: C.signupTint },
@@ -494,10 +495,16 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
         )}
       </div>
       {/* Finding 3: how much of this year's money has already arrived */}
-      {(split.paid > 0 || split.partly > 0) && (
+      {(split.paid > 0 || split.claim > 0 || split.partly > 0) && (
         <div className="mt-4">
           <p className={`font-semibold ${compact ? 'text-sm' : 'text-base'}`} style={{ color: C.body }}>
             <span style={{ color: C.auto }}>{money(split.paid)} already paid</span>
+            {split.claim > 0 && (
+              <>
+                {' · '}
+                <span style={{ color: C.claim }}>{money(split.claim)} ready to claim</span>
+              </>
+            )}
             {' · '}
             <span style={{ color: C.brand }}>{money(split.coming)} still to come</span>
             {split.partly > 0 ? ` · ${money(split.partly)} partly paid` : ''}
@@ -505,6 +512,7 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
           </p>
           <div className="mt-1.5 flex h-2.5 w-full overflow-hidden rounded-full" style={{ backgroundColor: C.brandTint }} aria-hidden="true">
             <span style={{ width: `${(split.paid / Math.max(1, total.cash)) * 100}%`, backgroundColor: '#A0A8B3' }} />
+            <span style={{ width: `${(split.claim / Math.max(1, total.cash)) * 100}%`, backgroundColor: C.claimSolid }} />
             <span style={{ width: `${(split.partly / Math.max(1, total.cash)) * 100}%`, backgroundColor: C.signup }} />
             <span style={{ width: `${(split.coming / Math.max(1, total.cash)) * 100}%`, backgroundColor: C.brand }} />
           </div>

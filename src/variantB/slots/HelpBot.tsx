@@ -148,7 +148,9 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
           from: 'bot',
           text: `Your household could get ${totalText(panel)} in ${panel.year}. ${(() => {
             const s = paidSplit(panel);
-            return s.paid > 0 ? `Of the cash, ${money(s.paid)} has already been paid and ${money(s.coming)} is still to come. ` : '';
+            if (s.paid === 0 && s.claim === 0) return '';
+            const ready = s.claim > 0 ? `${money(s.claim)} is ready for you to claim (it reaches you only once you claim or use it), ` : '';
+            return `Of the cash, ${money(s.paid)} has already been paid, ${ready}and ${money(s.coming)} is still to come. `;
           })()}It is an estimate: it assumes the details you entered stay the same, and amounts marked “Up to” depend on conditions such as income.`,
           actions: [{ label: 'See every scheme', target: 'see-all-schemes' }, { label: 'When is the next payout?', topic: 'next' }],
         };
