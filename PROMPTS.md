@@ -811,3 +811,28 @@ Write my B2 part of REFLECTION.md, 150-250 words: what we'd test next and what r
 **What came back:** a draft built on the three-version test in DESIGN.md (A, A with the new look, B), the Finding 10 primary metric and sample size from AUDIT.md, the Finding 5 guardrail, and EZ's corrected voucher expiry date.
 **Our judgement, and what we changed next:** GR read and approved the draft before it was pushed; it is about 210 words and sits only under the B2 heading.
 **Principle check:** none: reflection text only.
+
+## Entry DD-1 - my severity scores against the group's, to prepare my reasoning · [date, time] · sent by DD · Claude (claude.ai)
+```
+I am M4 DD take the severity across all the findings and consolidate so i can come up with a reasoning on why i have a different opinion
+```
+(Attached: the text of the 12 findings from AUDIT.md with all five members' ratings.)
+**What came back:** a table of all 12 findings with the five ratings, median and spread; the six findings with a two-point spread (1, 4, 7, 8, 9, 12); a pattern in my scores (higher on what the user reads and trusts, lower on how hard things are to reach); a consistency question (Finding 5 at 4 but Findings 4 and 7 at 1); and candidate reasons for each of the six.
+**Our judgement, and what we changed next:** the pattern and the candidate reasons are the AI's reading of the numbers, not my reasons. I kept [DD: which], rejected [DD: which], and my scores were not changed after seeing the group's. [DD: your own reason for each of the six, and your answer on 5 against 4 and 7.]
+**Principle check:** none: rating process (rate alone, compare, then discuss).
+
+## Entry DD-2 - what the AI missed, checked on the live site · [date, time] · sent by DD · Claude (claude.ai)
+```
+https://support-go-where-singapore.vercel.app/?v=A
+https://support-go-where-singapore.vercel.app/?v=B
+
+this is our website and looking through these two what do you think AI would have missed
+```
+```
+here are the screenshots or the live site and the site with nudges
+```
+(Attached: seven screenshots of ?v=A and ?v=B on 1 Nov 2026.)
+**What came back:** the first reply said it could not see the site (the page is drawn by JavaScript) and listed gaps from the build log. After the screenshots it confirmed six on screen and corrected two earlier claims: "Already paid" is inferred from the date, not from what the household got (Member 1's Earn and Save Bonus is marked paid beside an income condition that may rule her out); "Already paid" sits next to "Claim it yourself"; the digital ID is assumed; the date field is a bare dd-mm-yyyy box; B is about five screens long against two for A; and three different counts ("3 to go", "3 things to do", "needs me (6)").
+**Our judgement, and what we changed next:** the AI wrongly said the child credits do not say who acts; B does name the trustee. [DD: what you re-checked on the live pages, and what you passed to the group.]
+**Principle check:** W3 expectations and W4 reference point (Finding 3); W7 fluency and Nielsen 8, minimalist design (Finding 4): [DD: only if you used them in your work].
+   
