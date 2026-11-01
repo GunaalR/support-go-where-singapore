@@ -16,7 +16,9 @@ We opened Kahneman ch. 26 and found on p. 282 that the reference point can be "t
 
 ### A3 Which nudge-or-sludge call did you make against the AI's suggestion, and why?
 
-[...] (initials)
+The clearest one was the label on the Child LifeSG Credits. The AI's first version of B labelled them "Automatic: sent to the app, use within 12 months", because the official record says "No application needed". We overruled it. Nothing arrives in a bank account: the child's trustee has to open the app and spend the credits before they expire. A label saying "Automatic" would tell a household it can do nothing, which is the very belief Finding 5 calls sludge. We changed it to "Claim it yourself: in the app" and kept the item in "Start here". The lesson we took was that "no application needed" does not mean "nothing to do".
+
+The second call was a default. The AI built the calendar reminder as a box ticked by default and presented it as a helpful W4 default. We judged it too close to the pre-ticked "Order Protection" that the Week 6 briefing uses as its example of sludge, even though the reminder costs nothing. B now asks the visitor to press "Add reminders to my calendar". A default can serve the user, but a pre-ticked box is the form the course warns about, so we chose an explicit choice over a quiet one. (MS)
 
 ### A4 What about your users could the AI not know?
 
