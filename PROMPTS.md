@@ -811,3 +811,12 @@ Write my B2 part of REFLECTION.md, 150-250 words: what we'd test next and what r
 **What came back:** a draft built on the three-version test in DESIGN.md (A, A with the new look, B), the Finding 10 primary metric and sample size from AUDIT.md, the Finding 5 guardrail, and EZ's corrected voucher expiry date.
 **Our judgement, and what we changed next:** GR read and approved the draft before it was pushed; it is about 210 words and sits only under the B2 heading.
 **Principle check:** none: reflection text only.
+
+## Entry EZ-9 - agreed severities, Section 2 update, and a check of the merged B · 2026-11-01, 21:40 SGT · sent by EZ · Claude Code
+```
+这是最新对话信息（忽略右下角Claude的消息），请继续，并告知我下一步该做什么/向群里面发送什么？
+```
+(English: "This is the latest chat. Please continue, and tell me what to do next and what to send to the group.")
+**What came back:** the agreed table in AUDIT.md, Section 2 updated for the merge, and a check of the facts in the merged B. Consent, debrief, random assignment, conditions next to amounts and paid-or-coming marks all render, the total settles at $8,450, no real names remain, and variant A's files are unchanged.
+**Our judgement, and what we changed next:** one problem found. The NCV Vouchers and Child CompassLife Credits rows read "Already paid" beside "Claim it yourself", and the "$6,450 already paid" line counts their $1,800. That tells a household the money has arrived, which is the belief Finding 5 calls sludge. It sits in M3's code, so it went to M3 with a suggested fix. The reasons in the agreed table are EZ's reading of each driver and are labelled so, not put in other members' mouths.
+**Principle check:** W3 expectations and Finding 5: "paid" is an expectation, and it must not contradict "claim it yourself".
