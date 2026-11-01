@@ -7,6 +7,7 @@ Retrieved on 2026-10-24 (SGT) by EZ from the live SupportGoWhere site. Only the 
 | `2026-10-24_P1_calculator_input.json`, `..._P2_...` | The household answers, in the form the calculator page sends them |
 | `2026-10-24_P1_calculator_result.json`, `..._P2_...` | The calculator's reply, which the results screen draws as its rows, amounts and payout months |
 | `2026-10-24_scheme_records.json` | The official record behind each scheme page for the 10 schemes P1 and P2 receive: "application needed" flag, highlights, "How to apply" and "About this support" text |
+| `2026-11-01_recheck.md` | Recheck that the live results had not changed, and the sources for the two CDC Voucher expiry dates |
 
 ## How the files were obtained
 
@@ -22,7 +23,7 @@ The table groups rows by box; on screen, rows inside each box are sorted alphabe
 | You | Cash - GSTV | $850 | Payout in August 2026 | Nothing if signed up before; otherwise sign up once |
 | You | Cash - Budget 2026 Cost-of-Living Special Payment | $500 | Payout in September 2026 | Nothing |
 | Household | Rebate - U-Save | $600 | Granted from Jan, Apr, Jul and Oct 2026 | Nothing |
-| Household | Voucher - CDC Vouchers | $800 | Payout in Jan and Jun 2026 | Claim on RedeemSG; valid until 31 Dec 2027 |
+| Household | Voucher - CDC Vouchers | $800 | Payout in Jan and Jun 2026 | Claim on RedeemSG; the January $300 is valid until 31 Dec 2026, the June $500 until 31 Dec 2027 (corrected 2026-11-01) |
 | Household | Rebate - Service and Conservancy Charges (S&CC) Rebate | 2.5 months | Granted from Jan, Apr, Jul and Oct 2026 | Nothing |
 | Member 1 | CPF Top-up - Budget 2026 CPF Top-Up | $1,500 | Payout in December 2026 | Nothing |
 | Member 1 | CPF Top-up - GSTV — MediSave | $250 | Payout in August 2026 | As GSTV cash |

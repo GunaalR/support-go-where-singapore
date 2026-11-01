@@ -141,7 +141,7 @@ export function Footer({
                 </li>
               </ul>
               <p className="text-xs text-[#5B6675] leading-relaxed">
-                Student prototype · SMU MGMT6108 Decision Architecture for Managers. Fictional brand and data.
+                A student project at Singapore Management University. Not a government service.
               </p>
             </div>
 

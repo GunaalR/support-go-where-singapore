@@ -156,8 +156,8 @@ export function Header({
                     }}
                     className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-emerald-50 hover:text-emerald-700 rounded-lg transition-colors cursor-pointer flex flex-col"
                   >
-                    <span className="font-semibold text-gray-900">Budget 2026 Calculator</span>
-                    <span className="text-[11px] text-gray-500">Estimate your vouchers, rebates and cash payouts</span>
+                    <span className="font-semibold text-gray-900">2026 Support Calculator</span>
+                    <span className="text-[11px] text-gray-500">Calculate NCV Vouchers & Steady Package payouts</span>
                   </button>
                   <button
                     onClick={() => {
@@ -166,8 +166,8 @@ export function Header({
                     }}
                     className="w-full text-left px-3 py-2 text-xs text-gray-700 hover:bg-[#FFF1F3] hover:text-[#BE123C] rounded-lg transition-colors cursor-pointer flex flex-col"
                   >
-                    <span className="font-semibold text-gray-900">Directory of SSOs</span>
-                    <span className="text-[11px] text-gray-500">Find your nearest Social Service Office</span>
+                    <span className="font-semibold text-gray-900">Directory of Support Offices</span>
+                    <span className="text-[11px] text-gray-500">Find your nearest support office</span>
                   </button>
                 </div>
               )}

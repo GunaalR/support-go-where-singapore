@@ -26,7 +26,7 @@ We audited the live page before designing anything. The audit is committed ahead
 
 ## What the audit found
 
-| | |
+| Area | What we found |
 |:--|:--|
 | **What already works** | The page leads with an honest, hedged total ("Up to $8,450 and 2.5 months of rebate" for our main persona). The redesign keeps it. |
 | **The central problem** | All 10 schemes our persona receives are officially "no application needed", yet three still need the household to act: claim vouchers, open an app, or sign up once. On screen they look exactly like the automatic ones. |
@@ -39,27 +39,30 @@ Twelve findings in all, each with its principle, the course reading, whose goal 
 | Variant | What it is | Status |
 |:--|:--|:--|
 | **A · as is** | The live results page rebuilt element by element under the fictional brand, checked against dated screenshots | Built · [`src/variantA/`](src/variantA/) |
-| **B · redesign** | Every change traces to a finding in the audit: a "Start here" block, plain labels for what arrives by itself and what to claim, a "What you'll need" list, an optional day picker with an equally visible "Skip" | In progress |
-| **Test** | One URL, `?v=A` or `?v=B`, with a consent screen before and a debrief screen after | In progress |
+| **B · redesign** | The same screen with a "Start here" block, plain labels for what arrives by itself and what to claim, a plain line and colour for each kind of support, and a "Plan your next step" block with a day picker and an equally visible "Skip" | Built · [`src/variantB/`](src/variantB/) · [each repair checked against the audit](AUDIT.md#added-after-building) |
+| **Switch** | One URL: `?v=A` or `?v=B`, with an on-page toggle | Built · [`src/study/`](src/study/) |
+| **Test** | Primary metric, guardrails, sample size, consent and debrief | Test plan in the paper, section 4 |
 
 ## Repository map
 
 ```text
 AUDIT.md              the audit: 12 findings, severity ratings, predictions
 PROMPTS.md            every AI prompt in order, initialled, failures kept
-REFLECTION.md         critical thinking and pilot results (after the pilot)
+REFLECTION.md         critical thinking and what we would test next
 audit/
-  evidence/           live calculator results and scheme records, 24 Oct 2026
+  evidence/           live calculator results and scheme records, 24 Oct 2026, rechecked 1 Nov
   screenshots/        17 dated screenshots of the live page, logged in SHOTLIST.md
 src/
   variantA/           variant A: the live results page under the fictional brand
+  variantB/           variant B: the same page with our nudges, one file per owner
+  study/              the ?v= switch and on-page toggle
   components/         site shell and shared screens
 ```
 
 ## Ground rules we kept
 
 - **Fictional brand, real evidence.** Every claim about the live page can be checked against a dated screenshot or a saved record in `audit/`.
-- **Audit before build.** Findings and predictions were committed before the first prompt for variant B.
+- **Audit before build.** Findings and predictions were committed before the first prompt for variant B. Anything learned later is dated under "Added after building".
 - **Nudge, not sludge.** Each change in B must serve the household's own goal and be as easy to ignore as to accept.
 - **A pilot is a pilot.** Any classroom result is reported as a pilot, not as proof.
 

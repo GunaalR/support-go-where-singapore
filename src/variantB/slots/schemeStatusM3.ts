@@ -54,15 +54,19 @@ export const SCHEME_STATUS: Record<string, SchemeStatus> = {
   // U-SAVE: "credited directly into eligible households' utilities accounts"
   'U-CREDIT': AUTOMATIC,
   // CDC: "households can claim their vouchers via the RedeemSG website",
-  // "valid until 31 December 2027"
+  // "valid until 31 December 2027" covers the June and later vouchers; the
+  // January 2026 $300 is valid till 31 December 2026 (CDC site, see
+  // audit/evidence/2026-11-01_recheck.md), so the 2026 tab has two dates.
   NCV: {
     kind: 'claim',
     label: 'Claim it yourself: on the RedeemNow website',
     shortName: 'NCV Vouchers',
-    reason: 'Claim them on the RedeemNow website, as they do not arrive by themselves. They can be used until 31 December 2027.',
-    rank: 2,
+    reason: 'Claim them on the RedeemNow website, as they do not arrive by themselves.',
+    rank: 1,
     ownedLine: amount =>
-      `${amount} is already set aside for your household. Unclaimed vouchers expire on 31 December 2027.`,
+      amount === '$800'
+        ? `${amount} is already set aside for your household. Unclaimed vouchers expire in two steps: $300 on 31 December 2026 and $500 on 31 December 2027.`
+        : `${amount} is already set aside for your household. Unclaimed vouchers expire on 31 December 2027.`,
   },
   // GNAgZJDj: "disbursed to the CDA trustee of the child via the LifeSG mobile
   // app", "valid for 12 months from disbursement, with the expiry date
@@ -73,7 +77,7 @@ export const SCHEME_STATUS: Record<string, SchemeStatus> = {
     shortName: 'Child CompassLife Credits',
     reason:
       'They are not paid into a bank account. The child’s trustee uses them in the CompassLife app, and they expire 12 months after they arrive (the app shows the date).',
-    rank: 1,
+    rank: 2,
     ownedLine: amount => `${amount} is already set aside. Credits expire 12 months after they arrive.`,
   },
   // GSTV-CASH and GSTV-MEDISAVE: "No application needed if you have previously
@@ -107,8 +111,8 @@ export interface ActionItem {
 }
 
 // Items the household must act on in the year shown, earliest deadline first,
-// at most three: child credits (12 months from payout), NCV Vouchers
-// (31 Dec 2027), then the one-time LCV sign-up (only if never signed up).
+// at most three: NCV Vouchers (first date 31 Dec 2026), child credits
+// (12 months from payout), then the one-time LCV sign-up (only if never signed up).
 export function actionItems(panel: YearPanelA): ActionItem[] {
   const byKey = new Map<string, ActionItem>();
   for (const box of [...panel.ownBoxes, ...panel.memberBoxes]) {

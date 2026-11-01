@@ -186,7 +186,7 @@ export function HeroSection({
     followupOptions: [
       { id: 'crisis_help', label: 'Emergency crisis or community support' },
       { id: 'mental_health', label: 'Mental health and youth counselling' },
-      { id: 'cpf_retirement', label: 'Retirement and NSF savings planning' },
+      { id: 'cpf_retirement', label: 'Retirement and NSF planning' },
       { id: 'not_sure', label: "I'm not sure" }
     ],
     secondQuestion: 'Would you prefer community support or government grants?',
@@ -264,7 +264,7 @@ export function HeroSection({
     const q = text.toLowerCase();
     if (q.includes('job')) {
       handleSelectSituation(situations.find(s => s.id === 'job_loss') || situations[1]);
-    } else if (q.includes('cpf')) {
+    } else if (q.includes('nsf')) {
       handleSelectSituation(somethingElseSituation);
     } else if (q.includes('family')) {
       handleSelectSituation(situations.find(s => s.id === 'family') || situations[5]);
@@ -275,7 +275,7 @@ export function HeroSection({
 
   const quickPills = [
     "Any assistance for job loss?",
-    "When can I use my NSF savings?",
+    "When can I withdraw my NSF savings?",
     "How do I apply for family support?",
     "Support for senior healthcare expenses"
   ];

@@ -664,3 +664,35 @@ can you make it look more better, change back the logo and color theme to red (l
 **Our judgement, and what we changed next:** the first two-column build had two problems the AI caught in its own screenshots. The sidebar was taller than the screen, so the help card and finder were cut off; the tiles were made compact, the help card moved up, and the sidebar now scrolls on its own. And rows in two columns beside the sidebar were cramped; they became one column there. We accepted a known risk with red: Bazley et al. (2021) found that red made people more risk-averse about money. So red stays on the brand only, and every amount, status and warning keeps its own non-red colour, words and icon. The motion is for orientation and feedback only. Nothing moves to rush the visitor, which would turn a nudge into sludge.
 
 **Principle check:** W10 culture and W8 colour (Bazley et al., 2021): X, a rose-red brand that matches the heart logo, kept off amounts and labels → Y, testers rate the site as trustworthy and caring at least as highly as A, without reading the amounts as risky → because Z, red signals care and luck in a Singapore context when it is the brand, while the money itself carries no red. Nielsen #1, visibility of status, and W2 goal gradient: X, a sticky sidebar with the total, the progress bar and the tasks left → Y, more testers finish all their to-do items → because Z, progress stays in sight while they work through the detail. W2 feedback: X, a short "All done" burst and a filling progress bar → Y, testers who tick one task go on to the next → because Z, an immediate, visible response confirms that the effort counted.
+
+## Entry EZ-5 - README · 2026-10-24, 22:40 SGT · sent by EZ · Claude Code
+```
+直接推，但是要搞的美观大气，要有"高级感"。，如果需要图片你就直接加，如果需要更适合且此刻可以做的，你跟我说。
+```
+(English: "Push it directly, but make it look polished and high-end. Add images if needed; tell me if something better is possible now.")
+**What came back:** `README.md` and a drawn SVG banner in `docs/`.
+**Our judgement, and what we changed next:** two sentences claimed more than was true ("each finding has a prediction"; B's label wording, which was not yet decided) and were reworded before the push.
+**Principle check:** none: production only.
+
+## Entry EZ-6 - citations checked against the readings · 2026-10-25, 01:15 SGT · EZ · Claude Code
+**What came back:** Labrecque & Milne confirmed at p. 711 (published 2012, not 2011). Our Ariely scan has its page numbers cropped, so the reading list gave the range. The library proxy failed on the e-book chapters until an incognito window got past a cookie error; Alter ch. 2 and ch. 7 were then read online.
+**Our judgement, and what we changed next:** pages we opened went into AUDIT.md. Readings we could not open are named as such, and each of those claims also rests on a slide we checked.
+**Principle check:** none: citation accuracy.
+
+## Entry EZ-7 - status check, a wrong date in the audit, and the site shell · 2026-11-01, 03:30 SGT · sent by EZ · Claude Code
+```
+把你这边明确归属于我这部分以及没有人明确负责的部分全部保质保量的做好，时间不限，可以用很多时间。
+```
+(English: "Do everything that clearly belongs to me, and everything nobody clearly owns, to a high standard. Take as long as it needs.")
+**What came back:** the AI's audit had said CDC Vouchers are valid until 31 Dec 2027, copied from the scheme page. Checked against the CDC's own page, the January 2026 $300 expires on 31 Dec 2026. It also compared the five solo ratings, checked every repair against variant B, rechecked the live results (identical to 24 Oct), rendered A and B for the first time at laptop and phone width, and replaced the government bar and real names in the site shell (the item GR-2 left for the team).
+**Our judgement, and what we changed next:** the error is corrected under "Added after building", not edited in place, so the pre-registered text stands. Its rename of a homepage question from CPF to NSF would have broken that button's routing, which was fixed before the push. The "agreed" numbers are given as medians and marked unsettled, because the group has not yet discussed the six two-point gaps. Claims about why members disagreed were removed from the paper: we do not know their reasons.
+**Principle check:** W4 loss framing: a wrong deadline inside a loss frame would be sludge, so B's voucher line needs the corrected date.
+
+## Entry EZ-8 - voucher date and page title applied to variant B; REFLECTION.md started · 2026-11-01 · sent by EZ · Claude Code
+```
+把所有这些文件，看看除了venkata还有没有其他人的 ，直接放进去他们的部分，然后群里跟他们说一声就行。
+```
+(English: "Take all these, see if anyone besides Venkata has parts too, put them straight into their parts, and tell them in the group.")
+**What came back:** `schemeStatusM3.ts` (M3): the voucher line gives both dates on the 2026 tab and one on the 2027 tab, and vouchers rank first in Start here. `styleB.ts`: the title reads "may get". New `REFLECTION.md` from the briefing template, with EZ's A1 and A2 filled in and the rest left for the group.
+**Our judgement, and what we changed next:** these files have other owners, so the changes are small and the group was told. Consent and debrief were not built: that is M1's call and depends on what Prof said. Checked by rendering Start here for both year tabs, then `tsc` and `vite build`.
+**Principle check:** W4 loss framing with a true deadline; W3 expectations (Finding 1, keep the hedge).

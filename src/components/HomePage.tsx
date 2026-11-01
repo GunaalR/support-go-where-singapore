@@ -30,14 +30,14 @@ export function HomePage({
 
   // 12 illustrated topic categories, as on the live homepage
   const topicCategories = [
-    { id: 'financial', name: 'Financial support & benefits', desc: 'Grocery vouchers, NCV vouchers & cash grants' },
+    { id: 'financial', name: 'Financial support & benefits', desc: 'Grocery vouchers, NCV Vouchers & cash grants' },
     { id: 'work', name: 'Work & employment', desc: 'Career matching, training allowances & retrenchment aid' },
     { id: 'caregiving', name: 'Caregiving support', desc: 'Respite care, caregiver allowances & home assistance' },
-    { id: 'housing', name: 'Housing & shelters', desc: 'Rental assistance, rebates & public housing' },
+    { id: 'housing', name: 'Housing & shelters', desc: 'Rental assistance, flat rebates & public housing' },
     { id: 'healthcare', name: 'Healthcare & well-being', desc: 'Polyclinic subsidies, medical aid & eldercare wellness' },
     { id: 'family', name: 'Family, parenting & relationships', desc: 'Childcare subsidies, infant grants & family services' },
     { id: 'education', name: 'Education & learning', desc: 'School bursaries, tuition subsidies & transport concessions' },
-    { id: 'retirement', name: 'Retirement & legacy planning', desc: 'Senior support, NSF savings planning & wellness' },
+    { id: 'retirement', name: 'Retirement & legacy planning', desc: 'Senior support, NSF planning & senior wellness' },
     { id: 'disability', name: 'Disability support', desc: 'Assistive tech, transport subsidies & care grants' },
     { id: 'mentalhealth', name: 'Mental health', desc: 'Youth counselling, peer support & clinic subsidies' },
     { id: 'citizenship', name: 'Citizenship & residency', desc: 'Passports, identity cards & community registration' },
@@ -134,13 +134,13 @@ export function HomePage({
         <div className="bg-gradient-to-br from-[#881337] via-[#BE123C] to-[#E11D48] rounded-3xl p-6 sm:p-10 text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
           <div>
             <div className="text-sm font-bold uppercase tracking-wider text-[#FECDD6] mb-1">
-              Budget 2026 Support
+              2026 Support
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
               Check what support you qualify for
             </h2>
             <p className="text-sm sm:text-base text-[#FFE4E8] mt-2 max-w-xl leading-relaxed">
-              Find out your estimated NCV vouchers, cost-of-living payouts and utility rebates, and what you need to do to get them.
+              Find out your estimated NCV Vouchers, Steady Package payouts, and utility rebates with our interactive calculator.
             </p>
           </div>
 
@@ -150,7 +150,7 @@ export function HomePage({
               className="px-5 py-3 bg-white text-[#BE123C] hover:bg-[#FFF1F3] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
             >
               <Calculator className="w-4 h-4 text-[#BE123C]" />
-              <span>Launch Budget 2026 Calculator</span>
+              <span>Launch 2026 Support Calculator</span>
             </button>
           </div>
         </div>
@@ -234,19 +234,19 @@ export function HomePage({
               <div className="w-9 h-9 rounded-xl bg-[#FFF1F3] text-[#BE123C] flex items-center justify-center mb-3">
                 <MapPin className="w-5 h-5 stroke-[2.2]" />
               </div>
-              <h3 className="text-sm font-bold text-[#0F1E2E]">Social Service Offices</h3>
+              <h3 className="text-sm font-bold text-[#0F1E2E]">Neighbourhood Support Offices</h3>
               <p className="text-sm text-[#334155] mt-1.5 leading-relaxed">
-                Social Service Offices islandwide providing financial assistance and local social support.
+                Local offices providing financial assistance and neighbourhood social support.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-gray-100">
-              <a
-                href="#resources-and-tools"
-                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1"
+              <button
+                onClick={() => handleExploreCategory('financial')}
+                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1 cursor-pointer"
               >
-                <span>Find your nearest office</span>
+                <span>Find nearest office</span>
                 <ArrowRight className="w-3 h-3" />
-              </a>
+              </button>
             </div>
           </div>
 
@@ -257,17 +257,17 @@ export function HomePage({
               </div>
               <h3 className="text-sm font-bold text-[#0F1E2E]">Neighbourhood Councils</h3>
               <p className="text-sm text-[#334155] mt-1.5 leading-relaxed">
-                Run the NCV Vouchers you can spend at neighbourhood shops, hawkers and supermarkets.
+                Administering NCV Vouchers for neighbourhood shops and supermarkets.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-gray-100">
-              <a
-                href="#resources-and-tools"
-                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1"
+              <button
+                onClick={() => handleExploreCategory('financial')}
+                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>About NCV Vouchers</span>
                 <ArrowRight className="w-3 h-3" />
-              </a>
+              </button>
             </div>
           </div>
 
@@ -297,19 +297,19 @@ export function HomePage({
               <div className="w-9 h-9 rounded-xl bg-purple-50 text-purple-700 flex items-center justify-center mb-3">
                 <Compass className="w-5 h-5 stroke-[2.2]" />
               </div>
-              <h3 className="text-sm font-bold text-[#0F1E2E]">CompassLife app</h3>
+              <h3 className="text-sm font-bold text-[#0F1E2E]">CompassLife Digital Services</h3>
               <p className="text-sm text-[#334155] mt-1.5 leading-relaxed">
-                See your payouts and use credits such as Child CompassLife Credits in one app.
+                Access digital services tailored across personal life moments.
               </p>
             </div>
             <div className="mt-4 pt-3 border-t border-gray-100">
-              <a
-                href="#resources-and-tools"
-                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1"
+              <button
+                onClick={() => handleExploreCategory('financial')}
+                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>About CompassLife</span>
                 <ArrowRight className="w-3 h-3" />
-              </a>
+              </button>
             </div>
           </div>
 

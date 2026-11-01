@@ -1,6 +1,6 @@
 # AUDIT.md - SupportGoWhere, Support For You Calculator results screen · the decision: what, if anything, a household does after it sees its estimated benefits
 
-**Group:** [no.] · **Members:** M1 Gunaal R. · M2 Enhao (Andy) Zhang (EZ) · M3 Maya M. Sukumar (MS) · M4 Dhiksha D.(DD) · M5 Venkata Narayana Koppaka (KV)
+**Group:** 2 · **Members:** M1 Gunaal R. · M2 Enhao (Andy) Zhang (EZ) · M3 Maya M. Sukumar (MS) · M4 Dhiksha D.(DD) · M5 Venkata Narayana Koppaka (KV)
 
 **Product audited:** the live results screen at supportgowhere.life.gov.sg/budget/support-calculator/result, which appears after the calculator form. Our prototype rebuilds it as variant A under the fictional brand HelpCompass SG.
 
@@ -167,3 +167,70 @@ Severity uses the 0-4 scale from the Week 6 briefing. Each member rates every fi
 - 2026-10-31: MS-3 visual redesign of variant B and the shared site shell (colour tokens and reasons in DESIGN.md). Variant A unchanged; no finding, severity or prediction above was edited. B now also differs from A in visual polish, which is noted as a limit in DESIGN.md.
 - 2026-10-31: MS-4 usability changes to variant B: one to-do list in place of the duplicated Start here / Plan blocks, At a glance tiles, jump-to-person and "only ones that need me" filter, text size and Listen, and the scripted Ask Compass helper (details and the finding behind each in DESIGN.md). Variant A unchanged; nothing above this heading was edited.
 - 2026-10-31: MS-5 brand colour changed back to the heart logo's red across the shell and variant B, a two-column layout with a sticky summary sidebar on wide screens, and calm motion that switches off under reduced-motion settings (DESIGN.md). Variant A unchanged; nothing above this heading was edited.
+
+- 2026-11-01: group number filled in on line 3 (it was a blank). No finding changed.
+
+### 2026-11-01 (EZ): correction to Findings 5 and 7
+
+The header and Finding 7 give "valid until 31 Dec 2027" for CDC Vouchers. That is true only of the June 2026 $500. P1's $800 row also holds the January 2026 $300, which is valid until **31 Dec 2026** (sources in `audit/evidence/2026-11-01_recheck.md`). We took the date from the scheme page, and that page describes only the June and later vouchers.
+
+The findings stand and are stronger for it: one row hides two deadlines, and on 1 Nov 2026 the nearer one is two months away. No severity rating was changed for this. Variant A shows no expiry date, so it is unaffected. Variant B's "Unclaimed vouchers expire on 31 December 2027" needs the same correction (M3).
+
+### 2026-11-01 (EZ): recheck of the live screen
+
+The calculator's results for P1 and P2 were identical to those saved on 24 Oct (`audit/evidence/2026-11-01_recheck.md`).
+
+### 2026-11-01 (EZ): ratings compared
+
+Each member rated alone. "Median" is the middle of the five ratings. It stands in for the agreed number until the group has talked through the rows marked "discuss", where ratings are two points apart (Week 6 briefing, slide 22).
+
+| # | Finding | GR | EZ | MS | DD | KV | Median | Range | |
+|---|---|---|---|---|---|---|---|---|---|
+| 1 | Total, labelled an estimate | 0 | 0 | 0 | 2 | 0 | 0 | 0-2 | discuss |
+| 2 | Boxes open by default | 0 | 0 | 0 | 0 | 0 | 0 | 0 | |
+| 3 | Paid and upcoming money mixed | 2 | 2 | 2 | 1 | 2 | 2 | 1-2 | |
+| 4 | Rows by person, no priority | 3 | 2 | 3 | 1 | 3 | 3 | 1-3 | discuss |
+| 5 | No "automatic or claim" status | 3 | 3 | 4 | 4 | 4 | 4 | 3-4 | |
+| 6 | Agency shorthand names | 3 | 2 | 2 | 2 | 2 | 2 | 2-3 | |
+| 7 | How to claim is on another page | 2 | 2 | 3 | 1 | 3 | 2 | 1-3 | discuss |
+| 8 | Conditions in small italics | 1 | 2 | 2 | 3 | 2 | 2 | 1-3 | discuss |
+| 9 | Largest button looks backward | 1 | 1 | 1 | 3 | 1 | 1 | 1-3 | discuss |
+| 10 | No plan, save or reminder | 3 | 3 | 3 | 2 | 2 | 3 | 2-3 | |
+| 11 | Help is an FAQ link only | 1 | 1 | 2 | 2 | 2 | 2 | 1-2 | |
+| 12 | One colour for every box | 2 | 1 | 1 | 0 | 1 | 1 | 0-2 | discuss |
+
+### 2026-11-01 (EZ): where each repair stands in variant B
+
+Checked on the commit of 31 Oct (`d9e328a`), by reading the code and rendering `?v=B`.
+
+| # | Repair | Status in B |
+|---|---|---|
+| 1 | Keep the total and its hedges | Total box and subtitle kept. The page title changed from "may receive" to "can get", which drops one hedge |
+| 2 | Every row reachable | Kept: all rows stay on the page, and "See all schemes" jumps to them |
+| 3 | Paid versus coming | Not built, as planned; next test |
+| 4 | "Start here" with reasons | Built (M3) |
+| 5 | One status on every row | Built (M3), plus one form the audit did not list: "Automatic for employees; if self-employed, declare your income to the tax office" |
+| 6 | One plain line per scheme | Built (M5) |
+| 7 | "What you'll need" with expiry | Built (M1, in M4's slot); the voucher expiry needs the correction above |
+| 8 | Condition next to the amount | Not built: the notes are still in small italics at the foot of each box |
+| 9 | Banner | Unchanged, as planned |
+| 10 | Plan and reminder | Built (M1, in M4's slot) as a date picker with Skip and a calendar file, in place of "Today / This weekend / Remind me"; the progress cue is M3's count |
+| 11 | "Do this with someone" | Built (M1, in M4's slot): a message to copy, naming only the items and days |
+| 12 | Colour and icon per kind | Built (M5, M1): always with a word, and no red |
+
+### 2026-11-01 (EZ): changes in B that the audit did not predict
+
+These came after the audit, so no prediction was committed before they were built, and any pilot result for them is exploratory. Verdicts are EZ's reading and have not been rated by the group. Prompts are in PROMPTS.md, entries MS-2 and GR-5.
+
+| Change | Principle | Whose goal wins | Verdict |
+|---|---|---|---|
+| "8 of 14 benefits already taken care of" count and bar | W2 endowed progress | The user, if the count stays true. The 8 needed nothing from them, so it may flatter | grey |
+| "I've done this" tick per item | W2 feedback | The user | nudge |
+| "$800 is already set aside" with an expiry date | W4 loss aversion, endowment | The user, because the deadline is real. It must be the correct date: a wrong deadline inside a loss frame is what the briefing calls sludge | nudge once corrected |
+| Member ages in the "For:" line | W2 identifiable person | The user | nudge |
+| Calendar reminder ticked by default | W4 default | The user: it costs no money, is one click to untick, and the file only downloads on "Save my plan". Pre-ticked boxes are the briefing's own warning, so the paper should defend this one | nudge, with a watch |
+| Page title "can get" | W7 fluency | Mixed: plainer, but it weakens the hedge Finding 1 keeps | grey |
+
+### 2026-11-01, later (EZ): two changes applied to variant B
+
+The voucher line now gives both dates on the 2026 tab, and vouchers move to the top of "Start here" because theirs is now the earliest deadline. The page title reads "may get", which restores the hedge. Both tables above show the state before these two changes.

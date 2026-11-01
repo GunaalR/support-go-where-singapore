@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, FlaskConical, ShieldCheck } from 'lucide-react'
 import { C } from '../theme/brand';
 
 // Top notice bar. The live site has a "Singapore Government Agency Website"
-// bar here; this prototype is fictional, so it says so instead (course rule:
+// bar here. This prototype is fictional, so it says so instead (course rule:
 // fictional brand, no real government branding). Same slim bar, same place.
 
 export function GovMasthead() {
@@ -35,7 +35,7 @@ export function GovMasthead() {
               <div>
                 <p className="font-semibold text-white">Built for a university course</p>
                 <p className="mt-0.5 leading-relaxed">
-                  A student project for MGMT6108 Decision Architecture for Managers at Singapore Management University.
+                  A student project for MGMT 6108 Decision Architecture for Managers at Singapore Management University.
                 </p>
               </div>
             </div>
