@@ -4,8 +4,8 @@ import { C, FONT_DISPLAY } from '../../theme/brand';
 import { Burst } from '../motion';
 import type { YearPanelA } from '../../variantA/resultsDataA';
 import {
-  DEADLINE,
-  HOW_STEPS,
+  deadlineFor,
+  stepsFor,
   NEEDS,
   money,
   niceDate,
@@ -39,7 +39,7 @@ const STATUS_LABEL: Record<TaskEntry['state'], string> = {
 function StatusPill({ entry }: { entry: TaskEntry }) {
   const style =
     entry.state === 'done'
-      ? { color: C.auto, backgroundColor: C.autoTint }
+      ? { color: C.brand, backgroundColor: C.brandTint }
       : entry.state === 'planned'
         ? { color: C.brand, backgroundColor: C.brandTint }
         : entry.state === 'skipped'
@@ -120,8 +120,8 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
             </div>
           </div>
           {left === 0 && (
-            <p className="hc-pop mt-3 flex items-center gap-2 text-lg font-semibold" style={{ color: C.auto }}>
-              <span className="relative inline-flex w-7 h-7 items-center justify-center rounded-full" style={{ backgroundColor: C.autoTint }}>
+            <p className="hc-pop mt-3 flex items-center gap-2 text-lg font-semibold" style={{ color: C.brand }}>
+              <span className="relative inline-flex w-7 h-7 items-center justify-center rounded-full" style={{ backgroundColor: C.brandTint }}>
                 <Check className="w-5 h-5" strokeWidth={2.5} aria-hidden="true" />
                 <Burst />
               </span>
@@ -143,7 +143,8 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
             const panelId = `task-${panel.year}-${item.code}`;
             const checkboxId = `start-here-${panel.year}-${item.code}`;
             const dateId = `plan-date-${panel.year}-${item.code}`;
-            const steps = HOW_STEPS[item.code] ?? [];
+            const steps = stepsFor(item.code, panel.year);
+            const deadline = deadlineFor(item.code, panel.year);
             const needs = NEEDS[item.code] ?? [];
             return (
               <li
@@ -161,7 +162,7 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                     className="shrink-0 w-10 h-10 rounded-full flex items-center justify-center text-lg font-extrabold"
                     style={
                       isDone
-                        ? { backgroundColor: C.autoTint, color: C.auto }
+                        ? { backgroundColor: C.brandTint, color: C.brand }
                         : { backgroundColor: C.claimSolid, color: '#FFFFFF' }
                     }
                   >
@@ -175,10 +176,10 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                         </p>
                         <div className="mt-1.5 flex flex-wrap items-center gap-2">
                           <StatusPill entry={entry} />
-                          {DEADLINE[item.code] && (
+                          {deadline && (
                             <span className="inline-flex items-center gap-1 text-sm font-medium" style={{ color: C.muted }}>
                               <Clock className="w-4 h-4" aria-hidden="true" />
-                              {DEADLINE[item.code]}
+                              {deadline}
                             </span>
                           )}
                         </div>
@@ -229,7 +230,7 @@ export function StartHere({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                         onClick={() => toggleOpen(item.code)}
                         aria-expanded={expanded}
                         aria-controls={panelId}
-                        className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-base font-semibold cursor-pointer transition-colors hover:bg-[#FFF1F3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                        className="inline-flex items-center gap-1.5 rounded-full px-4 py-2 text-base font-semibold cursor-pointer transition-colors hover:bg-[#F0FDFA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                         style={{ color: C.brand, border: `1.5px solid ${C.brand}`, outlineColor: C.brand }}
                       >
                         {expanded ? 'Hide steps' : 'How to do it'}

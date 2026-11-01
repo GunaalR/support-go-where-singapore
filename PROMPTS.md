@@ -696,3 +696,25 @@ can you make it look more better, change back the logo and color theme to red (l
 **What came back:** `schemeStatusM3.ts` (M3): the voucher line gives both dates on the 2026 tab and one on the 2027 tab, and vouchers rank first in Start here. `styleB.ts`: the title reads "may get". New `REFLECTION.md` from the briefing template, with EZ's A1 and A2 filled in and the rest left for the group.
 **Our judgement, and what we changed next:** these files have other owners, so the changes are small and the group was told. Consent and debrief were not built: that is M1's call and depends on what Prof said. Checked by rendering Start here for both year tabs, then `tsc` and `vite build`.
 **Principle check:** W4 loss framing with a true deadline; W3 expectations (Finding 1, keep the hedge).
+
+## Entry MS-6 - merge EZ's main into the redesign, care-teal brand, both voucher dates · 2026-11-01 · sent by MS · Claude Code
+```
+okay, lets go back to working on the website. So, someone from my team pushed a change so we have a merge conflict, we need to resolve that first, add our chnage on top of EZ's change (if any confilt is there) and then push it to the branch. 
+
+Also, the red apparently is about danger/risk, so we can keep a few components of red (As in the, let keep the original logo) and maybe use some other color in other parts.  As, its a help realted app, use resonating colors. 
+
+The interface looks good, so lets leave it as it is. If you have some other ideas about the interfcae, do let me know as we can maybe change it if it looks good
+```
+**What came back:**
+- **The merge:** `main` (7 commits from EZ) was merged into `m3-red-layout` with a normal merge commit (no rebase, no force-push). Seven files conflicted.
+  - AUDIT.md and PROMPTS.md: both sides only added dated entries, so both were kept, ours (31 Oct) before EZ's (1 Nov).
+  - The five shell components: both sides had replaced the real brand names. Our restyled layout was kept, with EZ's wording (e.g. "2026 Support Calculator", "Neighbourhood Support Offices"), EZ's in-page resource buttons in place of our self-linking anchors, and EZ's fix to the homepage helper (it searched for "cpf", which no longer appears).
+  - Checked: every EZ text change is in the result; no conflict markers left; it builds.
+- **Voucher dates:** EZ's audit correction (the January 2026 $300 of NCV Vouchers expires 31 Dec 2026, not 2027) had reached `schemeStatusM3.ts`, but not our newer to-do steps, deadline line and helper answers. A new `stepsFor()` / `deadlineFor()` in `taskGuide.ts` now gives two dates on the 2026 tab ($300 by 31 Dec 2026, $500 by 31 Dec 2027) and one on the 2027 tab.
+- **Colour:** red stays only in the heart logo. The brand became care teal (`#0F766E`, deep `#134E4A`). "Needs you" stays amber. "Automatic" became a quiet grey with a check, and "done" states use teal.
+
+`npm run build` passes, with no console errors. Browser check: the 2026 NCV task shows both dates, the 2027 task one date, and the helper's to-do answer uses the same dates; ?v=A is unchanged.
+
+**Our judgement, and what we changed next:** the merge kept both teammates' work instead of overwriting either side. The voucher fix shows why: the date was wrong in our new code even though EZ had fixed it in the shared status file, so a later layer had to be checked against the evidence again. The red brand was undone: a colour that also signals danger and risk (Bazley et al., 2021) works against a site meant to feel safe to ask for help. Teal keeps the logo's red visible as a single accent.
+
+**Principle check:** W8 colour, complementary contrast: X, a cool teal brand with the warm amber kept only for the items that need the household → Y, testers find their to-do items faster than in A (Findings 4 and 5) → because Z, the one warm area on a cool page is the most salient. W8 colour, red as risk (Bazley et al., 2021): X, red kept off everything except the logo → Y, testers do not read the amounts or tasks as risky or urgent → because Z, red carries danger and loss meanings that a help site should not attach to money. Finding 5 and W3 expectations: X, both real voucher expiry dates in the task and in the helper → Y, fewer testers miss the 31 Dec 2026 deadline → because Z, a single later date would set a wrong expectation for the $300 that expires first.

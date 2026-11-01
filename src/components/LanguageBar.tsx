@@ -24,7 +24,7 @@ export function LanguageBar({ currentLang, onLanguageChange }: LanguageBarProps)
                 onClick={() => onLanguageChange(lang.code)}
                 className={`cursor-pointer transition-colors ${
                   currentLang === lang.code
-                    ? 'font-bold text-[#0F1E2E] underline underline-offset-4 decoration-2 decoration-[#BE123C]'
+                    ? 'font-bold text-[#0F1E2E] underline underline-offset-4 decoration-2 decoration-[#0F766E]'
                     : 'hover:text-gray-900 text-gray-600'
                 }`}
               >

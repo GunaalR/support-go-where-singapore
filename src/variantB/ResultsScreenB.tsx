@@ -39,7 +39,7 @@ import { CountUp, Reveal } from './motion';
 //   slots/styleB.ts          plain wording (COPY_B) and colour per kind of support
 //   slots/SchemeCategory.tsx icon, kind word and plain line under each scheme
 // Visual design (MS-3): HelpCompass tokens from src/theme/brand.ts, with the
-// reasons in DESIGN.md. MS-5: the brand is the heart logo's rose-red; the
+// reasons in DESIGN.md. MS-6: the brand is care teal (red only in the heart logo); the
 // amber card and chips mark what needs the household; everything automatic
 // is quiet. On wide screens a sticky sidebar keeps the summary, the finder
 // and help in view, and calm motion (src/index.css) shows what changed.
@@ -158,7 +158,7 @@ function SchemeRow({ row, onOpenScheme }: { row: PayoutRowA; onOpenScheme?: (sch
           type="button"
           onClick={() => onOpenScheme?.(row.schemeCode)}
           className="text-left text-lg md:text-xl font-semibold underline decoration-2 underline-offset-4 cursor-pointer w-fit transition-colors hover:decoration-current focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm"
-          style={{ color: C.brand, textDecorationColor: 'rgba(190,18,60,0.3)', outlineColor: C.brand }}
+          style={{ color: C.brand, textDecorationColor: 'rgba(15,118,110,0.3)', outlineColor: C.brand }}
         >
           {row.schemeName}
         </button>
@@ -206,7 +206,7 @@ function BenefitBox({
         type="button"
         onClick={() => setOpen(!open)}
         aria-expanded={open}
-        className="w-full flex items-center justify-between gap-3 p-4 md:p-6 text-left cursor-pointer transition-colors hover:bg-[#FFFAFA] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
+        className="w-full flex items-center justify-between gap-3 p-4 md:p-6 text-left cursor-pointer transition-colors hover:bg-[#F9FDFC] focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2"
         style={{ outlineColor: C.brand }}
       >
         <div className="flex items-start gap-4 w-full">
@@ -423,7 +423,7 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
   // The hedged total (Finding 1); "compact" is the sidebar version
   const totalCard = (compact: boolean) => (
     <div
-      className={`relative overflow-hidden rounded-3xl bg-white shadow-[0_1px_2px_rgba(15,30,46,0.05),0_12px_32px_-16px_rgba(190,18,60,0.35)] ${
+      className={`relative overflow-hidden rounded-3xl bg-white shadow-[0_1px_2px_rgba(15,30,46,0.05),0_12px_32px_-16px_rgba(15,118,110,0.35)] ${
         compact ? 'p-5' : 'p-6 md:p-9'
       }`}
       style={{ border: `1px solid ${C.line}` }}
@@ -501,7 +501,7 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
               key={box.id}
               type="button"
               onClick={() => goTo(`box-${panel.year}-${box.id}`)}
-              className="group inline-flex items-center justify-between gap-3 rounded-2xl bg-white px-4 py-2.5 text-base font-semibold cursor-pointer transition-colors hover:bg-[#FFF1F3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+              className="group inline-flex items-center justify-between gap-3 rounded-2xl bg-white px-4 py-2.5 text-base font-semibold cursor-pointer transition-colors hover:bg-[#F0FDFA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               style={{ color: C.ink, border: `1px solid ${C.line}`, outlineColor: C.brand }}
             >
               <span className="inline-flex items-center gap-2">

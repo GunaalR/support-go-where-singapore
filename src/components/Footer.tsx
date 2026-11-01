@@ -52,7 +52,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={onScrollToSupport}
-                      className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                     >
                       Support
                     </button>
@@ -60,7 +60,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={onScrollToResources}
-                      className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                     >
                       Resources & Tools
                     </button>
@@ -68,7 +68,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={onOpenCalculator}
-                      className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                     >
                       Support Calculator
                     </button>
@@ -84,7 +84,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('about')}
-                      className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                     >
                       About
                     </button>
@@ -92,7 +92,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('contact')}
-                      className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                     >
                       Contact
                     </button>
@@ -100,7 +100,7 @@ export function Footer({
                   <li>
                     <button
                       onClick={() => setActiveModal('help')}
-                      className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                      className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                     >
                       Help
                     </button>
@@ -118,7 +118,7 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('accessibility')}
-                    className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                   >
                     Accessibility
                   </button>
@@ -126,7 +126,7 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('privacy')}
-                    className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                   >
                     Privacy
                   </button>
@@ -134,7 +134,7 @@ export function Footer({
                 <li>
                   <button
                     onClick={() => setActiveModal('terms')}
-                    className="text-gray-600 hover:text-[#BE123C] transition-colors cursor-pointer"
+                    className="text-gray-600 hover:text-[#0F766E] transition-colors cursor-pointer"
                   >
                     Terms
                   </button>
@@ -173,7 +173,7 @@ export function Footer({
 
             {activeModal === 'about' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-[#BE123C]">
+                <div className="flex items-center gap-2.5 mb-3 text-[#0F766E]">
                   <HeartHandshake className="w-5 h-5" />
                   <h3 className="text-base font-bold text-gray-900">About HelpCompass SG</h3>
                 </div>
@@ -218,7 +218,7 @@ export function Footer({
 
             {activeModal === 'accessibility' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-[#BE123C]">
+                <div className="flex items-center gap-2.5 mb-3 text-[#0F766E]">
                   <Eye className="w-5 h-5" />
                   <h3 className="text-base font-bold text-gray-900">Accessibility</h3>
                 </div>
@@ -232,7 +232,7 @@ export function Footer({
 
             {activeModal === 'contact' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-[#BE123C]">
+                <div className="flex items-center gap-2.5 mb-3 text-[#0F766E]">
                   <Mail className="w-5 h-5" />
                   <h3 className="text-base font-bold text-gray-900">Contact HelpCompass SG</h3>
                 </div>
@@ -249,7 +249,7 @@ export function Footer({
 
             {activeModal === 'help' && (
               <div>
-                <div className="flex items-center gap-2.5 mb-3 text-[#BE123C]">
+                <div className="flex items-center gap-2.5 mb-3 text-[#0F766E]">
                   <HelpCircle className="w-5 h-5" />
                   <h3 className="text-base font-bold text-gray-900">Help & FAQs</h3>
                 </div>

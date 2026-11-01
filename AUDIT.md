@@ -234,3 +234,4 @@ These came after the audit, so no prediction was committed before they were buil
 ### 2026-11-01, later (EZ): two changes applied to variant B
 
 The voucher line now gives both dates on the 2026 tab, and vouchers move to the top of "Start here" because theirs is now the earliest deadline. The page title reads "may get", which restores the hedge. Both tables above show the state before these two changes.
+- 2026-11-01: MS-6 merged main (EZ's corrections) into the redesign branch; brand colour changed from red to care teal, with red kept for the heart logo only; the NCV task and the helper now give both voucher dates from EZ's correction (DESIGN.md). Variant A unchanged; nothing above this heading was edited.

@@ -16,14 +16,13 @@ export const NEEDS: Record<string, string[]> = {
 
 // How to do it, step by step (Finding 7: the "How to apply" text, on this page)
 export const HOW_STEPS: Record<string, string[]> = {
-  // CDC record: "claim their vouchers via the RedeemSG website", "valid until
-  // 31 December 2027", "for spending at participating heartland merchants,
-  // hawkers, and supermarkets"
+  // CDC record: "claim their vouchers via the RedeemSG website", "for spending
+  // at participating heartland merchants, hawkers, and supermarkets". The last
+  // step, with its dates, comes from ncvSpendBy() below.
   NCV: [
     'Open the RedeemNow website.',
     'Log in with your digital ID.',
     'Claim the vouchers for your household.',
-    'Spend them at neighbourhood shops, hawkers and supermarkets that take them, by 31 December 2027.',
   ],
   // Child LifeSG Credits record: "disbursed to the CDA trustee of the child via
   // the LifeSG mobile app", "merchants that accept ... QR", "valid for 12 months
@@ -43,8 +42,23 @@ export const HOW_STEPS: Record<string, string[]> = {
   ],
 };
 
+// NCV Vouchers have two expiry dates on the 2026 tab (EZ's correction of
+// 1 Nov 2026, audit/evidence/2026-11-01_recheck.md): the January 2026 $300 is
+// valid until 31 Dec 2026, the June 2026 $500 until 31 Dec 2027. The 2027 tab
+// holds only the January 2027 $300, valid until 31 Dec 2027.
+const ncvSpendBy = (year: string) =>
+  year === '2026'
+    ? 'Spend them at neighbourhood shops, hawkers and supermarkets that take them: the January 2026 $300 by 31 December 2026, and the June 2026 $500 by 31 December 2027.'
+    : 'Spend them at neighbourhood shops, hawkers and supermarkets that take them, by 31 December 2027.';
+
+export const stepsFor = (code: string, year: string) =>
+  code === 'NCV' ? [...HOW_STEPS.NCV, ncvSpendBy(year)] : HOW_STEPS[code] ?? [];
+
 // One short deadline line per item
-export const DEADLINE: Record<string, string> = {
+export const deadlineFor = (code: string, year: string) =>
+  code === 'NCV' && year === '2026' ? '$300 by 31 Dec 2026, $500 by 31 Dec 2027' : DEADLINE[code];
+
+const DEADLINE: Record<string, string> = {
   NCV: 'Use by 31 December 2027',
   'CHILD-CREDITS': 'Expires 12 months after it arrives',
   LCV: 'One-time sign-up, only if never done',

@@ -64,7 +64,7 @@ export function CountUp({ value, format }: { value: number; format: (n: number) 
 export function Burst() {
   const dots = Array.from({ length: 12 }, (_, i) => {
     const angle = (i / 12) * Math.PI * 2;
-    return { x: Math.cos(angle) * 46, y: Math.sin(angle) * 46, color: ['#E11D48', '#F59E0B', '#2F6F5E', '#FB7185'][i % 4] };
+    return { x: Math.cos(angle) * 46, y: Math.sin(angle) * 46, color: ['#0D9488', '#F59E0B', '#F43F5E', '#2DB3A3'][i % 4] };
   });
   return (
     <span className="pointer-events-none absolute inset-0 flex items-center justify-center" aria-hidden="true">

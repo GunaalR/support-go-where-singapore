@@ -6,9 +6,9 @@
 //
 // Contrast (WCAG 2.x relative luminance), text on its usual background:
 //   ink #0F1E2E on white 16.9:1 · body #334155 10.4:1 · muted #5B6675 5.8:1
-//   brand #BE123C on white 6.3:1 · white on brandDeep #881337 9.6:1
-//   white on brandMid #E11D48 4.7:1 (large text and decoration only)
-//   claim text #9A4A00 on claim tint #FFF4E5 5.8:1 · auto #2F6F5E on #EDF6F2 5.4:1
+//   brand #0F766E on white 5.5:1 · white on brandDeep #134E4A 9.5:1
+//   white on brandMid #0D9488 3.7:1 (large text and decoration only)
+//   claim text #9A4A00 on claim tint #FFF4E5 5.8:1 · auto #4B5563 on #F1F3F5 6.8:1
 //   signup #1E5A8A on #EAF3FB 6.5:1 · employee #475569 on #F1F5F9 6.9:1
 
 export const C = {
@@ -17,25 +17,25 @@ export const C = {
   body: '#334155', // body text
   muted: '#5B6675', // secondary text
   line: '#E2E8F0', // borders and dividers
-  page: '#F8F6F5', // page background, a warm off-white that sits with the red
+  page: '#F8F6F5', // page background, a warm off-white
   surface: '#FFFFFF', // cards
 
-  // brand: rose-red, taken from the heart logo (MS-5). It carries the
-  // brand (hero, buttons, tabs, links) and never marks amounts, labels or
-  // warnings, so it reads as "care" and "help", not as risk or loss
-  // (Bazley et al., 2021, Week 8). Red is also Singapore's national colour and
-  // a lucky colour in Chinese culture (Week 10, culture).
-  brand: '#BE123C',
-  brandDeep: '#881337', // hero background
-  brandTint: '#FFF1F3', // soft brand surface
-  brandOnDeep: '#FFE4E8', // secondary text on brandDeep (8.0:1)
-  brandMid: '#E11D48', // gradients and decoration
-  brandSoft: '#FFE4E8', // chips and hover surfaces
-  brandLine: '#FECDD6', // soft borders
+  // brand: care teal (MS-6). Red is kept for the heart logo only: red also
+  // reads as danger and risk (Bazley et al., 2021, Week 8), which a help
+  // site should not signal. Teal is the colour many health and care
+  // services use for calm and healing, and it sits opposite red on the
+  // colour wheel, so the heart logo stands out against it.
+  brand: '#0F766E',
+  brandDeep: '#134E4A', // hero background
+  brandTint: '#F0FDFA', // soft brand surface
+  brandOnDeep: '#CCFBF1', // secondary text on brandDeep (8.4:1)
+  brandMid: '#0D9488', // gradients and decoration
+  brandSoft: '#CCFBF1', // chips and hover surfaces
+  brandLine: '#A7E3D9', // soft borders
 
-  // "needs you": warm apricot/amber, set apart from the brand red by hue and
-  // by its own card, chip and icon (a hand), so the few items that need
-  // action stand out without using red for them.
+  // "needs you": warm apricot/amber, the warm opposite of the cool teal, so
+  // the few items that need action are the warmest thing on the page and
+  // stand out without using red (complementary contrast, Week 8).
   claim: '#9A4A00',
   claimDeep: '#7A3B00',
   claimTint: '#FFF4E5',
@@ -43,9 +43,10 @@ export const C = {
   claimLine: '#F3D2A8',
   claimSolid: '#B45309',
 
-  // "nothing to do": quiet sage, so automatic items recede
-  auto: '#2F6F5E',
-  autoTint: '#EDF6F2',
+  // "nothing to do": quiet grey with a check, so automatic items recede
+  // (grey, not green, so it is never confused with the teal brand)
+  auto: '#4B5563',
+  autoTint: '#F1F3F5',
   // "automatic if signed up before": calm sky blue, an "info" tone
   signup: '#1E5A8A',
   signupTint: '#EAF3FB',

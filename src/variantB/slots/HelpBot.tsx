@@ -5,7 +5,7 @@ import { C, FONT_DISPLAY } from '../../theme/brand';
 import { COPY_B } from './styleB';
 import { PLAIN_LINE } from './SchemeCategory';
 import { actionItems, statusFor } from './schemeStatusM3';
-import { DEADLINE, HOW_STEPS, money, nextPayout, niceDate, plainName, progressWithPlan, type Plan } from './taskGuide';
+import { deadlineFor, money, nextPayout, niceDate, plainName, progressWithPlan, stepsFor, type Plan } from './taskGuide';
 
 // "Ask Compass": a scripted helper for variant B (MS-4).
 // Why (AUDIT.md Findings 7 and 11; Nielsen heuristic 10, help and
@@ -129,7 +129,7 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
           list: items.map(it => {
             const e = plan.get(panel.year, it.code);
             const state = e.state === 'done' ? 'done' : e.state === 'planned' && e.date ? `planned for ${niceDate(e.date)}` : e.state === 'skipped' ? 'skipped for now' : 'to do';
-            return `${it.status.shortName}${it.total ? ` (${money(it.total)})` : ''}: ${state}. ${DEADLINE[it.code] ?? ''}`;
+            return `${it.status.shortName}${it.total ? ` (${money(it.total)})` : ''}: ${state}. ${deadlineFor(it.code, panel.year) ?? ''}`;
           }),
           actions: [
             { label: 'Show my to-do list', target: 'todo' },
@@ -168,7 +168,7 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
         return {
           from: 'bot',
           text: `${it.status.shortName}: ${it.status.reason}`,
-          list: (HOW_STEPS[topic] ?? []).map((s, n) => `Step ${n + 1}: ${s}`),
+          list: stepsFor(topic, panel.year).map((s, n) => `Step ${n + 1}: ${s}`),
           actions: [{ label: 'Pick a day for this', target: 'todo' }],
         };
       }
@@ -220,8 +220,8 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
           onClick={() => setOpen(true)}
           aria-expanded={open}
           aria-controls="help-bot"
-          className="hc-ring lg:hidden fixed right-3 md:right-6 bottom-[84px] md:bottom-6 z-50 inline-flex items-center gap-2 rounded-full pl-4 pr-5 py-3.5 text-base md:text-lg font-bold text-white cursor-pointer shadow-[0_10px_30px_-8px_rgba(190,18,60,0.7)] transition-transform hover:-translate-y-0.5 motion-reduce:transition-none focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2"
-          style={{ background: `linear-gradient(135deg, ${C.brand}, #E11D48)`, outlineColor: C.claimSolid }}
+          className="hc-ring lg:hidden fixed right-3 md:right-6 bottom-[84px] md:bottom-6 z-50 inline-flex items-center gap-2 rounded-full pl-4 pr-5 py-3.5 text-base md:text-lg font-bold text-white cursor-pointer shadow-[0_10px_30px_-8px_rgba(15,118,110,0.7)] transition-transform hover:-translate-y-0.5 motion-reduce:transition-none focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2"
+          style={{ background: `linear-gradient(135deg, ${C.brand}, #0D9488)`, outlineColor: C.claimSolid }}
         >
           <MessageCircleQuestion className="w-6 h-6" aria-hidden="true" />
           Ask Compass
@@ -290,7 +290,7 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
                           key={a.label}
                           type="button"
                           onClick={() => (a.target ? goTo(a.target) : ask(a.label, a.topic ?? null, a.scheme))}
-                          className="rounded-full px-3 py-1.5 text-sm font-semibold cursor-pointer transition-colors hover:bg-[#FFF1F3] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1"
+                          className="rounded-full px-3 py-1.5 text-sm font-semibold cursor-pointer transition-colors hover:bg-[#F0FDFA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1"
                           style={{ color: C.brand, border: `1.5px solid ${C.brand}`, outlineColor: C.brand }}
                         >
                           {a.label}

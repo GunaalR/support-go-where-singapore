@@ -88,15 +88,15 @@ export function HomePage({
                 onClick={() => setSelectedTopic(isSelected ? null : cat.id)}
                 className={`p-4 sm:p-5 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between group ${
                   isSelected
-                    ? 'border-[#BE123C] bg-[#FFF1F3]/50 ring-2 ring-[#BE123C]'
-                    : 'border-gray-200 bg-white hover:border-[#FDA4B4] hover:shadow-xs'
+                    ? 'border-[#0F766E] bg-[#F0FDFA]/50 ring-2 ring-[#0F766E]'
+                    : 'border-gray-200 bg-white hover:border-[#5EC4B6] hover:shadow-xs'
                 }`}
               >
                 <div>
                   <div className="mb-3.5">
                     <TopicIllustration topic={cat.id} className="w-12 h-12" />
                   </div>
-                  <h3 className="text-sm sm:text-base font-bold text-[#0F1E2E] group-hover:text-[#BE123C] transition-colors leading-snug">
+                  <h3 className="text-sm sm:text-base font-bold text-[#0F1E2E] group-hover:text-[#0F766E] transition-colors leading-snug">
                     {cat.name}
                   </h3>
                   <p className="text-[13px] text-[#5B6675] mt-1 leading-normal line-clamp-2">
@@ -104,7 +104,7 @@ export function HomePage({
                   </p>
                 </div>
 
-                <div className="mt-4 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[13px] font-semibold text-[#BE123C]">
+                <div className="mt-4 pt-2.5 border-t border-gray-100 flex items-center justify-between text-[13px] font-semibold text-[#0F766E]">
                   <span>{isSelected ? 'Active filter' : 'Explore'}</span>
                   <ChevronRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
                 </div>
@@ -115,13 +115,13 @@ export function HomePage({
 
         {/* Selected Topic Notice */}
         {selectedTopic && (
-          <div className="mt-6 p-4 rounded-xl bg-[#FFF1F3] border border-[#FECDD6] text-sm text-[#881337] flex items-center justify-between animate-in fade-in duration-100">
+          <div className="mt-6 p-4 rounded-xl bg-[#F0FDFA] border border-[#A7E3D9] text-sm text-[#134E4A] flex items-center justify-between animate-in fade-in duration-100">
             <span>
               Showing schemes related to <strong>{topicCategories.find(c => c.id === selectedTopic)?.name}</strong>.
             </span>
             <button
               onClick={() => setSelectedTopic(null)}
-              className="font-bold text-[#BE123C] underline cursor-pointer ml-3 shrink-0"
+              className="font-bold text-[#0F766E] underline cursor-pointer ml-3 shrink-0"
             >
               Clear filter
             </button>
@@ -131,15 +131,15 @@ export function HomePage({
 
       {/* 3. BUDGET 2026 CALCULATOR PROMOTIONAL SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-16 text-left">
-        <div className="bg-gradient-to-br from-[#881337] via-[#BE123C] to-[#E11D48] rounded-3xl p-6 sm:p-10 text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
+        <div className="bg-gradient-to-br from-[#134E4A] via-[#0F766E] to-[#0D9488] rounded-3xl p-6 sm:p-10 text-white flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-sm">
           <div>
-            <div className="text-sm font-bold uppercase tracking-wider text-[#FECDD6] mb-1">
+            <div className="text-sm font-bold uppercase tracking-wider text-[#A7E3D9] mb-1">
               2026 Support
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
               Check what support you qualify for
             </h2>
-            <p className="text-sm sm:text-base text-[#FFE4E8] mt-2 max-w-xl leading-relaxed">
+            <p className="text-sm sm:text-base text-[#CCFBF1] mt-2 max-w-xl leading-relaxed">
               Find out your estimated NCV Vouchers, Steady Package payouts, and utility rebates with our interactive calculator.
             </p>
           </div>
@@ -147,9 +147,9 @@ export function HomePage({
           <div className="shrink-0">
             <button
               onClick={onOpenCalculator}
-              className="px-5 py-3 bg-white text-[#BE123C] hover:bg-[#FFF1F3] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
+              className="px-5 py-3 bg-white text-[#0F766E] hover:bg-[#F0FDFA] font-bold text-sm rounded-xl flex items-center justify-center gap-2 transition-colors cursor-pointer shadow-xs"
             >
-              <Calculator className="w-4 h-4 text-[#BE123C]" />
+              <Calculator className="w-4 h-4 text-[#0F766E]" />
               <span>Launch 2026 Support Calculator</span>
             </button>
           </div>
@@ -173,17 +173,17 @@ export function HomePage({
           {(displayedSchemes.length > 0 ? displayedSchemes : schemes.slice(0, 4)).map((scheme) => (
             <div
               key={scheme.id}
-              className="bg-white rounded-2xl border border-gray-200 p-5 hover:border-[#FDA4B4] transition-all text-left flex flex-col justify-between group shadow-2xs"
+              className="bg-white rounded-2xl border border-gray-200 p-5 hover:border-[#5EC4B6] transition-all text-left flex flex-col justify-between group shadow-2xs"
             >
               <div>
                 <div className="flex items-start justify-between gap-3 mb-2">
                   <div className="flex items-center gap-2.5">
                     <CategoryIcon topicId={scheme.topicId} className="w-8 h-8" />
                     <div>
-                      <span className="text-sm font-bold text-[#BE123C] uppercase tracking-wider block">
+                      <span className="text-sm font-bold text-[#0F766E] uppercase tracking-wider block">
                         {scheme.agencyAbbr}
                       </span>
-                      <h4 className="text-sm font-bold text-[#0F1E2E] group-hover:text-[#BE123C] transition-colors">
+                      <h4 className="text-sm font-bold text-[#0F1E2E] group-hover:text-[#0F766E] transition-colors">
                         {scheme.title}
                       </h4>
                     </div>
@@ -205,7 +205,7 @@ export function HomePage({
 
                 <button
                   onClick={() => onSelectScheme(scheme)}
-                  className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1 cursor-pointer"
+                  className="text-sm font-semibold text-[#0F766E] hover:text-[#134E4A] inline-flex items-center gap-1 cursor-pointer"
                 >
                   <span>View scheme</span>
                   <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
@@ -231,7 +231,7 @@ export function HomePage({
           
           <div className="p-5 rounded-2xl bg-white border border-gray-200 text-left flex flex-col justify-between hover:border-gray-300 transition-colors shadow-2xs">
             <div>
-              <div className="w-9 h-9 rounded-xl bg-[#FFF1F3] text-[#BE123C] flex items-center justify-center mb-3">
+              <div className="w-9 h-9 rounded-xl bg-[#F0FDFA] text-[#0F766E] flex items-center justify-center mb-3">
                 <MapPin className="w-5 h-5 stroke-[2.2]" />
               </div>
               <h3 className="text-sm font-bold text-[#0F1E2E]">Neighbourhood Support Offices</h3>
@@ -242,7 +242,7 @@ export function HomePage({
             <div className="mt-4 pt-3 border-t border-gray-100">
               <button
                 onClick={() => handleExploreCategory('financial')}
-                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1 cursor-pointer"
+                className="text-sm font-semibold text-[#0F766E] hover:text-[#134E4A] inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>Find nearest office</span>
                 <ArrowRight className="w-3 h-3" />
@@ -263,7 +263,7 @@ export function HomePage({
             <div className="mt-4 pt-3 border-t border-gray-100">
               <button
                 onClick={() => handleExploreCategory('financial')}
-                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1 cursor-pointer"
+                className="text-sm font-semibold text-[#0F766E] hover:text-[#134E4A] inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>About NCV Vouchers</span>
                 <ArrowRight className="w-3 h-3" />
@@ -284,7 +284,7 @@ export function HomePage({
             <div className="mt-4 pt-3 border-t border-gray-100">
               <button
                 onClick={() => handleExploreCategory('counselling')}
-                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1 cursor-pointer"
+                className="text-sm font-semibold text-[#0F766E] hover:text-[#134E4A] inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>Browse centres</span>
                 <ArrowRight className="w-3 h-3" />
@@ -305,7 +305,7 @@ export function HomePage({
             <div className="mt-4 pt-3 border-t border-gray-100">
               <button
                 onClick={() => handleExploreCategory('financial')}
-                className="text-sm font-semibold text-[#BE123C] hover:text-[#881337] inline-flex items-center gap-1 cursor-pointer"
+                className="text-sm font-semibold text-[#0F766E] hover:text-[#134E4A] inline-flex items-center gap-1 cursor-pointer"
               >
                 <span>About CompassLife</span>
                 <ArrowRight className="w-3 h-3" />
