@@ -762,3 +762,19 @@ The commit is authored by MS and was pushed to `m3-red-layout`.
 **Our judgement, and what we changed next:** the README is what a marker reads first, so it must match what the live prototype does. The old text still described "Plan your next step" as a separate block and the test screens as not built. Every row of the new table points to the finding it answers, so the README states the same traceability as AUDIT.md. Nothing in AUDIT.md changed for this.
 
 **Principle check:** none: documentation only.
+
+## Entry MS-9 - alignment pass across the site · 2026-11-01 · sent by MS · Claude Code
+```
+hey, the whole website loooks somewhat misaligned, make sure its properly aligned and mainly the attached one and push it
+```
+(Sent with a screenshot of the household box in variant B at about 1536px wide, with the scheme text squeezed into narrow columns.)
+
+**What came back:**
+- **Cause:** at the widest breakpoint the rows went two-across, and each row also kept a fixed right-hand column (up to 240px) for the amount, badge and condition, so the scheme text was left with a strip about 100px wide.
+- **Scheme rows:** each row in `ResultsScreenB.tsx` is now one left-aligned column (name with the amount on its line, kind and plain line, a chip row with status and paid/to come, the condition in its own note, the payout date). Rows are one column everywhere. On phones the amount drops under the name.
+- **Other fixes:** box totals no longer wrap; the sidebar filter is two equal halves; the homepage resource grid goes four-across only on wide screens.
+- **Automated check:** every page (B, A, home) at 1920, 1536, 1280, 1024, 820 and 390px, looking for sideways scroll and for any text block under 140px wide but more than four lines tall. The first run found two cramped spots: the homepage resource cards at 820px, and a long scheme name beside its amount at 390px. Both were fixed, and the rerun found none.
+
+**Our judgement, and what we changed next:** the two-column rows came from MS-4 and survived MS-5, because at the widths checked then the rows had room. The fixed amount column added in MS-7 made them collapse at 1536px. A check of every width was added so a later change cannot quietly break one. Variant A was not touched.
+
+**Principle check:** W7 processing fluency: X, each row read in one column with the name and amount on the same line → Y, testers find a scheme's amount and condition faster → because Z, text in normal line lengths is processed quickly, while one or two words per line is effortful and gets skipped.

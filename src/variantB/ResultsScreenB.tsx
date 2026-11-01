@@ -122,8 +122,8 @@ function BoxHeaderTotal({ box }: { box: BenefitBoxA }) {
   const isMax = box.rows.some(r => r.isMax);
   return (
     <div className="font-extrabold text-xl md:text-2xl tabular-nums leading-tight" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>
-      {cash > 0 && <p>{isMax ? COPY_B.upTo(money(cash)) : money(cash)}</p>}
-      {months > 0 && <p className="text-base md:text-lg font-bold" style={{ color: C.body }}>{COPY_B.rebateMonthsShort(months)}</p>}
+      {cash > 0 && <p className="whitespace-nowrap">{isMax ? COPY_B.upTo(money(cash)) : money(cash)}</p>}
+      {months > 0 && <p className="whitespace-nowrap text-base md:text-lg font-bold" style={{ color: C.body }}>{COPY_B.rebateMonthsShort(months)}</p>}
     </div>
   );
 }
@@ -150,42 +150,53 @@ function SchemeRow({ row, onOpenScheme }: { row: PayoutRowA; onOpenScheme?: (sch
   const bar = schemeColour(row) ?? C.line;
   // M5's kind colour as a left bar and a soft wash that fades into white (GR-4)
   const wash = kind ? `linear-gradient(90deg, ${KIND_STYLE[kind].tint} 0%, #FFFFFF 55%)` : '#FFFFFF';
+  // One left-aligned column, with only the amount on the right of the name,
+  // so the text never gets squeezed into a narrow strip (MS-9)
   return (
     <li
-      className="hc-lift flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-6 rounded-xl px-4 py-4 md:px-6 md:py-5"
+      className="hc-lift flex flex-col gap-3 rounded-xl px-4 py-4 md:px-6 md:py-5"
       style={{ borderLeft: `5px solid ${bar}`, background: wash, boxShadow: `inset 0 0 0 1px ${C.line}` }}
     >
-      <div className="flex flex-col gap-2 min-w-0">
+      <div className="flex flex-col gap-1 sm:flex-row sm:items-start sm:justify-between sm:gap-4">
         <button
           type="button"
           onClick={() => onOpenScheme?.(row.schemeCode)}
-          className="text-left text-lg md:text-xl font-semibold underline decoration-2 underline-offset-4 cursor-pointer w-fit transition-colors hover:decoration-current focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm"
+          className="min-w-0 flex-1 text-left text-lg md:text-xl font-semibold leading-snug underline decoration-2 underline-offset-4 cursor-pointer transition-colors hover:decoration-current focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 rounded-sm"
           style={{ color: C.brand, textDecorationColor: 'rgba(15,118,110,0.3)', outlineColor: C.brand }}
         >
           {row.schemeName}
         </button>
-        {/* M5 slot: kind icon, word and plain-language line */}
-        <SchemeCategory row={row} />
-        {/* M3 slot: Automatic / Claim it yourself */}
-        <SchemeLabel row={row} />
-        <p className="flex items-center gap-2 text-base" style={{ color: C.muted }}>
-          <CalendarDays className="w-4 h-4 shrink-0" aria-hidden="true" />
-          {row.payoutLine}
-        </p>
-      </div>
-      <div className="shrink-0 flex flex-col gap-2 sm:items-end sm:text-right sm:max-w-[240px]">
-        <p className="text-2xl md:text-[28px] font-extrabold tabular-nums leading-none sm:pt-1" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>
+        <p
+          className="shrink-0 whitespace-nowrap sm:text-right text-2xl md:text-[28px] font-extrabold tabular-nums leading-tight"
+          style={{ color: C.ink, fontFamily: FONT_DISPLAY }}
+        >
           {rowAmount(row)}
         </p>
-        <PayBadge row={row} />
-        {/* Finding 8: the condition sits next to the amount it limits */}
-        {CONDITION[row.schemeCode] && (
-          <p className="flex items-start gap-1.5 text-sm leading-snug sm:justify-end" style={{ color: C.body }}>
-            <Info className="w-4 h-4 mt-0.5 shrink-0" style={{ color: C.claim }} aria-hidden="true" />
-            <span>{CONDITION[row.schemeCode]}</span>
-          </p>
-        )}
       </div>
+      {/* M5 slot: kind icon, word and plain-language line */}
+      <SchemeCategory row={row} />
+      {/* M3 slot (status) and Finding 3 (paid or to come), side by side */}
+      <div className="flex flex-wrap items-center gap-2">
+        <SchemeLabel row={row} />
+        <PayBadge row={row} />
+      </div>
+      {/* Finding 8: the condition sits with the amount it limits */}
+      {CONDITION[row.schemeCode] && (
+        <p
+          className="flex items-start gap-2 rounded-lg px-3 py-2 text-[15px] leading-snug"
+          style={{ color: C.body, backgroundColor: C.claimSoft, boxShadow: `inset 0 0 0 1px ${C.claimLine}` }}
+        >
+          <Info className="w-4 h-4 mt-0.5 shrink-0" style={{ color: C.claim }} aria-hidden="true" />
+          <span>
+            <strong style={{ color: C.claimDeep }}>Condition: </strong>
+            {CONDITION[row.schemeCode]}
+          </span>
+        </p>
+      )}
+      <p className="flex items-start gap-2 text-base" style={{ color: C.muted }}>
+        <CalendarDays className="w-4 h-4 mt-1 shrink-0" aria-hidden="true" />
+        <span>{row.payoutLine}</span>
+      </p>
     </li>
   );
 }
@@ -244,12 +255,12 @@ function BenefitBox({
           >
             <Icon className="w-6 h-6" style={{ color: C.brand }} strokeWidth={2} />
           </span>
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-2">
-            <div>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between w-full gap-2 md:gap-6">
+            <div className="min-w-0">
               <p className="font-bold text-lg md:text-xl" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>{box.title}</p>
               <p className="mt-0.5 max-w-[690px] text-base" style={{ color: C.muted }}>{box.profile}</p>
             </div>
-            <div className="md:text-right">
+            <div className="shrink-0 md:text-right">
               <BoxHeaderTotal box={box} />
             </div>
           </div>
@@ -277,7 +288,7 @@ function BenefitBox({
               Nothing needed here: {box.rows.length === 1 ? 'this one is' : `all ${box.rows.length} are`} automatic.
             </p>
           ) : (
-            <ul className="mt-4 grid gap-3 md:grid-cols-2 lg:grid-cols-1 2xl:grid-cols-2">
+            <ul className="mt-4 flex flex-col gap-3">
               {rows.map((row, i) => (
                 <SchemeRow key={`${row.schemeCode}-${i}`} row={row} onOpenScheme={onOpenScheme} />
               ))}
@@ -522,7 +533,12 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
       <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>
         Find your benefits
       </p>
-      <div role="group" aria-label="Which schemes to show" className="mt-3 flex flex-wrap w-fit rounded-3xl p-1 bg-white" style={{ boxShadow: `inset 0 0 0 1px ${C.line}` }}>
+      <div
+        role="group"
+        aria-label="Which schemes to show"
+        className={`mt-3 p-1 bg-white ${inSidebar ? 'grid grid-cols-2 gap-1 rounded-2xl' : 'flex flex-wrap w-fit rounded-full'}`}
+        style={{ boxShadow: `inset 0 0 0 1px ${C.line}` }}
+      >
         {[
           { mine: false, label: `All (${allRows.length})` },
           { mine: true, label: `Only ones that need me (${mineCount})` },
@@ -532,7 +548,9 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
             type="button"
             onClick={() => setOnlyMine(o.mine)}
             aria-pressed={onlyMine === o.mine}
-            className="rounded-full px-4 py-2 text-base font-semibold whitespace-nowrap cursor-pointer transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            className={`font-semibold cursor-pointer transition-colors focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 ${
+              inSidebar ? 'rounded-xl px-2 py-2 text-sm leading-tight text-center' : 'rounded-full px-4 py-2 text-base whitespace-nowrap'
+            }`}
             style={onlyMine === o.mine ? { backgroundColor: C.brand, color: '#FFFFFF', outlineColor: C.brand } : { color: C.body, outlineColor: C.brand }}
           >
             {o.label}
