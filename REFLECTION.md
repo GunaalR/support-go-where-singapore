@@ -38,4 +38,6 @@ Two results would change our minds. If A with the new look scores within five po
 
 ### B3 How did AI change who did what in your group?
 
-[...] (initials)
+AI did most of the typing, so our jobs moved to the two ends: saying exactly what to build, and checking what came back. To let five people's AI sessions run at once, M1 split variant B into one file per owner (GR-1), and each of us prompted for our own part. The real work then became checking against the evidence, and it was shared: EZ caught the wrong voucher date and the "Already paid" label next to "Claim it yourself"; I caught the AI calling the child credits "Automatic" and the rows squeezed into narrow strips.
+
+The cost was that ownership blurred. One AI session can rewrite many files in minutes, so when I restyled the whole of B and the site shell (MS-3 onwards), I was editing parts that belonged to M1, M4 and M5. On 1 Nov that met EZ's own edits to the same shell files and caused a merge conflict. We resolved it by merging rather than overwriting, keeping both sides' wording, and agreed to pull before editing any shared file. Two habits held it together: the initials in PROMPTS.md, which keep each change tied to a person, and the rule that facts go back to the saved records, not to the AI's memory. (MS)
