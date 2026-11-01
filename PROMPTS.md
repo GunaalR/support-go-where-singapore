@@ -718,3 +718,29 @@ The interface looks good, so lets leave it as it is. If you have some other idea
 **Our judgement, and what we changed next:** the merge kept both teammates' work instead of overwriting either side. The voucher fix shows why: the date was wrong in our new code even though EZ had fixed it in the shared status file, so a later layer had to be checked against the evidence again. The red brand was undone: a colour that also signals danger and risk (Bazley et al., 2021) works against a site meant to feel safe to ask for help. Teal keeps the logo's red visible as a single accent.
 
 **Principle check:** W8 colour, complementary contrast: X, a cool teal brand with the warm amber kept only for the items that need the household → Y, testers find their to-do items faster than in A (Findings 4 and 5) → because Z, the one warm area on a cool page is the most salient. W8 colour, red as risk (Bazley et al., 2021): X, red kept off everything except the logo → Y, testers do not read the amounts or tasks as risky or urgent → because Z, red carries danger and loss meanings that a help site should not attach to money. Finding 5 and W3 expectations: X, both real voucher expiry dates in the task and in the helper → Y, fewer testers miss the 31 Dec 2026 deadline → because Z, a single later date would set a wrong expectation for the $300 that expires first.
+
+## Entry MS-7 - conditions next to amounts, paid/coming, payout calendar, printable plan, consent and debrief · 2026-11-01 · sent by MS · Claude Code
+```
+i like evetyhing, add all the 5 ideads and push it. If i push this change, do other also have to interefere in the audit.md?
+```
+(The five ideas, as the AI offered them in reply to MS-6: show each condition next to its amount (Finding 8); "Paid" and "Coming" marks with a split total (Finding 3); consent and debrief screens with random A/B assignment; a payout timeline; a printable plan.)
+
+**What came back:**
+- **Conditions next to amounts:** `CONDITION` in `taskGuide.ts`, shown under the amount in each row of `ResultsScreenB.tsx`. Three conditions: the Earn and Save Bonus income range, the EUC Rebate property rule and the U-Credit property rule.
+- **Paid / still to come:** `payStatus()` and `paidSplit()` compare each payout line with today's date. Each row has an "Already paid" / "Still to come" / "Partly paid" badge, and the total card and sidebar say "$6,450 already paid · $2,000 still to come (as of 1 Nov 2026)" with a two-part bar.
+- **Payout calendar:** `PayoutTimeline.tsx`, a 12-month strip with a detail panel for the month tapped.
+- **Printable plan:** `PrintPlan.tsx`, rendered outside the app so the print is one clean page, behind a "Print my plan" button in `NextStep.tsx`.
+- **Study screens:** `src/study/StudyScreens.tsx` (consent, debrief, an "I'm finished" bar), random assignment in `useVariant.ts`, and the flow in `App.tsx`.
+- **Ask Compass** now gives the paid/to-come split and a scheme's condition.
+
+`npm run build` passes. Browser test at 1440px and 390px, with no console errors:
+- the consent screen shows first and hides the A/B switch;
+- with no `?v=`, the visitor was assigned an arm that survived a reload, and `?v=B` overrode it;
+- B showed 11 "Already paid" and 3 "Still to come" badges and 3 conditions;
+- the calendar's default month was December 2026 (Steady Package ×2 and the 2026 NSF Top-Up, $2,000), and March showed the Earn and Save Bonus;
+- print preview showed only the plan, with the chosen day;
+- "I'm finished" opened the debrief, "See version A" switched to A, and "Clear and start over" returned to consent.
+
+**Our judgement, and what we changed next:** the first print build hid the app with `visibility`, which would have printed about 20 blank pages, because the long page keeps its height. The plan now renders outside the app and printing hides the app entirely. The paid/coming split matches the figures in AUDIT.md ($6,450 paid and $2,000 to come, checked on 24 Oct and again on 1 Nov). Amounts in the calendar are shown only where a payout falls in one month, so no figure is invented by splitting. Findings 3 and 8 were audited repairs that had not been built, so building them closes gaps the audit itself named. The consent and debrief screens are shared by A and B, so they do not enter the comparison.
+
+**Principle check:** Finding 8 and W7 fluency: X, the condition in body-size text beside the amount it limits → Y, more testers mention the income condition when asked about Member 1's benefits (15% in A to 60% in B) → because Z, a condition read at the moment the amount is read is processed, while small italics at the foot of a box are skipped. Finding 3, W3 expectations and W4 reference point: X, "Already paid / Still to come" marks and a split total → Y, more testers can say how much P1 still gets in 2026 (15% in A to 60% in B) → because Z, the reference point becomes the $2,000 still to come, not the $8,450 total, so later payouts are not felt as a loss. W6 accountability (Finding 11): X, a printable one-page plan → Y, testers who have a helper share or keep the plan → because Z, a plan on paper can be handed to the person who will help. W1 random assignment: X, A or B given at random and kept per browser, with consent and debrief → Y, a pilot comparison that is fair and ethical → because Z, chance, not choice, decides who sees which version.

@@ -26,8 +26,10 @@ import { SchemeLabel } from './slots/SchemeLabel';
 import { NextStep } from './slots/NextStep';
 import { SchemeCategory } from './slots/SchemeCategory';
 import { HelpBot } from './slots/HelpBot';
+import { PayoutTimeline } from './slots/PayoutTimeline';
+import { PrintPlan } from './slots/PrintPlan';
 import { statusFor } from './slots/schemeStatusM3';
-import { needsYou, nextPayout, progressWithPlan, usePlan, who } from './slots/taskGuide';
+import { CONDITION, needsYou, nextPayout, paidSplit, payStatus, progressWithPlan, timeline, usePlan, who } from './slots/taskGuide';
 import { CountUp, Reveal } from './motion';
 
 // Variant B: the same results screen as variant A, with our nudges.
@@ -171,13 +173,38 @@ function SchemeRow({ row, onOpenScheme }: { row: PayoutRowA; onOpenScheme?: (sch
           {row.payoutLine}
         </p>
       </div>
-      <p
-        className="shrink-0 text-2xl md:text-[28px] font-extrabold tabular-nums leading-none sm:pt-1 sm:text-right"
-        style={{ color: C.ink, fontFamily: FONT_DISPLAY }}
-      >
-        {rowAmount(row)}
-      </p>
+      <div className="shrink-0 flex flex-col gap-2 sm:items-end sm:text-right sm:max-w-[240px]">
+        <p className="text-2xl md:text-[28px] font-extrabold tabular-nums leading-none sm:pt-1" style={{ color: C.ink, fontFamily: FONT_DISPLAY }}>
+          {rowAmount(row)}
+        </p>
+        <PayBadge row={row} />
+        {/* Finding 8: the condition sits next to the amount it limits */}
+        {CONDITION[row.schemeCode] && (
+          <p className="flex items-start gap-1.5 text-sm leading-snug sm:justify-end" style={{ color: C.body }}>
+            <Info className="w-4 h-4 mt-0.5 shrink-0" style={{ color: C.claim }} aria-hidden="true" />
+            <span>{CONDITION[row.schemeCode]}</span>
+          </p>
+        )}
+      </div>
     </li>
+  );
+}
+
+// Finding 3: whether this payout has already been made, as of today
+function PayBadge({ row }: { row: PayoutRowA }) {
+  const s = payStatus(row);
+  if (!s) return null;
+  const look = {
+    paid: { text: 'Already paid', Icon: CheckCircle2, fg: C.auto, bg: C.autoTint },
+    now: { text: 'Paying this month', Icon: CalendarClock, fg: C.brand, bg: C.brandSoft },
+    coming: { text: 'Still to come', Icon: CalendarClock, fg: C.brand, bg: C.brandTint },
+    partly: { text: 'Partly paid', Icon: CalendarClock, fg: C.signup, bg: C.signupTint },
+  }[s];
+  return (
+    <span className="inline-flex items-center gap-1 w-fit rounded-full px-2.5 py-1 text-sm font-bold" style={{ color: look.fg, backgroundColor: look.bg }}>
+      <look.Icon className="w-4 h-4" aria-hidden="true" />
+      {look.text}
+    </span>
   );
 }
 
@@ -353,6 +380,8 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
   const mineCount = allRows.filter(needsYou).length;
   const { left, items, done, total: rowTotal, percent } = progressWithPlan(panel, plan);
   const next = nextPayout(panel);
+  const split = paidSplit(panel);
+  const asOf = new Date().toLocaleDateString('en-SG', { day: 'numeric', month: 'short', year: 'numeric' });
   const boxes = [...panel.ownBoxes, ...panel.memberBoxes];
 
   const canSpeak = typeof window !== 'undefined' && 'speechSynthesis' in window;
@@ -453,6 +482,23 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
           </span>
         )}
       </div>
+      {/* Finding 3: how much of this year's money has already arrived */}
+      {(split.paid > 0 || split.partly > 0) && (
+        <div className="mt-4">
+          <p className={`font-semibold ${compact ? 'text-sm' : 'text-base'}`} style={{ color: C.body }}>
+            <span style={{ color: C.auto }}>{money(split.paid)} already paid</span>
+            {' · '}
+            <span style={{ color: C.brand }}>{money(split.coming)} still to come</span>
+            {split.partly > 0 ? ` · ${money(split.partly)} partly paid` : ''}
+            <span className="font-normal" style={{ color: C.muted }}> (as of {asOf})</span>
+          </p>
+          <div className="mt-1.5 flex h-2.5 w-full overflow-hidden rounded-full" style={{ backgroundColor: C.brandTint }} aria-hidden="true">
+            <span style={{ width: `${(split.paid / Math.max(1, total.cash)) * 100}%`, backgroundColor: '#A0A8B3' }} />
+            <span style={{ width: `${(split.partly / Math.max(1, total.cash)) * 100}%`, backgroundColor: C.signup }} />
+            <span style={{ width: `${(split.coming / Math.max(1, total.cash)) * 100}%`, backgroundColor: C.brand }} />
+          </div>
+        </div>
+      )}
       {compact && (
         <div className="mt-4">
           <p className="text-sm font-semibold" style={{ color: C.body }}>
@@ -702,6 +748,11 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
               <StartHere panel={panel} plan={plan} />
             </div>
 
+            {/* When the money comes: month-by-month (Finding 3) */}
+            <Reveal>
+              <PayoutTimeline panel={panel} />
+            </Reveal>
+
             <Reveal>
               <div className="mb-6">
                 <p className="text-sm font-bold uppercase tracking-[0.14em]" style={{ color: C.brand }}>
@@ -802,6 +853,8 @@ export function ResultsScreenB({ onBack, onOpenScheme, onOpenBanner, onOpenFaq }
 
       {/* Scripted helper, outside the zoom so it stays pinned to the corner */}
       <HelpBot panel={panel} plan={plan} />
+      {/* One-page plan, printed by "Print my plan" */}
+      <PrintPlan panel={panel} plan={plan} totalText={totalLabel(panel)} />
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { CalendarCheck, CalendarDays, Check, Copy, Download, Users } from 'lucide-react';
+import { CalendarCheck, CalendarDays, Check, Copy, Download, Printer, Users } from 'lucide-react';
 import type { YearPanelA } from '../../variantA/resultsDataA';
 import { C, FONT_DISPLAY } from '../../theme/brand';
 import { actionItems } from './schemeStatusM3';
@@ -10,6 +10,7 @@ import { calendarFile, niceDate, type Plan } from './taskGuide';
 // so the same items are no longer listed twice. This block sums up the plan:
 //   - the days picked, and one calendar file for all of them    W6 reminders at a time the person chose
 //   - "Do this with someone": a message to copy               W6 accountability; social support (Finding 11)
+//   - "Print my plan": a one-page plan on paper (PrintPlan.tsx, MS-7)
 // Nothing is stored or sent anywhere: the plan lives in the page, and the
 // reminder is a calendar file the visitor downloads.
 
@@ -74,6 +75,19 @@ export function NextStep({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
         >
           Your plan
         </h2>
+        <div className="mt-3 flex flex-wrap items-center gap-3">
+          <p className="text-base" style={{ color: GREY }}>
+            Prefer paper, or want to hand it to someone helping you?
+          </p>
+          <button
+            type="button"
+            onClick={() => window.print()}
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-base font-semibold cursor-pointer transition-colors hover:bg-[#F0FDFA] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            style={{ color: LINK, border: `1.5px solid ${LINK}`, outlineColor: LINK }}
+          >
+            <Printer className="w-5 h-5" aria-hidden="true" /> Print my plan
+          </button>
+        </div>
 
         <div className="mt-6 grid gap-6 md:grid-cols-2">
           {/* Reminders */}

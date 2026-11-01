@@ -187,3 +187,86 @@ export const needsYou = (row: PayoutRowA) => {
   const kind = statusFor(row)?.kind;
   return kind === 'claim' || kind === 'signup';
 };
+
+// ---- Conditions next to the amount (AUDIT.md Finding 8, MS-7) --------------
+// The live screen puts these in small italics under "To note:" at the foot of
+// a box, away from the amount they limit. Same facts as the notes in
+// src/variantA/resultsDataA.ts, in plain words, shown beside the amount.
+export const CONDITION: Record<string, string> = {
+  'HP-ESB': 'Only if their average monthly income last Year of Assessment was $500 to $6,000',
+  EUCR: 'Only if no household member owns private property and the whole flat is not rented out',
+  'U-CREDIT': 'Only if no household member owns more than one property',
+};
+
+// ---- Paid or still to come (AUDIT.md Finding 3, MS-7) ----------------------
+// Each row's payout months compared with today's month. "now" means the
+// payout month is this month.
+export type PayStatus = 'paid' | 'now' | 'coming' | 'partly';
+
+const monthKey = (d: Date) => d.getFullYear() * 12 + d.getMonth();
+
+export function payStatus(row: PayoutRowA, now = new Date()): PayStatus | null {
+  const months = payoutMonths(row).map(({ y, m }) => y * 12 + m);
+  if (months.length === 0) return null;
+  const k = monthKey(now);
+  if (months.every(x => x < k)) return 'paid';
+  if (months.every(x => x > k)) return 'coming';
+  if (months.length === 1 && months[0] === k) return 'now';
+  return 'partly';
+}
+
+// Cash already paid, still to come, and in rows that are partly paid (their
+// amount cannot be split by month from the data, so it is shown on its own).
+export function paidSplit(panel: YearPanelA, now = new Date()) {
+  let paid = 0;
+  let coming = 0;
+  let partly = 0;
+  for (const row of [...panel.ownBoxes, ...panel.memberBoxes].flatMap(b => b.rows)) {
+    if (row.unit !== 'currency') continue;
+    const s = payStatus(row, now);
+    if (s === 'paid') paid += row.amount;
+    else if (s === 'coming' || s === 'now') coming += row.amount;
+    else if (s === 'partly') partly += row.amount;
+  }
+  return { paid, coming, partly };
+}
+
+// ---- Month-by-month timeline (MS-7) ----------------------------------------
+export interface MonthCell {
+  y: number;
+  m: number;
+  label: string; // "Dec"
+  long: string; // "December 2026"
+  status: 'past' | 'now' | 'future';
+  items: { name: string; amount: string | null; who: string }[];
+  cash: number; // only rows paid in this one month, so the sum is exact
+}
+
+export function timeline(panel: YearPanelA, now = new Date()): MonthCell[] {
+  const year = Number(panel.year);
+  const k = monthKey(now);
+  const cells: MonthCell[] = MONTHS.map((long, m) => ({
+    y: year,
+    m,
+    label: long.slice(0, 3),
+    long: `${long} ${year}`,
+    status: year * 12 + m < k ? 'past' : year * 12 + m === k ? 'now' : 'future',
+    items: [],
+    cash: 0,
+  }));
+  for (const box of [...panel.ownBoxes, ...panel.memberBoxes]) {
+    for (const row of box.rows) {
+      const months = payoutMonths(row).filter(({ y }) => y === year);
+      for (const { m } of months) {
+        const single = months.length === 1;
+        cells[m].items.push({
+          name: plainName(row.schemeName),
+          amount: single ? (row.unit === 'months' ? `${row.amount} months` : money(row.amount)) : null,
+          who: who(box),
+        });
+        if (single && row.unit === 'currency') cells[m].cash += row.amount;
+      }
+    }
+  }
+  return cells;
+}

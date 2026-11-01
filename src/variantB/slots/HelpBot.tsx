@@ -5,7 +5,7 @@ import { C, FONT_DISPLAY } from '../../theme/brand';
 import { COPY_B } from './styleB';
 import { PLAIN_LINE } from './SchemeCategory';
 import { actionItems, statusFor } from './schemeStatusM3';
-import { deadlineFor, money, nextPayout, niceDate, plainName, progressWithPlan, stepsFor, type Plan } from './taskGuide';
+import { deadlineFor, money, nextPayout, niceDate, paidSplit, plainName, progressWithPlan, stepsFor, CONDITION, type Plan } from './taskGuide';
 
 // "Ask Compass": a scripted helper for variant B (MS-4).
 // Why (AUDIT.md Findings 7 and 11; Nielsen heuristic 10, help and
@@ -115,7 +115,13 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
       return {
         from: 'bot',
         text: `${name}: ${PLAIN_LINE[scheme] ?? 'A support scheme in your results.'}`,
-        list: row ? [`What you need to do: ${statusFor(row)?.label ?? 'see the label on the page'}`, `When: ${row.payoutLine}`] : undefined,
+        list: row
+          ? [
+              `What you need to do: ${statusFor(row)?.label ?? 'see the label on the page'}`,
+              `When: ${row.payoutLine}`,
+              ...(CONDITION[scheme] ? [`Condition: ${CONDITION[scheme]}`] : []),
+            ]
+          : undefined,
         actions: [{ label: 'Explain another scheme', topic: 'meaning' }],
       };
     }
@@ -140,7 +146,10 @@ export function HelpBot({ panel, plan }: { panel: YearPanelA; plan: Plan }) {
       case 'total':
         return {
           from: 'bot',
-          text: `Your household could get ${totalText(panel)} in ${panel.year}. It is an estimate: it assumes the details you entered stay the same, and amounts marked “Up to” depend on conditions such as income.`,
+          text: `Your household could get ${totalText(panel)} in ${panel.year}. ${(() => {
+            const s = paidSplit(panel);
+            return s.paid > 0 ? `Of the cash, ${money(s.paid)} has already been paid and ${money(s.coming)} is still to come. ` : '';
+          })()}It is an estimate: it assumes the details you entered stay the same, and amounts marked “Up to” depend on conditions such as income.`,
           actions: [{ label: 'See every scheme', target: 'see-all-schemes' }, { label: 'When is the next payout?', topic: 'next' }],
         };
       case 'next': {

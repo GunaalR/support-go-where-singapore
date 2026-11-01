@@ -53,3 +53,11 @@
   .hc-reveal { opacity: 1; transform: none; transition: none; }
   .hc-lift, .hc-lift:hover { transition: none; transform: none; }
 }
+
+/* ---- Print: only the plan (MS-7) -----------------------------------------
+   The plan lives outside #root, hidden on screen; printing hides the app. */
+.hc-print-root { display: none; }
+@media print {
+  #root { display: none !important; }
+  .hc-print-root { display: block; padding: 8px; color: #000; font-family: Inter, Arial, sans-serif; }
+}

@@ -79,3 +79,15 @@ MS-3 changed the look. MS-4 changes how the screen works, from the visitor's sid
 - **Amber marks what needs the household.** It is the warm opposite of the teal, so the to-do list and the "Claim it yourself" chips are what the eye finds first.
 - **Grey for "Automatic", teal for "done".** Automatic rows recede in grey; "done" ticks and the "All done" line use teal.
 - **Voucher dates corrected to match EZ's audit correction of 1 Nov.** The NCV task on the 2026 tab gives two dates: $300 by 31 Dec 2026 and $500 by 31 Dec 2027, in the deadline line, the last "How to do it" step and the helper's answers. The 2027 tab gives one date: 31 Dec 2027.
+
+## Five more changes (MS-7, 2026-11-01)
+
+| Change | Where | Finding / principle | Notes |
+|---|---|---|---|
+| **Condition next to the amount**, e.g. "Up to $1,000 · Only if their average monthly income last Year of Assessment was $500 to $6,000" | each scheme row, under the amount | **Finding 8's repair** (it was marked "not built" in EZ's check of 1 Nov); W7 fluency | Body-size roman text with an info icon. The full "To note" panel stays at the foot of the box, so nothing is lost. |
+| **Already paid / Still to come** on every row, and the total split as "$6,450 already paid · $2,000 still to come (as of today)" with a two-part bar | each row; the At a glance card and sidebar | **Finding 3's repair** (listed as the next test); W3 expectations, W4 reference point | Worked out from each payout line and today's date, so it stays true as the months pass. A row spread over months that have and have not passed shows "Partly paid", and its amount is not split. |
+| **Payout calendar**: a 12-month strip. Past months are grey, this month is marked "Now", months ahead are teal. Tap a month to see what is paid, and to whom | between the to-do list and "All your benefits" | Finding 3; W3 expectations | Amounts appear only for payouts that fall in one month, so every figure shown is exact. |
+| **Print my plan**: one clean page with the to-do list, status or chosen day, deadlines, steps and what to have ready | button under "Your plan" | Finding 11; W6 accountability (a plan to hand to the person helping) | Printed from a block outside the app, so it is one page, black on white. |
+| **Consent, random assignment and debrief** | the site shell (`src/study/`), the same for A and B | Week 6 brief: "a consent screen and a debrief screen"; W1 random assignment | Consent comes first, once per browser. With no `?v=`, a visitor gets A or B at random, kept in localStorage; `?v=A` / `?v=B` always win. "I'm finished" at the end of either version opens the debrief: nothing was ordered or sent, the data was fictional, which version they saw and what B changes. It offers "See the other version" and "Clear and start over". |
+
+**Guardrails kept:** no network calls, nothing sent or stored beyond the two small notes the consent screen names (consent given, and the version shown). The A/B switch is still visible for markers; in a real test it would be hidden (see the limits above).
