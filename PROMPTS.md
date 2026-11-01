@@ -744,3 +744,21 @@ i like evetyhing, add all the 5 ideads and push it. If i push this change, do ot
 **Our judgement, and what we changed next:** the first print build hid the app with `visibility`, which would have printed about 20 blank pages, because the long page keeps its height. The plan now renders outside the app and printing hides the app entirely. The paid/coming split matches the figures in AUDIT.md ($6,450 paid and $2,000 to come, checked on 24 Oct and again on 1 Nov). Amounts in the calendar are shown only where a payout falls in one month, so no figure is invented by splitting. Findings 3 and 8 were audited repairs that had not been built, so building them closes gaps the audit itself named. The consent and debrief screens are shared by A and B, so they do not enter the comparison.
 
 **Principle check:** Finding 8 and W7 fluency: X, the condition in body-size text beside the amount it limits → Y, more testers mention the income condition when asked about Member 1's benefits (15% in A to 60% in B) → because Z, a condition read at the moment the amount is read is processed, while small italics at the foot of a box are skipped. Finding 3, W3 expectations and W4 reference point: X, "Already paid / Still to come" marks and a split total → Y, more testers can say how much P1 still gets in 2026 (15% in A to 60% in B) → because Z, the reference point becomes the $2,000 still to come, not the $8,450 total, so later payouts are not felt as a loss. W6 accountability (Finding 11): X, a printable one-page plan → Y, testers who have a helper share or keep the plan → because Z, a plan on paper can be handed to the person who will help. W1 random assignment: X, A or B given at random and kept per browser, with consent and debrief → Y, a pilot comparison that is fair and ethical → because Z, chance, not choice, decides who sees which version.
+
+## Entry MS-8 - README brought up to date with the current build · 2026-11-01 · sent by MS · Claude Code
+```
+You yourself push this change and add what's changed in README.md in my name and wherever needed
+```
+**What came back:** README.md (EZ's layout and wording kept) updated to the build on `m3-red-layout`:
+- a "Design" link to DESIGN.md;
+- the variant B row rewritten, and a new "What variant B adds" table: each change as the visitor's question, what B shows, and the finding it answers;
+- the Switch row now describes random assignment with `?v=` overriding;
+- the Test row says the consent and debrief screens are built;
+- the repository map lists DESIGN.md, `src/theme/` and the study screens;
+- one ground rule added on readability (WCAG AA, never colour alone, reduced motion).
+
+The commit is authored by MS and was pushed to `m3-red-layout`.
+
+**Our judgement, and what we changed next:** the README is what a marker reads first, so it must match what the live prototype does. The old text still described "Plan your next step" as a separate block and the test screens as not built. Every row of the new table points to the finding it answers, so the README states the same traceability as AUDIT.md. Nothing in AUDIT.md changed for this.
+
+**Principle check:** none: documentation only.
