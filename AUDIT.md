@@ -234,5 +234,52 @@ These came after the audit, so no prediction was committed before they were buil
 ### 2026-11-01, later (EZ): two changes applied to variant B
 
 The voucher line now gives both dates on the 2026 tab, and vouchers move to the top of "Start here" because theirs is now the earliest deadline. The page title reads "may get", which restores the hedge. Both tables above show the state before these two changes.
+
+### 2026-11-01 (MS): later changes to variant B, logged by date
+
 - 2026-11-01: MS-6 merged main (EZ's corrections) into the redesign branch; brand colour changed from red to care teal, with red kept for the heart logo only; the NCV task and the helper now give both voucher dates from EZ's correction (DESIGN.md). Variant A unchanged; nothing above this heading was edited.
 - 2026-11-01: MS-7 built two repairs that the check above lists as not built: Finding 8 (each condition now sits next to the amount it limits, in body-size roman text) and Finding 3 (each row is marked "Already paid" or "Still to come" as of today, the total is split into paid and to come, and a month-by-month payout calendar was added). Also added: a printable plan, and the brief's consent screen, random A/B assignment (kept in localStorage; `?v=` overrides) and debrief screen. Finding 3's prediction above was written for "a future B"; any result for it is now testable but exploratory. Variant A unchanged; nothing above this heading was edited.
+
+### 2026-11-01 (MS): where each repair stands now
+
+Checked on `main` after the merge of 1 Nov (`f453fb6`), by reading the code and rendering `?v=B`. EZ's table above stays as the record of 31 Oct.
+
+| # | Repair | Status in B now |
+|---|---|---|
+| 1 | Keep the total and its hedges | Kept. The total says "Up to" and "estimated", and the title reads "may get" (EZ-8). Screen readers hear the full sentence. The total is now also split into paid and still to come (see 3) |
+| 2 | Every row reachable | Kept. All 14 rows show by default. The "Only ones that need me" filter is opt-in and defaults to "All"; jump-to-person buttons only scroll |
+| 3 | Paid versus coming | **Built (MS-7)**, not just listed for later: each row says "Already paid" or "Still to come" as of today, the total is split ($6,450 paid and $2,000 to come on 1 Nov, matching the figures above), and a month-by-month payout calendar was added. The prediction above was written for "a future B", so any result for it is exploratory |
+| 4 | "Start here" with reasons | Built (M3). Since MS-4 it is one to-do list with how-to steps, a day picker, Skip and "I've done this" ticks. NCV Vouchers are first (earliest deadline) |
+| 5 | One status on every row | Built (M3), as a chip with an icon and the words. Still includes the form the audit did not list ("Automatic for employees; if self-employed, declare your income") |
+| 6 | One plain line per scheme | Built (M5), unchanged |
+| 7 | "What you'll need" with expiry | Built, now inside each task (MS-4). The NCV task gives both dates on the 2026 tab ($300 by 31 Dec 2026, $500 by 31 Dec 2027, MS-6). Ask Compass gives the same steps and dates |
+| 8 | Condition next to the amount | **Built (MS-7).** Each condition sits in its row beside the amount, in body-size roman text. The "To note" panel stays at the foot of each box |
+| 9 | Banner | Unchanged in content and still below the action items; restyled only |
+| 10 | Plan and reminder | Built. A day picker per task (GR-5's date picker in place of "Today / This weekend / Remind me"). Calendar reminders are now downloaded by an explicit button, no longer a pre-ticked box (MS-4). Also a progress count and a printable plan (MS-7) |
+| 11 | "Do this with someone" | Built: a message to copy that names only the items and days, a "Do this with someone" card in the sidebar, and the printable plan |
+| 12 | Colour and icon per kind | Built (M5, M1). Always with a word and an icon. Since MS-6 the brand is teal, and red appears only in the heart logo |
+
+### 2026-11-01 (MS): changes in B that the audit did not predict, part 2
+
+These continue EZ's table above. They came after the audit, so no prediction was committed before they were built, and any pilot result for them is exploratory. The verdicts are MS's reading and have not been rated by the group. Prompts: PROMPTS.md, entries MS-3 to MS-9.
+
+| Change | Principle | Whose goal wins | Verdict |
+|---|---|---|---|
+| One to-do list in place of the same items in two blocks | W6 simplify; W2 feedback | The user | nudge |
+| "At a glance" tiles: things to do, automatic count, next payout month | W3 expectations; Nielsen #1 | The user | nudge |
+| "Only ones that need me" filter and jump-to-person buttons | Nielsen #7 | The user, as long as the default stays "All". A default of "Only mine" would hide rows, which Finding 2 rules out | nudge, with a watch |
+| Text size (A / A+ / A++) and "Listen" | W7 fluency | The user | nudge |
+| "Ask Compass", a scripted helper with fixed answers | Findings 7 and 11; Nielsen #10 | The user. Risk: a visitor may trust a fixed answer too far, so its answers point back to the page and say the figures are estimates | nudge, with a watch |
+| Payout calendar | W3 expectations | The user | nudge |
+| Printable plan | W6 accountability | The user | nudge |
+| Sticky summary sidebar on wide screens | Nielsen #1; W2 goal gradient | The user | nudge |
+| Motion: sections rising in, the total counting up, an "All done" burst | W2 feedback | Mixed: it adds polish more than it changes the decision. It switches off under reduced-motion settings | grey |
+| Amber for "needs you" against a teal brand; red only in the logo | W8 colour (Bazley et al., 2021) | The user | nudge |
+| Reminder downloaded by a button, no longer pre-ticked | W4 default | The user: the choice is explicit. This replaces EZ's row "Calendar reminder ticked by default" | nudge |
+| Consent screen, random A/B assignment and debrief | W1 randomised experiments; Week 6 brief | The study's validity, and an informed participant | not a nudge: study scaffolding, the same in A and B |
+
+Taken together, these make B differ from A by more than the audited repairs, so a B-over-A result would test B as a package (DESIGN.md, "Where this could turn into sludge").
+
+### Still open for the group: agreed severities
+
+The "Agreed" column in the summary and the "agreed [ ]" lines above stay blank, because nothing above this heading changes after the first prompt for B. Once the group has talked through the rows EZ marked "discuss" (Findings 1, 4, 7, 8, 9 and 12), the agreed numbers go in a new dated table here.

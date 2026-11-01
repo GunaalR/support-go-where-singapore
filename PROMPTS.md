@@ -1,5 +1,7 @@
 # PROMPTS.md
 
+> **Note added 2026-11-01 (MS):** sections 1 to 7 below are the Week 6 in-class sprint of 28 Sep 2026 (practice), planned for Google AI Studio and kept unchanged as a record. Their checklist ticks in section 3 ("AUDIT.md has been committed", "The group has agreed on the final findings/severity") were written by the AI and were **not true** at the time: AUDIT.md was first committed on 24 Oct 2026, before any work on the project's variant B (27 Oct), and the agreed severities are still being settled (AUDIT.md, "Added after building"). The group later switched from AI Studio to Claude Code and claude.ai. The project's own log starts at section 8, in date order.
+
 # MGMT 6108 --- Google AI Studio Build Log
 
 **Project:** Redesigning the SupportGoWhere Results Screen  
@@ -409,6 +411,20 @@ The prototype supports:
 **Our judgement, and what we changed next:** the screenshots, not the service data, are the reference for A, so A now follows them on order, wording and styling. AUDIT.md Finding 10 is confirmed by S10: the results link opened in a private window lands on the calculator's start page.
 **Principle check:** none: production only.
 
+## Entry EZ-5 - README · 2026-10-24, 22:40 SGT · sent by EZ · Claude Code
+```
+直接推，但是要搞的美观大气，要有"高级感"。，如果需要图片你就直接加，如果需要更适合且此刻可以做的，你跟我说。
+```
+(English: "Push it directly, but make it look polished and high-end. Add images if needed; tell me if something better is possible now.")
+**What came back:** `README.md` and a drawn SVG banner in `docs/`.
+**Our judgement, and what we changed next:** two sentences claimed more than was true ("each finding has a prediction"; B's label wording, which was not yet decided) and were reworded before the push.
+**Principle check:** none: production only.
+
+## Entry EZ-6 - citations checked against the readings · 2026-10-25, 01:15 SGT · EZ · Claude Code
+**What came back:** Labrecque & Milne confirmed at p. 711 (published 2012, not 2011). Our Ariely scan has its page numbers cropped, so the reading list gave the range. The library proxy failed on the e-book chapters until an incognito window got past a cookie error; Alter ch. 2 and ch. 7 were then read online.
+**Our judgement, and what we changed next:** pages we opened went into AUDIT.md. Readings we could not open are named as such, and each of those claims also rests on a slide we checked.
+**Principle check:** none: citation accuracy.
+
 ## Entry GR-1 - M1 A/B switch and empty slots for variant B · 2026-10-27, 10:30 SGT · sent by GR · Claude (claude.ai)
 ```
 Build my part: the A/B switch. One URL, ?v=A shows variant A and ?v=B shows variant B, with a switch so the prof can flip between them on one page. Don't touch anyone else's files.
@@ -665,20 +681,6 @@ can you make it look more better, change back the logo and color theme to red (l
 
 **Principle check:** W10 culture and W8 colour (Bazley et al., 2021): X, a rose-red brand that matches the heart logo, kept off amounts and labels → Y, testers rate the site as trustworthy and caring at least as highly as A, without reading the amounts as risky → because Z, red signals care and luck in a Singapore context when it is the brand, while the money itself carries no red. Nielsen #1, visibility of status, and W2 goal gradient: X, a sticky sidebar with the total, the progress bar and the tasks left → Y, more testers finish all their to-do items → because Z, progress stays in sight while they work through the detail. W2 feedback: X, a short "All done" burst and a filling progress bar → Y, testers who tick one task go on to the next → because Z, an immediate, visible response confirms that the effort counted.
 
-## Entry EZ-5 - README · 2026-10-24, 22:40 SGT · sent by EZ · Claude Code
-```
-直接推，但是要搞的美观大气，要有"高级感"。，如果需要图片你就直接加，如果需要更适合且此刻可以做的，你跟我说。
-```
-(English: "Push it directly, but make it look polished and high-end. Add images if needed; tell me if something better is possible now.")
-**What came back:** `README.md` and a drawn SVG banner in `docs/`.
-**Our judgement, and what we changed next:** two sentences claimed more than was true ("each finding has a prediction"; B's label wording, which was not yet decided) and were reworded before the push.
-**Principle check:** none: production only.
-
-## Entry EZ-6 - citations checked against the readings · 2026-10-25, 01:15 SGT · EZ · Claude Code
-**What came back:** Labrecque & Milne confirmed at p. 711 (published 2012, not 2011). Our Ariely scan has its page numbers cropped, so the reading list gave the range. The library proxy failed on the e-book chapters until an incognito window got past a cookie error; Alter ch. 2 and ch. 7 were then read online.
-**Our judgement, and what we changed next:** pages we opened went into AUDIT.md. Readings we could not open are named as such, and each of those claims also rests on a slide we checked.
-**Principle check:** none: citation accuracy.
-
 ## Entry EZ-7 - status check, a wrong date in the audit, and the site shell · 2026-11-01, 03:30 SGT · sent by EZ · Claude Code
 ```
 把你这边明确归属于我这部分以及没有人明确负责的部分全部保质保量的做好，时间不限，可以用很多时间。
@@ -778,3 +780,26 @@ hey, the whole website loooks somewhat misaligned, make sure its properly aligne
 **Our judgement, and what we changed next:** the two-column rows came from MS-4 and survived MS-5, because at the widths checked then the rows had room. The fixed amount column added in MS-7 made them collapse at 1536px. A check of every width was added so a later change cannot quietly break one. Variant A was not touched.
 
 **Principle check:** W7 processing fluency: X, each row read in one column with the name and amount on the same line → Y, testers find a scheme's amount and condition faster → because Z, text in normal line lengths is processed quickly, while one or two words per line is effortful and gets skipped.
+
+## Entry MS-10 - AUDIT.md and PROMPTS.md brought up to date after the merge to main · 2026-11-01 · sent by MS · Claude Code
+```
+hey, Gunaal has merged the above into the main. Now if anything needs to be changed or updated in the audit.md and prompts.md, do update it  and gunaal is asking one thing, in the audit,md, we have summary of the findings right, do we have to chnage or update nything there as well and before pushing,  answer me for all this and later ill tell push then do it
+```
+(Followed by: "okay then push it".)
+
+**What came back:**
+- **Answer to GR's question:** the "Summary of findings" and everything above "Added after building" must not change. The brief compares the last AUDIT.md commit before B with the final file ("A finding added late is fine… A finding edited quietly is not"). The empty "Agreed" column is filled by a dated table below the line once the group has agreed.
+- **AUDIT.md, all below the line:**
+  - a heading so the MS-6 and MS-7 lines no longer run into EZ's paragraph;
+  - "Where each repair stands now", checked on `main` at `f453fb6`: repairs 3 and 8 are now built, and 7 and 10 have changed;
+  - "Changes in B that the audit did not predict, part 2", 12 rows with principle, whose goal wins and verdict, marked as MS's reading;
+  - an open item asking the group for agreed severities on Findings 1, 4, 7, 8, 9 and 12.
+  - A diff confirmed that nothing above the heading changed and no existing line was removed.
+- **PROMPTS.md:**
+  - EZ-5 (24 Oct) and EZ-6 (25 Oct) moved back into date order (the merge in MS-6 had put them after MS-5), with their wording unchanged;
+  - a dated note above sections 1 to 7 saying they are the 28 Sep sprint plan for AI Studio, kept as a record, and that their ticks ("AUDIT.md has been committed", "the group has agreed on the final findings/severity") were written by the AI and were not true then.
+  - A sorted-line diff confirmed the only new text is that note.
+
+**Our judgement, and what we changed next:** the tempting fix was to fill in the "Agreed" column and update the summary table, but that would quietly edit the pre-registration, so everything new goes below the line. The AI also did not invent agreed numbers: they need the group's discussion. The false ticks in the sprint plan are left visible on purpose, with a note, because they are an AI error the group caught (REFLECTION.md, A1).
+
+**Principle check:** none: documentation only (W1 pre-registration kept).
