@@ -104,6 +104,14 @@ export function PayoutTimeline({ panel }: { panel: YearPanelA }) {
                       <span className="block text-base font-semibold" style={{ color: C.ink }}>{it.name}</span>
                       <span className="block text-sm" style={{ color: C.muted }}>For: {it.who}</span>
                       {/* issued, but only reaches the household once claimed or used */}
+                      {it.signup && sel.status === 'past' && (
+                        <span
+                          className="mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-bold"
+                          style={{ color: C.signup, backgroundColor: C.signupTint }}
+                        >
+                          Paid if signed up
+                        </span>
+                      )}
                       {it.claim && sel.status !== 'future' && (
                         <span
                           className="mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-bold"

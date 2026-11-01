@@ -308,3 +308,7 @@ The group took the median of the five solo ratings as the agreed number (group c
 ### 2026-11-01 (MS): correction to "where each repair stands now", repair 3
 
 Following EZ's check: the table above gives "$6,450 paid and $2,000 to come". That $6,450 counted the NCV Vouchers ($800) and Child Credits ($1,000), which are issued but reach the household only once claimed or used (Finding 5). Variant B now splits the 2026 cash three ways: **$4,650 already paid, $1,800 ready to claim, $2,000 still to come**. Rows to claim show "Ready to claim", not "Already paid". The live-site figures in Finding 3 and the evidence files are unchanged; this corrects only how B labels them.
+
+### 2026-11-01, later (MS): the same correction for LCV payouts
+
+The same reasoning applies to LCV cash and the LCV HealthSave top-up, whose status is "Automatic if you have signed up before": their August payouts reached only households that had already signed up. Variant B now marks them "Paid if signed up", not "Already paid", and splits the 2026 cash four ways: **$2,700 already paid, $1,950 paid if you have signed up, $1,800 ready to claim, $2,000 still to come**. This replaces the three-way figures in the correction just above. The live-site figures and the evidence files are unchanged.

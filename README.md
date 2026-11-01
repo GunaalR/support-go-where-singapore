@@ -54,7 +54,7 @@ Every change traces to a finding in [AUDIT.md](AUDIT.md). Each one can be skippe
 | *Do I have to do anything?* | **Start here**: the 2 or 3 items that need the household, as one to-do list. Each opens to how-to steps, what to have ready, a day picker and Skip, with "I've done this" ticks and a progress count | 4, 5, 7, 10 |
 | *Does this arrive by itself?* | A plain status on every scheme: *Automatic: nothing to do*, *Claim it yourself: [where]* or *Automatic if you have signed up before* | 5 |
 | *What is this scheme?* | One plain-language line, an icon and a colour for each kind of support | 6, 12 |
-| *Is the money already here?* | *Already paid*, *Ready to claim* or *Still to come* on every row, the total split the same three ways, and a month-by-month payout calendar | 3, 5 |
+| *Is the money already here?* | *Already paid*, *Paid if signed up*, *Ready to claim* or *Still to come* on every row, the total split the same way, and a month-by-month payout calendar | 3, 5 |
 | *Is there a catch?* | Each condition, such as an income range, shown next to the amount it limits | 8 |
 | *How do I remember?* | **Your plan**: the days picked, calendar reminders, a printable one-page plan, and a message to send to someone who can help | 10, 11 |
 | *Can I just ask?* | **Ask Compass**: a scripted helper with fixed answers built from the page's own data. No AI model, no network call | 7, 11 |

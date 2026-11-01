@@ -203,8 +203,10 @@ export const CONDITION: Record<string, string> = {
 // payout month is this month. "claim" (EZ's check, 1 Nov): an item the
 // household must claim or use itself (NCV Vouchers, Child Credits) is never
 // "paid" just because its issue month has passed; it is ready to claim, and
-// reaches the household only once they act (Finding 5).
-export type PayStatus = 'paid' | 'now' | 'coming' | 'partly' | 'claim';
+// reaches the household only once they act (Finding 5). "ifSigned": an LCV
+// payout whose month has passed was paid only to people who had signed up
+// before; anyone who never did has not received it yet.
+export type PayStatus = 'paid' | 'now' | 'coming' | 'partly' | 'claim' | 'ifSigned';
 
 const monthKey = (d: Date) => d.getFullYear() * 12 + d.getMonth();
 
@@ -213,17 +215,19 @@ export function payStatus(row: PayoutRowA, now = new Date()): PayStatus | null {
   if (months.length === 0) return null;
   const k = monthKey(now);
   if (statusFor(row)?.kind === 'claim' && months.some(x => x <= k)) return 'claim';
+  if (statusFor(row)?.kind === 'signup' && months.every(x => x < k)) return 'ifSigned';
   if (months.every(x => x < k)) return 'paid';
   if (months.every(x => x > k)) return 'coming';
   if (months.length === 1 && months[0] === k) return 'now';
   return 'partly';
 }
 
-// Cash already paid, ready to claim (issued, but the household must claim
-// or use it), still to come, and in rows that are partly paid (their amount
-// cannot be split by month from the data, so it is shown on its own).
+// Cash already paid, paid only if signed up (LCV), ready to claim (issued,
+// but the household must claim or use it), still to come, and in rows that
+// are partly paid (their amount cannot be split by month, so on its own).
 export function paidSplit(panel: YearPanelA, now = new Date()) {
   let paid = 0;
+  let ifSigned = 0;
   let claim = 0;
   let coming = 0;
   let partly = 0;
@@ -232,10 +236,11 @@ export function paidSplit(panel: YearPanelA, now = new Date()) {
     const s = payStatus(row, now);
     if (s === 'paid') paid += row.amount;
     else if (s === 'claim') claim += row.amount;
+    else if (s === 'ifSigned') ifSigned += row.amount;
     else if (s === 'coming' || s === 'now') coming += row.amount;
     else if (s === 'partly') partly += row.amount;
   }
-  return { paid, claim, coming, partly };
+  return { paid, ifSigned, claim, coming, partly };
 }
 
 // ---- Month-by-month timeline (MS-7) ----------------------------------------
@@ -245,7 +250,7 @@ export interface MonthCell {
   label: string; // "Dec"
   long: string; // "December 2026"
   status: 'past' | 'now' | 'future';
-  items: { name: string; amount: string | null; who: string; claim: boolean }[];
+  items: { name: string; amount: string | null; who: string; claim: boolean; signup: boolean }[];
   cash: number; // only rows paid in this one month, so the sum is exact
 }
 
@@ -271,6 +276,7 @@ export function timeline(panel: YearPanelA, now = new Date()): MonthCell[] {
           amount: single ? (row.unit === 'months' ? `${row.amount} months` : money(row.amount)) : null,
           who: who(box),
           claim: statusFor(row)?.kind === 'claim',
+          signup: statusFor(row)?.kind === 'signup',
         });
         if (single && row.unit === 'currency') cells[m].cash += row.amount;
       }
