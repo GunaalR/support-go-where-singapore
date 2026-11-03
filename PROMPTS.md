@@ -818,7 +818,7 @@ I am M4 DD take the severity across all the findings and consolidate so i can co
 ```
 (Attached: the text of the 12 findings from AUDIT.md with all five members' ratings.)
 **What came back:** a table of all 12 findings with the five ratings, median and spread; the six findings with a two-point spread (1, 4, 7, 8, 9, 12); a pattern in my scores (higher on what the user reads and trusts, lower on how hard things are to reach); a consistency question (Finding 5 at 4 but Findings 4 and 7 at 1); and candidate reasons for each of the six.
-**Our judgement, and what we changed next:** the pattern and the candidate reasons are the AI's reading of the numbers, not my reasons. I kept [DD: which], rejected [DD: which], and my scores were not changed after seeing the group's. [DD: your own reason for each of the six, and your answer on 5 against 4 and 7.]
+**Our judgement, and what we changed next:** the pattern and the candidate reasons are the AI's reading of the numbers, not my reasons. I kept , rejected, and my scores were not changed after seeing the group's. 
 **Principle check:** none: rating process (rate alone, compare, then discuss).
 
 ## Entry DD-2 - what the AI missed, checked on the live site · [date, time] · sent by DD · Claude (claude.ai)
@@ -833,6 +833,30 @@ here are the screenshots or the live site and the site with nudges
 ```
 (Attached: seven screenshots of ?v=A and ?v=B on 1 Nov 2026.)
 **What came back:** the first reply said it could not see the site (the page is drawn by JavaScript) and listed gaps from the build log. After the screenshots it confirmed six on screen and corrected two earlier claims: "Already paid" is inferred from the date, not from what the household got (Member 1's Earn and Save Bonus is marked paid beside an income condition that may rule her out); "Already paid" sits next to "Claim it yourself"; the digital ID is assumed; the date field is a bare dd-mm-yyyy box; B is about five screens long against two for A; and three different counts ("3 to go", "3 things to do", "needs me (6)").
-**Our judgement, and what we changed next:** the AI wrongly said the child credits do not say who acts; B does name the trustee. [DD: what you re-checked on the live pages, and what you passed to the group.]
-**Principle check:** W3 expectations and W4 reference point (Finding 3); W7 fluency and Nielsen 8, minimalist design (Finding 4): [DD: only if you used them in your work].
+**Our judgement, and what we changed next:** the AI wrongly said the child credits do not say who acts; B does name the trustee.
+**Principle check:** W3 expectations and W4 reference point (Finding 3); W7 fluency and Nielsen 8, minimalist design (Finding 4).
    
+## Entry DD-3 - format of the prompt log, and how to add entries without a clash · [date, time] · sent by DD · Claude (claude.ai)
+```
+give me this is the format of prompt md
+```
+```
+how to i insert this in the prompt md file and my team member asked me to pull and pus in github so it doesnt clash
+```
+**What came back:** my earlier entries rewritten in the PROMPTS.md format , then two ways to add them: edit on github.com, which opens the latest file, or pull, edit, pull again and push from a terminal. It also gave a place-by-date table and fixes for a rejected push and a merge conflict.
+**Our judgement, and what we changed next:** . The AI could not know the real dates of my earlier prompts, so I read them from my own chat history and did not take them from it.
+**Principle check:** none: production only.
+
+## Entry DD-4 - A4 draft, then a redraft after reading DESIGN.md, AUDIT.md and REFLECTION.md · [date, time] · sent by DD · Claude (claude.ai)
+```
+help me with A4
+```
+(Attached: the text of REFLECTION.md.)
+```
+i have given you design.md, audit.md and reflection.md read through it and regarding our design and nudges  
+Write my A4 part of REFLECTION.md, 150-250 words: What about your users could the AI not know?
+```
+(Attached: the text of DESIGN.md, AUDIT.md and REFLECTION.md.)
+**What came back:** a first A4 of about 215 words built from the build log and my screenshots. After the three files, a second A4 of about 230 words that presents the date-only "Already paid" labels as an AI error that EZ caught and the group corrected ("Ready to claim", "Paid if signed up"), keeps the digital ID, trustee and date-field points, and says we have not tested real households.
+**Our judgement, and what we changed next:** the first draft treated "Already paid" next to "Claim it yourself" as a flaw still on the site. DESIGN.md shows it was fixed later on 1 Nov, so the second draft was written as a caught-and-corrected error. 
+**Principle check:** W3 expectations and W4 reference point (Finding 3), W7 fluency (Findings 4 and 8).
