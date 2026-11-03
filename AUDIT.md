@@ -283,3 +283,32 @@ Taken together, these make B differ from A by more than the audited repairs, so 
 ### Still open for the group: agreed severities
 
 The "Agreed" column in the summary and the "agreed [ ]" lines above stay blank, because nothing above this heading changes after the first prompt for B. Once the group has talked through the rows EZ marked "discuss" (Findings 1, 4, 7, 8, 9 and 12), the agreed numbers go in a new dated table here.
+
+### 2026-11-01 (EZ): agreed severities
+
+The group took the median of the five solo ratings as the agreed number (group chat, 1 Nov: MS proposed locking it unless a reason changed someone's mind, and DD accepted it for the rows where DD sat at one end). One-line reasons from the raters at each end were optional. Where a rater gave none, the reason below is EZ's reading of the finding's driver, not the raters' own words. The six rows that were two points apart are marked.
+
+| # | Finding | Agreed | Range | Why this number |
+|---|---|---:|:--|---|
+| 1 | Total, labelled an estimate * | 0 | 0-2 | It is honest and hedged, so it works and B keeps it |
+| 2 | Boxes open by default | 0 | 0 | Nothing is hidden |
+| 3 | Paid and upcoming money mixed | 2 | 1-2 | Costs trust and planning, not money directly |
+| 4 | Rows by person, no priority * | 3 | 1-3 | Reaches every household with more than one member, and a missed claim costs money |
+| 5 | No "automatic or claim" status | 4 | 3-4 | Vouchers and credits can expire unclaimed, with no warning on the screen |
+| 6 | Agency shorthand names | 2 | 2-3 | On every row, and only opening each page gets around it |
+| 7 | How to claim is on another page * | 2 | 1-3 | The information exists one click away, so the cost is time |
+| 8 | Conditions in small italics * | 2 | 1-3 | Disclosed but easy to miss, so the cost is to trust in the figure |
+| 9 | Largest button looks backward * | 1 | 1-3 | It blocks nothing and is useful for past payouts |
+| 10 | No plan, save or reminder | 3 | 2-3 | Every visit, and a lapsed intention can mean a missed claim |
+| 11 | Help is an FAQ link only | 2 | 1-2 | Matters most for older users; a small cost for others |
+| 12 | One colour for every box * | 1 | 0-2 | The prefix already names the kind, so the cost is a little time |
+
+\* Ratings were two points apart. The "Agreed" column in the summary and the "agreed [ ]" lines above stay blank, because nothing above "Added after building" changes after the first prompt for B. This table is the record.
+
+### 2026-11-01 (MS): correction to "where each repair stands now", repair 3
+
+Following EZ's check: the table above gives "$6,450 paid and $2,000 to come". That $6,450 counted the NCV Vouchers ($800) and Child Credits ($1,000), which are issued but reach the household only once claimed or used (Finding 5). Variant B now splits the 2026 cash three ways: **$4,650 already paid, $1,800 ready to claim, $2,000 still to come**. Rows to claim show "Ready to claim", not "Already paid". The live-site figures in Finding 3 and the evidence files are unchanged; this corrects only how B labels them.
+
+### 2026-11-01, later (MS): the same correction for LCV payouts
+
+The same reasoning applies to LCV cash and the LCV HealthSave top-up, whose status is "Automatic if you have signed up before": their August payouts reached only households that had already signed up. Variant B now marks them "Paid if signed up", not "Already paid", and splits the 2026 cash four ways: **$2,700 already paid, $1,950 paid if you have signed up, $1,800 ready to claim, $2,000 still to come**. This replaces the three-way figures in the correction just above. The live-site figures and the evidence files are unchanged.

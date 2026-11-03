@@ -21,7 +21,7 @@ export function PrintPlan({ panel, plan, totalText }: { panel: YearPanelA; plan:
       <p style={{ fontSize: 12 }}>HelpCompass SG · class prototype, fictional data · printed {printed}</p>
       <h1 style={{ fontSize: 26, fontWeight: 800, margin: '8px 0 4px' }}>My benefits plan for {panel.year}</h1>
       <p style={{ fontSize: 15 }}>
-        {COPY_B.totalTitle}: <strong>{totalText}</strong>. Already paid: {money(split.paid)}. Still to come: {money(split.coming)}.
+        {COPY_B.totalTitle}: <strong>{totalText}</strong>. Already paid: {money(split.paid)}.{split.ifSigned > 0 ? ` Paid if you have signed up: ${money(split.ifSigned)}.` : ''}{split.claim > 0 ? ` Ready to claim: ${money(split.claim)}.` : ''} Still to come: {money(split.coming)}.
       </p>
       <p style={{ fontSize: 13, marginTop: 4 }}>{COPY_B.pageSubtitle}</p>
 

@@ -95,10 +95,31 @@ export function PayoutTimeline({ panel }: { panel: YearPanelA }) {
               {sel.items.map((it, i) => (
                 <li key={i} className="flex items-start justify-between gap-3 rounded-xl bg-white px-3 py-2.5" style={{ border: `1px solid ${C.line}` }}>
                   <span className="flex items-start gap-2 min-w-0">
-                    <CircleDot className="w-4 h-4 mt-1 shrink-0" style={{ color: sel.status === 'past' ? C.muted : C.brand }} aria-hidden="true" />
+                    <CircleDot
+                      className="w-4 h-4 mt-1 shrink-0"
+                      style={{ color: it.claim && sel.status !== 'future' ? C.claimSolid : sel.status === 'past' ? C.muted : C.brand }}
+                      aria-hidden="true"
+                    />
                     <span className="min-w-0">
                       <span className="block text-base font-semibold" style={{ color: C.ink }}>{it.name}</span>
                       <span className="block text-sm" style={{ color: C.muted }}>For: {it.who}</span>
+                      {/* issued, but only reaches the household once claimed or used */}
+                      {it.signup && sel.status === 'past' && (
+                        <span
+                          className="mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-bold"
+                          style={{ color: C.signup, backgroundColor: C.signupTint }}
+                        >
+                          Paid if signed up
+                        </span>
+                      )}
+                      {it.claim && sel.status !== 'future' && (
+                        <span
+                          className="mt-1 inline-block rounded-full px-2 py-0.5 text-xs font-bold"
+                          style={{ color: C.claim, backgroundColor: C.claimTint }}
+                        >
+                          Ready to claim
+                        </span>
+                      )}
                     </span>
                   </span>
                   <span

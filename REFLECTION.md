@@ -22,7 +22,7 @@ The second call was a default. The AI built the calendar reminder as a box ticke
 
 ### A4 What about your users could the AI not know?
 
-[...] (initials)
+The AI worked from two fictional households, saved calculator results and official scheme records. It never met a real household, so it guessed what a household has done, has and can do. It marked the voucher, credit and Earn and Save Bonus rows "Already paid" from the calendar date alone, though it could not know whether anyone had claimed, signed up or earned within the bonus's income range. EZ caught this on 1 Nov; B now says "Ready to claim" and "Paid if signed up", and the bonus carries its condition beside the amount. It also assumed a digital ID: the voucher steps say "Log in with your digital ID", with no route for a household without one. It listed the child credits as a task for whoever opens the page, yet the child's trustee uses them, and B does not say who that is. Ages came from 2026 profiles, so the 2027 tab repeats them. Our design notes assume many readers are older, on phones or reading in a second language, but we have no evidence of that, and we have not yet tested with real households. The date field is a bare dd-mm-yyyy box, which suits a confident typist more than those readers. How households actually claim, and whether anyone helps them, only testing will show (DD)
 
 ## Part B - Reflection
 
@@ -38,4 +38,6 @@ Two results would change our minds. If A with the new look scores within five po
 
 ### B3 How did AI change who did what in your group?
 
-[...] (initials)
+AI did most of the typing, so our jobs moved to the two ends: saying exactly what to build, and checking what came back. To let five people's AI sessions run at once, M1 split variant B into one file per owner (GR-1), and each of us prompted for our own part. The real work then became checking against the evidence, and it was shared: EZ caught the wrong voucher date and the "Already paid" label next to "Claim it yourself"; I caught the AI calling the child credits "Automatic" and the rows squeezed into narrow strips.
+
+The cost was that ownership blurred. One AI session can rewrite many files in minutes, so when I restyled the whole of B and the site shell (MS-3 onwards), I was editing parts that belonged to M1, M4 and M5. On 1 Nov that met EZ's own edits to the same shell files and caused a merge conflict. We resolved it by merging rather than overwriting, keeping both sides' wording, and agreed to pull before editing any shared file. Two habits held it together: the initials in PROMPTS.md, which keep each change tied to a person, and the rule that facts go back to the saved records, not to the AI's memory. (MS)
