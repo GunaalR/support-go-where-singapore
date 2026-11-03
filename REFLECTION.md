@@ -22,7 +22,7 @@ The second call was a default. The AI built the calendar reminder as a box ticke
 
 ### A4 What about your users could the AI not know?
 
-[...] (initials)
+The AI worked from two fictional households, saved calculator results and official scheme records. It never met a real household, so it guessed what a household has done, has and can do. It marked the voucher, credit and Earn and Save Bonus rows "Already paid" from the calendar date alone, though it could not know whether anyone had claimed, signed up or earned within the bonus's income range. EZ caught this on 1 Nov; B now says "Ready to claim" and "Paid if signed up", and the bonus carries its condition beside the amount. It also assumed a digital ID: the voucher steps say "Log in with your digital ID", with no route for a household without one. It listed the child credits as a task for whoever opens the page, yet the child's trustee uses them, and B does not say who that is. Ages came from 2026 profiles, so the 2027 tab repeats them. Our design notes assume many readers are older, on phones or reading in a second language, but we have no evidence of that, and we have not yet tested with real households. The date field is a bare dd-mm-yyyy box, which suits a confident typist more than those readers. How households actually claim, and whether anyone helps them, only testing will show (DD)
 
 ## Part B - Reflection
 
