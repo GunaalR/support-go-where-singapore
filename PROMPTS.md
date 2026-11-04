@@ -812,16 +812,16 @@ Write my B2 part of REFLECTION.md, 150-250 words: what we'd test next and what r
 **Our judgement, and what we changed next:** GR read and approved the draft before it was pushed; it is about 210 words and sits only under the B2 heading.
 **Principle check:** none: reflection text only.
 
-## Entry DD-1 - my severity scores against the group's, to prepare my reasoning · [02/11/2026] · sent by DD · Claude (claude.ai)
+## Entry DD-1 - my severity scores against the group's, to prepare my reasoning · 2026-11-02 · sent by DD · Claude (claude.ai)
 ```
 I am M4 DD take the severity across all the findings and consolidate so i can come up with a reasoning on why i have a different opinion
 ```
 (Attached: the text of the 12 findings from AUDIT.md with all five members' ratings.)
 **What came back:** a table of all 12 findings with the five ratings, median and spread; the six findings with a two-point spread (1, 4, 7, 8, 9, 12); a pattern in my scores (higher on what the user reads and trusts, lower on how hard things are to reach); a consistency question (Finding 5 at 4 but Findings 4 and 7 at 1); and candidate reasons for each of the six.
-**Our judgement, and what we changed next:** the pattern and the candidate reasons are the AI's reading of the numbers, not my reasons. I kept to facts i believed, and my scores were not changed after seeing the group's. 
+**Our judgement, and what we changed next:** the pattern and the candidate reasons are the AI's reading of the numbers, not my reasons. I kept to facts I believed, and my scores were not changed after seeing the group's. 
 **Principle check:** none: rating process (rate alone, compare, then discuss).
 
-## Entry DD-2 - what the AI missed, checked on the live site · [01/11/2026] · sent by DD · Claude (claude.ai)
+## Entry DD-2 - what the AI missed, checked on the live site · 2026-11-01 · sent by DD · Claude (claude.ai)
 ```
 https://support-go-where-singapore.vercel.app/?v=A
 https://support-go-where-singapore.vercel.app/?v=B
@@ -836,18 +836,18 @@ here are the screenshots or the live site and the site with nudges
 **Our judgement, and what we changed next:** the AI wrongly said the child credits do not say who acts; B does name the trustee.
 **Principle check:** W3 expectations and W4 reference point (Finding 3); W7 fluency and Nielsen 8, minimalist design (Finding 4).
    
-## Entry DD-3 - format of the prompt log, and how to add entries without a clash · [03/11/2026] · sent by DD · Claude (claude.ai)
+## Entry DD-3 - format of the prompt log, and how to add entries without a clash · 2026-11-03 · sent by DD · Claude (claude.ai)
 ```
 give me this is the format of prompt md
 ```
 ```
 how to i insert this in the prompt md file and my team member asked me to pull and pus in github so it doesnt clash
 ```
-**What came back:** my earlier entries rewritten in the PROMPTS.md format , then two ways to add them: edit on github.com, which opens the latest file, or pull, edit, pull again and push from a terminal. It also gave a place-by-date table and fixes for a rejected push and a merge conflict.
+**What came back:** my earlier entries rewritten in the PROMPTS.md format, then two ways to add them: edit on github.com, which opens the latest file, or pull, edit, pull again and push from a terminal. It also gave a place-by-date table and fixes for a rejected push and a merge conflict.
 **Our judgement, and what we changed next:** The AI could not know the real dates of my earlier prompts, so I read them from my own chat history and did not take them from it.
 **Principle check:** none: production only.
 
-## Entry DD-4 - A4 draft, then a redraft after reading DESIGN.md, AUDIT.md and REFLECTION.md · [03/11/2026] · sent by DD · Claude (claude.ai)
+## Entry DD-4 - A4 draft, then a redraft after reading DESIGN.md, AUDIT.md and REFLECTION.md · 2026-11-03 · sent by DD · Claude (claude.ai)
 ```
 help me with A4
 ```
