@@ -860,3 +860,11 @@ Write my A4 part of REFLECTION.md, 150-250 words: What about your users could th
 **What came back:** a first A4 of about 215 words built from the build log and my screenshots. After the three files, a second A4 of about 230 words that presents the date-only "Already paid" labels as an AI error that EZ caught and the group corrected ("Ready to claim", "Paid if signed up"), keeps the digital ID, trustee and date-field points, and says we have not tested real households.
 **Our judgement, and what we changed next:** the first draft treated "Already paid" next to "Claim it yourself" as a flaw still on the site. DESIGN.md shows it was fixed later on 1 Nov, so the second draft was written as a caught-and-corrected error. 
 **Principle check:** W3 expectations and W4 reference point (Finding 3), W7 fluency (Findings 4 and 8).
+
+## Entry GR-7 - B1 of REFLECTION.md · 2026-11-04 · sent by GR · Claude (claude.ai)
+```
+B1 is still empty and the deadline is close. Write it (150-250 words): no pilot was run, so say which AUDIT.md predictions we are most and least confident in, and one that could fail (Finding 11).
+```
+**What came back:** a draft that says no pilot was run, names Finding 5 (20% to 70%) and Finding 4 (35% to 65%) as the most trusted predictions, Finding 10 (40% to 60%, the primary metric) as the least trusted, and Finding 11 (under 15% use "Do this with someone") as the one most likely to fail, all figures taken from AUDIT.md.
+**Our judgement, and what we changed next:** B1 was assigned to KV; GR wrote it under GR's initials because it was still empty close to the deadline. GR read and approved it before it was pushed.
+**Principle check:** none: reflection text only.

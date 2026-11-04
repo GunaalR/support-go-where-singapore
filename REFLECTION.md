@@ -28,7 +28,11 @@ The AI worked from two fictional households, saved calculator results and offici
 
 ### B1 Which principle replicated, or was refuted, in your pilot or prediction?
 
-[...] (initials)
+We did not run a pilot, so nothing has replicated or been refuted yet; what we can judge is how much we trust each prediction in AUDIT.md. We are most confident in Finding 5: testers who correctly pick the items that need their action rising from about 20% in A to 70% in B. A has no status on any row, so the gain comes from adding missing information, not from changing anyone's mind, and the W3 expectations principle behind it is well supported. Finding 4's "Start here" (35% to 65% naming a correct first step) follows close behind for the same reason.
+
+We are least confident in our primary metric, Finding 10: testers who commit to a dated first move rising from 40% to 60%. Picking a day is easy on a screen, but the gap between intention and action is exactly where nudges often fade, and the Skip button we added to keep it a nudge also makes it easy to decline.
+
+The prediction most likely to fail is Finding 11: we expect fewer than 15% of B testers to use "Do this with someone". If that holds, any gain in Finding 10 comes from the day picker alone, and the social-support principle has not earned its place on the page. (GR)
 
 ### B2 What would you test next, and what result would change your mind?
 
